@@ -1,16 +1,100 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require("tailwindcss/defaultTheme")
+
 module.exports = {
-    darkMode: ["class"],
-    content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
-  theme: {
-  	extend: {
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
-  		colors: {}
-  	}
-  },
-  plugins: [require("tailwindcss-animate")],
-}
+	darkMode: ["class"],
+	content: [
+	  "./pages/**/*.{ts,tsx}",
+	  "./components/**/*.{ts,tsx}",
+	  "./app/**/*.{ts,tsx}",
+	  "./src/**/*.{ts,tsx}",
+	],
+	prefix: "",
+	theme: {
+	  container: {
+		center: true,
+		padding: "2rem",
+		screens: {
+		  "2xl": "1400px",
+		},
+	  },
+	  extend: {
+		fontFamily: {
+		  Nunito: ["Nunito Sans", ...defaultTheme.fontFamily.sans]
+		},
+  
+		backgroundColor: {
+		  // primary: "#0064fa",
+		  primary: "#3e196e",
+		  "primary-hover": "#0052cc",
+		},
+		backgroundImage: {
+		  // gradient: "linear-gradient(to bottom,var(--white),var(--primary-50))",
+		  testiImg: "url('/testimonial_bg.jpg')",
+		  heroImg: "url('/5g_background.jpg')",
+		},
+		colors: {
+		  gray1: "#f7f6fe",
+		  primary: "#106eea",
+		  "primary-hover": "#0052cc",
+		  secondary: "#eef0f3",
+		  dark: "#1d2023",
+		  gray2: "#444444",
+		  bodydark1: "#DEE4EE",
+		  bodydark2: "#8A99AF",
+		  bodydark: "#f1f5f9",
+		  graydark: "#343A40",
+		  textbrown: "#222222",
+		  boxgray: "#d6d8d9",
+		  "boxdark-2": "#1A222C",
+		  stroke: "#E2E8F0",
+		  current: "currentColor",
+		  strokegray: "#c2c7d0",
+		  "meta-3": "#10B981",
+		  lightblack: "#1C2434",
+		  success: "#219653",
+		  danger: "#D34053",
+		  warning: "#FFA70B",
+		  "gray-2": "#f6f9fe",
+		  whiter: "#F5F7FD",
+			optionvtu: "#3e196e",
+		},
+		boxShadow: {
+		  default: "0px 8px 13px -3px rgba(0, 0, 0, 0.07)",
+		  card: "0px 1px 3px rgba(0, 0, 0, 0.12)",
+		  "card-2": "0px 1px 2px rgba(0, 0, 0, 0.05)",
+		  switcher:
+			"0px 2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 2px #FFFFFF, inset 0px -1px 1px rgba(0, 0, 0, 0.1)",
+		  "switch-1": "0px 0px 5px rgba(0, 0, 0, 0.15)",
+		  1: "0px 1px 3px rgba(0, 0, 0, 0.08)",
+		  2: "0px 1px 4px rgba(0, 0, 0, 0.12)",
+		  3: "0px 1px 5px rgba(0, 0, 0, 0.14)",
+		  4: "0px 4px 10px rgba(0, 0, 0, 0.12)",
+		  5: "0px 1px 1px rgba(0, 0, 0, 0.15)",
+		  6: "0px 3px 15px rgba(0, 0, 0, 0.1)",
+		  7: "-5px 0 0 #313D4A, 5px 0 0 #313D4A",
+		  8: "1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)",
+		},
+		dropShadow: {
+		  1: "0px 1px 0px #E2E8F0",
+		  2: "0px 1px 4px rgba(0, 0, 0, 0.12)",
+		},
+		keyframes: {
+		  "accordion-down": {
+			from: { height: "0" },
+			to: { height: "var(--radix-accordion-content-height)" },
+		  },
+		  "accordion-up": {
+			from: { height: "var(--radix-accordion-content-height)" },
+			to: { height: "0" },
+		  },
+		},
+		animation: {
+		  "accordion-down": "accordion-down 0.2s ease-out",
+		  "accordion-up": "accordion-up 0.2s ease-out",
+		},
+	  },
+	},
+	plugins: [require("tailwindcss-animate")],plugins: [require("tailwindcss-animate")],
+  };
