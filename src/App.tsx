@@ -7,28 +7,11 @@ import ProtectedRoutes from "./components/layouts/ProtectedRoutes";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
+import NotFound from "./pages/NotFound";
 
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Dashboard />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-
-  {
-    path: "/reset_password",
-    element: <ResetPassword />,
-  },
-
   {
     path: "/",
     element: <Root />,
@@ -45,6 +28,25 @@ const router = createBrowserRouter([
       },
     ],
   },
+ 
+  {
+    path: "/auth/login",
+    element: <Login />,
+  },
+  {
+    path: "/auth/register",
+    element: <Register />,
+  },
+
+  {
+    path: "/auth/reset_password",
+    element: <ResetPassword />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+  
 ]);
 
 function App() {
