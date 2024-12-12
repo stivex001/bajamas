@@ -2,10 +2,8 @@ import { AuthTitle } from "@/components/authDetails/AuthTitle";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
-import { Checkbox } from "@/components/ui/checkbox";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
-import { Link } from "react-router-dom";
 
 const fields: Field[] = [
   {
