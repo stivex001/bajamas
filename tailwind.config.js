@@ -45,7 +45,7 @@ module.exports = {
 		  bordergray: "#CBD5E0",
 		  bodydark: "#f1f5f9",
 		  graydark: "#171923",
-		  textbrown: "#222222",
+		  darker: "#202224",
 		  boxgray: "#718096",
 		  "boxdark-2": "#1A222C",
 		  stroke: "#E2E8F0",

@@ -1,0 +1,60 @@
+import { useAuthStore } from "@/store/authStore";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import logo from "../../../public/logo.png";
+import SidebarMenu from "./SidebarMenu";
+
+const generalLinks = [
+  {
+    path: "/",
+    label: "Dashboard",
+  },
+  {
+    path: "/email_campaign",
+    label: "Email Campaign",
+  },
+  { path: "/sms_campaign", label: "SMS Campaign" },
+  { path: "/templates", label: "Templates" },
+  { path: "/templates", label: "Templates" },
+  { path: "/list", label: "List Menu", sub: [
+    {
+      path: "/company-setting",
+      label: "companies settings",
+    },
+    
+  ], },
+  { path: "/sending_blacklist", label: "Sending BlackList" },
+  { path: "/pricing", label: "Pricing" },
+  { path: "/api", label: "API" },
+];
+
+export const Sidebar = () => {
+  const { logout } = useAuthStore();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Logged out successfully");
+    navigate("/auth/login");
+  };
+
+  return (
+    <div className="hidden lg:flex flex-col w-[18%] bg-white h-screen">
+      <div className="w-[148px] h-10 mx-auto">
+        <img src={logo} />
+      </div>
+      <div className="flex-grow overflow-y-auto no-scrollbar  pt-9">
+        <div>
+          <SidebarMenu links={generalLinks} pathname={pathname} />
+        </div>
+      </div>
+      <button
+        onClick={handleLogout}
+        className="w-full py-4 mx-auto text-darker font-semibold text-base font-Nunito"
+      >
+        Logout
+      </button>
+    </div>
+  );
+};
