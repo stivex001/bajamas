@@ -119,7 +119,7 @@ const Register = () => {
           
           <div className="flex justify-center">
             <CustomButton
-              label="sign Up"
+              label="Sign Up"
               variant="primary"
               className="w-full"
               size="lg"

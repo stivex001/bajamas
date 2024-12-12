@@ -38,7 +38,7 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
     rules,
   });
 
-  const baseStyles = "w-full";
+  const baseStyles = "w-full h-14";
   const styles = {
     primary: "border-bordergray bg-gray1 focus:ring-primary",
     secondary:
