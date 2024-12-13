@@ -17,8 +17,32 @@ const generalLinks = [
   { path: "/templates", label: "Templates" },
   { path: "/list", label: "List Menu", sub: [
     {
-      path: "/company-setting",
-      label: "companies settings",
+      path: "/overview",
+      label: "Overview",
+    },
+    {
+      path: "/subscribers",
+      label: "Subscribers",
+    },
+    {
+      path: "/unsubscribes",
+      label: "Unsubscribes",
+    },
+    {
+      path: "/spam_report",
+      label: "Spam Report",
+    },
+    {
+      path: "/tag",
+      label: "Tag",
+    },
+    {
+      path: "/collaboration",
+      label: "Collaboration",
+    },
+    {
+      path: "/invites",
+      label: "Invites",
     },
     
   ], },

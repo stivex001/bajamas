@@ -41,8 +41,58 @@ const router = createBrowserRouter([
           },
           {
             path: "/list",
-            element: <Dashboard />,
-            index: true,
+            children:[
+              {
+                path: "",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "overview",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "subscribers",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "overview",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "unsubscribes",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "overview",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "spam_report",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "tag",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "collaboration",
+                index: true,
+                element: <Dashboard />,
+              },
+              {
+                path: "invites",
+                index: true,
+                element: <Dashboard />,
+              },
+            ]
           },
           {
             path: "/sending_blacklist",

@@ -51,8 +51,8 @@ const SubMenu: React.FC<SubMenuProps> = ({ pathname, path, sub, isOpen }) => {
             <NavLink
               to={`${path}${item.path}`}
               className={({ isActive }) =>
-                `w-full py-2 h-full text-xs font-medium cursor-pointer ml-3 ${
-                  isActive ? "text-primary font-extrabold" : "text-secondary"
+                `w-full py-2 text-sm font-semibold cursor-pointer flex items-center px-12 h-9 mr-6 rounded-[6px] font-Nunito hover:bg-primary/50 hover:text-white ${
+                  isActive ? "text-white bg-primary" : "text-darker"
                 }`
               }
               onClick={(e) => {
