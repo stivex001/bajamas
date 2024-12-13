@@ -15,7 +15,6 @@ const generalLinks = [
   },
   { path: "/sms_campaign", label: "SMS Campaign" },
   { path: "/templates", label: "Templates" },
-  { path: "/templates", label: "Templates" },
   { path: "/list", label: "List Menu", sub: [
     {
       path: "/company-setting",
@@ -51,7 +50,7 @@ export const Sidebar = () => {
       </div>
       <button
         onClick={handleLogout}
-        className="w-full py-4 mx-auto text-darker font-semibold text-base font-Nunito"
+        className=" flex items-center px-20 py-4  text-darker font-semibold text-base font-Nunito"
       >
         Logout
       </button>

@@ -19,3 +19,23 @@ export function ArrowUpIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export const ArrowRightIcon = (props: SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="12"
+      height="7"
+      viewBox="0 0 9 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M6.49276 9.00002L1.18951 3.69677L2.25001 2.63627L8.08351 8.46977C8.22411 8.61042 8.3031 8.80115 8.3031 9.00002C8.3031 9.19889 8.22411 9.38962 8.08351 9.53027L2.25001 15.3638L1.18951 14.3033L6.49276 9.00002Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};

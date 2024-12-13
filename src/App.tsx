@@ -24,11 +24,46 @@ const router = createBrowserRouter([
             element: <Dashboard />,
             index: true,
           },
+          {
+            path: "/email_campaign",
+            element: <Dashboard />,
+            index: true,
+          },
+          {
+            path: "/sms_campaign",
+            element: <Dashboard />,
+            index: true,
+          },
+          {
+            path: "/templates",
+            element: <Dashboard />,
+            index: true,
+          },
+          {
+            path: "/list",
+            element: <Dashboard />,
+            index: true,
+          },
+          {
+            path: "/sending_blacklist",
+            element: <Dashboard />,
+            index: true,
+          },
+          {
+            path: "/pricing",
+            element: <Dashboard />,
+            index: true,
+          },
+          {
+            path: "/api",
+            element: <Dashboard />,
+            index: true,
+          },
         ],
       },
     ],
   },
- 
+
   {
     path: "/auth/login",
     element: <Login />,
@@ -46,7 +81,6 @@ const router = createBrowserRouter([
     path: "*",
     element: <NotFound />,
   },
-  
 ]);
 
 function App() {

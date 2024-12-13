@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useModalClose } from "@/context/SheetCloseModal";
 import SubMenu from "./SubMenu";
-import { ArrowUpIcon } from "@/assets/svgs/ArrowsIcon";
+import { ArrowRightIcon } from "@/assets/svgs/ArrowsIcon";
 
 interface Link {
   path: string;
@@ -48,11 +48,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ links, mobile }) => {
             <div key={path} className="w-full h-full">
               <NavLink
                 to={path}
-                className={`w-full h-12 p-2 mb-2.5 flex items-center justify-start font-semibold rounded transition-all ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "bg-white text-gray-700 hover:bg-gray-100"
-                }`}
+                className={`w-full mb-2.5 gap-6 flex items-center font-semibold rounded transition-all `}
                 onClick={(e) => {
                   if (sub) {
                     e.preventDefault();
@@ -63,20 +59,34 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ links, mobile }) => {
                   }
                 }}
               >
-                <p
-                  className={`text-sm font-semibold  ${
-                    isActive ? "text-white" : "text-darker"
-                  }`}
+                <div
+                  className={`${
+                    isActive ? "bg-primary" : ""
+                  } h-12 w-[10px] rounded-[4px] group group-hover:bg-primary`}
+                />
+
+                <div
+                  className={`${
+                    isActive ? "bg-primary" : ""
+                  }  w-full rounded-[6px] h-12 mr-6 flex items-center  px-6 text-white hover:bg-primary/50`}
                 >
-                  {label}
-                </p>
-                {sub && (
-                  <ArrowUpIcon
-                    className={`ml-auto size-3 transition-transform ${
-                      isOpen ? "rotate-180" : ""
+                  <p
+                    className={`text-sm font-semibold ml-6 font-Nunito group-hover:text-white  ${
+                      isActive ? "text-white" : "text-darker"
                     }`}
-                  />
-                )}
+                  >
+                    {label}
+                  </p>
+                  {sub && (
+                    <ArrowRightIcon
+                      className={`ml-auto ${
+                        isActive ? "text-white" : "text-darker"
+                      }  size-3 transition-transform ${
+                        isOpen ? "rotate-90" : ""
+                      }`}
+                    />
+                  )}
+                </div>
               </NavLink>
               {sub && (
                 <SubMenu
@@ -95,3 +105,5 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ links, mobile }) => {
 };
 
 export default SidebarMenu;
+
+
