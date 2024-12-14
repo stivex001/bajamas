@@ -42,7 +42,7 @@ export const CustomSearchInput = ({
         <label
           ref={searchRef}
           className={cn(
-            "flex relative items-center justify-stretch w-full rounded-lg border-[1px] border-secondary/20 bg-secondary/5 leading-[140%] py-1.5 px-3.5 text-base text-secondary focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 cursor-pointer",
+            "flex relative items-center justify-stretch w-full h-10 rounded-lg border-[1px] border-secondary/20 bg-secondary/5 leading-[140%] py-1.5 px-3.5 text-sm text-darker font-Nunito focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25 cursor-pointer",
             className
           )}
           htmlFor="search"
@@ -59,7 +59,7 @@ export const CustomSearchInput = ({
           />
           {searchTerm?.length > 0 && (
             <FaTimes
-              className="text-tertiary transition-all duration-200 ease-out cursor-pointer hover:text-primary size-5 shadow-2xl"
+              className="text-darker transition-all duration-200 ease-out cursor-pointer hover:text-primary size-3 shadow-2xl"
               onClick={handleClearSearch}
             />
           )}

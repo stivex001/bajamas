@@ -39,3 +39,39 @@ export const ArrowRightIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
+
+export const CustomArrowIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={19}
+    height={20}
+    fill="none"
+    {...props}
+  >
+    <path
+      stroke="#5C5C5C"
+      strokeWidth={0.2}
+      d="M9.26 19.1c5.03 0 9.107-4.074 9.107-9.1S14.289.9 9.259.9.152 4.974.152 10s4.078 9.1 9.107 9.1Z"
+    />
+    <path
+      fill="#565656"
+      d="M9.26 10.793 6.99 8.146a.387.387 0 0 0-.607 0 .56.56 0 0 0 0 .708l2.573 3c.168.195.44.195.607 0l2.573-3a.56.56 0 0 0 0-.708.387.387 0 0 0-.606 0l-2.27 2.647Z"
+    />
+    <mask
+      id="a"
+      width={7}
+      height={4}
+      x={6}
+      y={8}
+      maskUnits="userSpaceOnUse"
+      style={{
+        maskType: "luminance",
+      }}
+    >
+      <path
+        fill="#fff"
+        d="M9.26 10.793 6.99 8.146a.387.387 0 0 0-.607 0 .56.56 0 0 0 0 .708l2.573 3c.168.195.44.195.607 0l2.573-3a.56.56 0 0 0 0-.708.387.387 0 0 0-.606 0l-2.27 2.647Z"
+      />
+    </mask>
+  </svg>
+)
