@@ -1,14 +1,13 @@
 import { ReactNode } from "react";
 import ScrollToTop from "../../utils/ScrollToTop";
-import { VerifyEmailModal } from "../shared/VeriftEmailModa";
 import { Sidebar } from "../navigations/Sidebar";
+import { Navbar } from "../navigations/Navbar";
 
 type Props = {
   children: ReactNode;
 };
 
 const MainLayout = ({ children }: Props) => {
-  const isEmailVerified = true;
 
   return (
     <>
@@ -16,9 +15,9 @@ const MainLayout = ({ children }: Props) => {
       <div className="flex w-full h-full overflow-x-clip ">
         <Sidebar />
         <div className="w-full lg:w-[82%]">
-          {/* <Navbar /> */}
-          <div className="scrollbar-hidden h-[90vh] p-4 overflow-y-auto bg-[#F5F5F8] no-scrollbar">
-            {isEmailVerified ? children : <VerifyEmailModal />}
+          <Navbar />
+          <div className=" h-full mt-24 px-8 py-4 overflow-y-auto bg-[#F5F5F8] no-scrollbar">
+            {children}
           </div>
         </div>
       </div>
