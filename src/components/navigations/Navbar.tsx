@@ -3,9 +3,26 @@ import { CustomSearchInput } from "../shared/CustomSearchInput";
 import { NoticationBellIcon } from "@/assets/svgs/NotificationIcon";
 import { AvarterIcon } from "@/assets/svgs/Avarter";
 import { CustomArrowIcon } from "@/assets/svgs/ArrowsIcon";
+import Dropdown from "../shared/Dropdown";
+import englishFlag from "@/assets/images/en.png";
+import frenchFlag from "@/assets/images/fr.png";
+import spanishFlag from "@/assets/images/es.png";
+
+const languages = [
+  { label: "English", value: "en", flag: englishFlag },
+  { label: "French", value: "fr", flag: frenchFlag },
+  { label: "Spanish", value: "es", flag: spanishFlag },
+];
+spanishFlag;
 
 export const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+
+  const languageOption = languages?.map((lang: any) => ({
+    value: lang?.value,
+    label: lang?.label,
+    flag: lang?.flag,
+  }));
 
   return (
     <nav className=" w-full h-[70px] sticky z-50 top-5 flex items-center justify-between px-8 bg-white py-4">
@@ -22,6 +39,9 @@ export const Navbar = () => {
               6
             </span>
           </div>
+        </div>
+        <div className="ml-7">
+          <Dropdown desc="Select Language" options={languageOption} />
         </div>
         <div className="flex items-center gap-6 ml-6">
           <AvarterIcon />
