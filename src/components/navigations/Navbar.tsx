@@ -7,6 +7,12 @@ import Dropdown from "../shared/Dropdown";
 import englishFlag from "@/assets/images/en.png";
 import frenchFlag from "@/assets/images/fr.png";
 import spanishFlag from "@/assets/images/es.png";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { PopoverModal } from "../shared/PopoverModal";
+import {
+  ProfileWithBorderIcon,
+  SettingIconsWithBorder,
+} from "@/assets/svgs/SettingsIcon";
 
 const languages = [
   { label: "English", value: "en", flag: englishFlag },
@@ -46,7 +52,43 @@ export const Navbar = () => {
         <div className="flex items-center gap-6 ml-6">
           <AvarterIcon />
           <p className="">Odejinmi emmanuel</p>
-          <CustomArrowIcon />
+          <Popover>
+            <PopoverTrigger>
+              <CustomArrowIcon />
+            </PopoverTrigger>
+            <PopoverContent className="">
+              <div className=" border-b ">
+                <h1 className="text-base font-semibold font-Nunito text-[#404040] pb-2">
+                  More
+                </h1>
+              </div>
+              <div className="border-b">
+                <div className="flex items-center gap-3 h-14 py-3 ">
+                  <SettingIconsWithBorder />
+                  <div className="space-y-1">
+                    <h2 className="text-sm font-semibold font-Nunito text-darker">
+                      Settings
+                    </h2>
+                    <p className="text-xs font-semibold font-Nunito text-[#B5B5B5]">
+                      Change Password
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 h-14  py-3 ">
+                  <ProfileWithBorderIcon />
+                  <div className="space-y-1">
+                    <h2 className="text-sm font-semibold font-Nunito text-darker">
+                      Profile
+                    </h2>
+                    <p className="text-xs font-semibold font-Nunito text-[#B5B5B5]">
+                      Update your profile
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
     </nav>
