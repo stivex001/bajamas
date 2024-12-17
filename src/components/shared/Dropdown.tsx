@@ -27,7 +27,7 @@ const Dropdown = ({ desc, options }: Props) => {
     <Select value={selectedValue} onValueChange={setSelectedValue}>
       <SelectTrigger className="flex items-center gap-4 border-none focus:ring-0 focus:outline-none">
         {selectedOption?.flag && (
-          <div className="w-10 h-7">
+          <div className="w-5 lg:w-10 lg:h-7">
             <img
               src={selectedOption?.flag}
               className="w-full h-full object-cover"
