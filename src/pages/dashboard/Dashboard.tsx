@@ -1,7 +1,7 @@
 import DashboardCard from "@/components/dashboard/DashboardCard";
 import { PageTitle } from "@/components/PageTitle";
-import { counts } from "./data";
 import { BlacklistedIcon, SpamIcon, SubCribersIcon, UnSubCribersIcon } from "@/assets/svgs/MenuIcon";
+import CreditUsed from "@/components/dashboard/CreditUsed";
 
 const Dashboard = () => {
   return (
@@ -34,6 +34,7 @@ const Dashboard = () => {
           icon={BlacklistedIcon}
         />
       </div>
+      <CreditUsed />
     </main>
   );
 };
