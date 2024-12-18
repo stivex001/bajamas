@@ -2,6 +2,7 @@ import DashboardCard from "@/components/dashboard/DashboardCard";
 import { PageTitle } from "@/components/PageTitle";
 import { BlacklistedIcon, SpamIcon, SubCribersIcon, UnSubCribersIcon } from "@/assets/svgs/MenuIcon";
 import CreditUsed from "@/components/dashboard/CreditUsed";
+import { CreateEmailCampaign } from "@/components/dashboard/CreateEmailCampaign";
 
 const Dashboard = () => {
   return (
@@ -35,6 +36,7 @@ const Dashboard = () => {
         />
       </div>
       <CreditUsed />
+      <CreateEmailCampaign />
     </main>
   );
 };

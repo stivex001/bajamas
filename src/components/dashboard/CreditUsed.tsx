@@ -11,7 +11,7 @@ const CreditUsed = () => {
             Below is the summary of how you spend your credits
           </p>
         </div>
-        <div className="grid  lg:grid-cols-2 gap-[30px]">
+        <div className="grid  lg:grid-cols-2 gap-y-[30px] gap-x-24">
           <Progressbar desc="Sending credits" count={10} />
           <Progressbar desc="List" count={20} />
           <Progressbar desc="Campaigns" count={40} />

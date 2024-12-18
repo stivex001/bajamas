@@ -181,3 +181,18 @@ export const BlacklistedIcon = (props: SVGProps<SVGSVGElement>) => (
     </defs>
   </svg>
 );
+
+export const ReportIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={17}
+    height={17}
+    fill="none"
+    {...props}
+  >
+    <path
+      fill="#8E8D8D"
+      d="M15.583 14.875H1.417V2.125h1.416v11.333H4.25V7.083h2.833v6.375H8.5V4.25h2.833v9.208h1.417V9.917h2.833v4.958Z"
+    />
+  </svg>
+)
