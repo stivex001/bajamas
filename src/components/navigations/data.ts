@@ -1,6 +1,6 @@
 export const generalLinks = [
   {
-    path: "/",
+    path: "/dashboard",
     label: "Dashboard",
   },
   {
