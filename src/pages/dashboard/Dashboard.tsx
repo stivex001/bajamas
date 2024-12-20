@@ -12,6 +12,7 @@ import Barchart from "@/components/dashboard/charts/Barchat";
 import PieChart from "@/components/dashboard/charts/PieChart";
 import { CardLayout } from "@/components/shared/CardLayout";
 import Metrics from "@/components/dashboard/charts/Metrics";
+import ActivityLog from "@/components/dashboard/ActivityLog";
 
 const Dashboard = () => {
   return (
@@ -37,7 +38,7 @@ const Dashboard = () => {
         <DashboardCard desc="Blacklisted" value="2040" icon={BlacklistedIcon} />
       </div>
       <CreditUsed />
-      <div className="flex flex-col items-center lg:flex-row gap-6 h-full">
+      <div className="flex flex-col  lg:flex-row gap-6 h-full">
         <div className="w-full lg:w-7/12">
           <Barchart />
         </div>
@@ -47,7 +48,14 @@ const Dashboard = () => {
       </div>
       <CreateEmailCampaign />
       <CardLayout>
-        <Metrics />
+        <div className="flex flex-col lg:flex-row gap-3">
+          <div className="flex-1">
+            <Metrics />
+          </div>
+          <div className="flex-1">
+            <ActivityLog />
+          </div>
+        </div>
       </CardLayout>
     </main>
   );
