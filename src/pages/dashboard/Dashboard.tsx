@@ -10,6 +10,8 @@ import CreditUsed from "@/components/dashboard/CreditUsed";
 import { CreateEmailCampaign } from "@/components/dashboard/CreateEmailCampaign";
 import Barchart from "@/components/dashboard/charts/Barchat";
 import PieChart from "@/components/dashboard/charts/PieChart";
+import { CardLayout } from "@/components/shared/CardLayout";
+import Metrics from "@/components/dashboard/charts/Metrics";
 
 const Dashboard = () => {
   return (
@@ -35,7 +37,7 @@ const Dashboard = () => {
         <DashboardCard desc="Blacklisted" value="2040" icon={BlacklistedIcon} />
       </div>
       <CreditUsed />
-      <div className="flex flex-col items-center lg:flex-row gap-6">
+      <div className="flex flex-col items-center lg:flex-row gap-6 h-full">
         <div className="w-full lg:w-7/12">
           <Barchart />
         </div>
@@ -44,6 +46,9 @@ const Dashboard = () => {
         </div>
       </div>
       <CreateEmailCampaign />
+      <CardLayout>
+        <Metrics />
+      </CardLayout>
     </main>
   );
 };

@@ -7,7 +7,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-
 const data = [
   { name: "Subscribe", value: 50, color: "#82ca9d" },
   { name: "Unsubscribe", value: 20, color: "#ffbb28" },
@@ -18,9 +17,6 @@ const data = [
 const PieChart = () => {
   return (
     <CardLayout>
-      <h2 className="text-center text-lg font-semibold mb-4">
-        Subscribers Distribution
-      </h2>
       <ResponsiveContainer width="100%" height={300}>
         <RePieChart>
           <Pie

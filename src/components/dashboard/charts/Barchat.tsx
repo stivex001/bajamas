@@ -22,13 +22,11 @@ const data = [
 const Barchart = () => {
   return (
     <CardLayout>
-      <h2 className="text-center text-lg font-semibold mb-4">
-        Subscribers Growth Chart
-      </h2>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={data}
           margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+          className=""
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
@@ -37,6 +35,12 @@ const Barchart = () => {
           <Bar dataKey="subscribers" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
+      <div className="flex items-center justify-center gap-3">
+        <div className="w-2 h-2 bg-[#528E52]" />
+        <h2 className=" text-[#000000B2] text-xs">
+          Subscribers Growth Chart
+        </h2>
+      </div>
     </CardLayout>
   );
 };

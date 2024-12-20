@@ -16,7 +16,7 @@ const MainLayout = ({ children }: Props) => {
         <Sidebar />
         <div className="w-full lg:w-[82%]">
           <Navbar />
-          <div className=" h-full mt-7 px-8 py-4 overflow-y-auto bg-[#F5F5F8] no-scrollbar scrollbar-hidden">
+          <div className=" h-[calc(100vh-100px)] mt-7 px-8 py-4 overflow-y-auto bg-[#F5F5F8] no-scrollbar scrollbar-hidden">
             {children}
           </div>
         </div>
