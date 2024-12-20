@@ -1,8 +1,15 @@
 import DashboardCard from "@/components/dashboard/DashboardCard";
 import { PageTitle } from "@/components/PageTitle";
-import { BlacklistedIcon, SpamIcon, SubCribersIcon, UnSubCribersIcon } from "@/assets/svgs/MenuIcon";
+import {
+  BlacklistedIcon,
+  SpamIcon,
+  SubCribersIcon,
+  UnSubCribersIcon,
+} from "@/assets/svgs/MenuIcon";
 import CreditUsed from "@/components/dashboard/CreditUsed";
 import { CreateEmailCampaign } from "@/components/dashboard/CreateEmailCampaign";
+import Barchart from "@/components/dashboard/charts/Barchat";
+import PieChart from "@/components/dashboard/charts/PieChart";
 
 const Dashboard = () => {
   return (
@@ -24,18 +31,18 @@ const Dashboard = () => {
           value="10,293"
           icon={UnSubCribersIcon}
         />
-        <DashboardCard
-          desc="Spam Reported"
-          value="9,000"
-          icon={SpamIcon}
-        />
-        <DashboardCard
-          desc="Blacklisted"
-          value="2040"
-          icon={BlacklistedIcon}
-        />
+        <DashboardCard desc="Spam Reported" value="9,000" icon={SpamIcon} />
+        <DashboardCard desc="Blacklisted" value="2040" icon={BlacklistedIcon} />
       </div>
       <CreditUsed />
+      <div className="flex flex-col items-center lg:flex-row gap-6">
+        <div className="w-full lg:w-7/12">
+          <Barchart />
+        </div>
+        <div className="w-full lg:w-5/12">
+          <PieChart />
+        </div>
+      </div>
       <CreateEmailCampaign />
     </main>
   );
