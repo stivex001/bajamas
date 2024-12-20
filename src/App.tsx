@@ -10,6 +10,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import NotFound from "./pages/NotFound";
 
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const Notifications = lazy(() => import("./pages/Notifications"));
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
           {
             path: "/dashboard",
             element: <Dashboard />,
+            index: true,
+          },
+          {
+            path: "/notifications",
+            element: <Notifications />,
             index: true,
           },
           {

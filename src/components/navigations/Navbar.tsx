@@ -14,6 +14,7 @@ import {
 } from "@/assets/svgs/SettingsIcon";
 import logo from "../../../public/logo.png";
 import { MobileNav } from "./MobileNav";
+import { Link } from "react-router-dom";
 
 const languages = [
   { label: "English", value: "en", flag: englishFlag },
@@ -47,14 +48,14 @@ export const Navbar = () => {
           searchTerm={searchTerm}
         />
         <div className=" flex items-center">
-          <div className="relative">
+          <Link to='/notifications' className="relative">
             <NoticationBellIcon />
             <div className="absolute -top-1 -right-1 bg-[#F93C65] w-4 h-4 rounded-full flex items-center justify-center">
               <span className="text-xs font-bold text-white font-Nunito mt-0.5 ">
                 6
               </span>
             </div>
-          </div>
+          </Link>
           <div className="ml-5 lg:ml-7">
             <Dropdown desc="Select Language" options={languageOption} />
           </div>
