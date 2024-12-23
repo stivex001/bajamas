@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const EmailCampaign = lazy(() => import("./pages/dashboard/EmailCampaign"));
+const SMSCampaign = lazy(() => import("./pages/dashboard/SMSCampaign"));
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/sms_campaign",
-            element: <Dashboard />,
+            element: <SMSCampaign />,
             index: true,
           },
           {
