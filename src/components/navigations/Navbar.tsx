@@ -41,7 +41,7 @@ export const Navbar = () => {
           <img src={logo} />
         </div>
       </div>
-      <nav className=" w-full h-[70px] sticky z-50 top-5 flex items-center justify-between px-3 lg:px-8 bg-white py-4 gap-9 lg:gap-0">
+      <nav className=" w-full h-[70px] sticky z-50 top-5 flex items-center justify-between px-[18px] lg:px-8 bg-white py-4 gap-9 lg:gap-0">
         <CustomSearchInput
           className="bg-[#F5F6FA]  lg:w-[388px] rounded-[19px] lg:ml-6"
           setSearchTerm={setSearchTerm}
