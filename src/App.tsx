@@ -13,6 +13,11 @@ const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const EmailCampaign = lazy(() => import("./pages/dashboard/EmailCampaign"));
 const SMSCampaign = lazy(() => import("./pages/dashboard/SMSCampaign"));
+const PlainCampaign = lazy(() => import("./pages/emailCampaign/PlainCampaign"));
+const HtmlCampaign = lazy(() => import("./pages/emailCampaign/HtmlCampaign"));
+const RegularCampaign = lazy(
+  () => import("./pages/emailCampaign/RegularCampaign")
+);
 
 const router = createBrowserRouter([
   {
@@ -38,6 +43,21 @@ const router = createBrowserRouter([
             index: true,
           },
           {
+            path: "/email_campaign/regular-campaign",
+            element: <RegularCampaign />,
+            index: true,
+          },
+          {
+            path: "/email_campaign/plain-text-campaign",
+            element: <PlainCampaign />,
+            index: true,
+          },
+          {
+            path: "/email_campaign/custom-html-campaign",
+            element: <HtmlCampaign />,
+            index: true,
+          },
+          {
             path: "/sms_campaign",
             element: <SMSCampaign />,
             index: true,
@@ -49,7 +69,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/list",
-            children:[
+            children: [
               {
                 path: "",
                 index: true,
@@ -100,7 +120,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Dashboard />,
               },
-            ]
+            ],
           },
           {
             path: "/sending_blacklist",

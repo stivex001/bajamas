@@ -19,19 +19,19 @@ const campaignTypes: CampaignType[] = [
     label: "Regular",
     description:
       "Campaign with HTML email content as well as images, links. This is the most common type.",
-    link: "/regular-campaign",
+    link: "/email_campaign/regular-campaign",
   },
   {
     label: "Plain Text",
     description:
       "Send a plain-text email without link tracking, images, or HTML.",
-    link: "/plain-text-campaign",
+    link: "/email_campaign/plain-text-campaign",
   },
   {
     label: "Custom HTML",
     description:
       "Send a plain-text email without link tracking, images, or HTML.",
-    link: "/custom-html-campaign",
+    link: "/email_campaign/custom-html-campaign",
   },
 ];
 
