@@ -28,13 +28,13 @@ const fields: Field[] = [
 const emailTable: any[] = [];
 
 const EmailCampaign = () => {
-  const { control, handleSubmit, formState, getValues } =
+  const { control } =
     useDynamicForm<AuthUser>(fields, {});
   const isPending = false;
 
   const totalEntries = emailTable?.length;
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage, setEntriesPerPage] = useState<number>(10);
+  const [entriesPerPage] = useState<number>(10);
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
