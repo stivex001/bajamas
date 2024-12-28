@@ -2,7 +2,6 @@ import { X } from "lucide-react";
 import { ModalHeader } from "../modal/ModalHeader";
 import { DialogContent } from "../ui/dialog";
 import { ModalBody } from "../modal/ModalBody";
-import { ModalFooter } from "../modal/ModalFooter";
 import CustomButton from "../shared/CustomButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -54,7 +53,7 @@ const CampaignTypeModal = () => {
   };
 
   return (
-    <DialogContent className="rounded-[26px] w-[530px]">
+    <DialogContent className="rounded-[26px] w-[350px]  lg:w-[530px]">
       <ModalHeader title="Select campaign type" icon={X} />
       <div>
         <ModalBody className="w-full flex flex-col gap-6 my-5 ">
@@ -77,19 +76,19 @@ const CampaignTypeModal = () => {
               </span>
             </div>
           ))}
+          <div className="mt-5">
+            <h2 className="text-[#434343] text-sm font-Nunito">
+              *You can choose one Select campaign type
+            </h2>
+            <CustomButton
+              variant="primary"
+              label="Submit"
+              onClick={handleSubmit}
+              className="w-[129px] h-10 rounded-lg text-xs font-Nunito font-bold mx-auto mt-3"
+              size="lg"
+            />
+          </div>
         </ModalBody>
-        <ModalFooter>
-          <h2 className="text-[#434343] text-sm font-Nunito">
-            *You can choose one Select campaign type
-          </h2>
-          <CustomButton
-            variant="primary"
-            label="Submit"
-            onClick={handleSubmit}
-            className="w-[129px] h-10 rounded-lg text-xs font-Nunito font-bold mx-auto mt-3"
-            size="lg"
-          />
-        </ModalFooter>
       </div>
     </DialogContent>
   );

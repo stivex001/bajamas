@@ -36,7 +36,7 @@ const EmailCampaign = () => {
   const totalEntries = emailTable?.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState<number>(10);
-  const [openModal, setOpenModal] = useState(true);
+  // const [openModal, setOpenModal] = useState(true);
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -62,7 +62,7 @@ const EmailCampaign = () => {
               className="bg-transparent "
             />
           </aside>
-          <Dialog open={openModal} onOpenChange={setOpenModal}>
+          <Dialog>
             <DialogTrigger>
               <CustomButton
                 label="Create Campaign"
