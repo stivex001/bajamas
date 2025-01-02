@@ -63,7 +63,7 @@ const RegularCampaign = () => {
 
   const onSubmit = (data: any) => {
     console.log(data);
-  };
+};
 
   return (
     <main className="flex flex-col gap-7">

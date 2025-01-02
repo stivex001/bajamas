@@ -1,11 +1,9 @@
-import React from 'react'
+import { PageTitle } from "@/components/PageTitle";
 
-type Props = {}
+const PlainCampaign = () => {
+  return <main className="flex flex-col gap-7">
+     <PageTitle title="Plain Text" />
+  </main>;
+};
 
-const PlainCampaign = (props: Props) => {
-  return (
-    <div>PlainCampaign</div>
-  )
-}
-
-export default PlainCampaign
+export default PlainCampaign;

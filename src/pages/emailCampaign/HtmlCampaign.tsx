@@ -1,11 +1,11 @@
-import React from 'react'
+import { PageTitle } from "@/components/PageTitle";
 
-type Props = {}
-
-const HtmlCampaign = (props: Props) => {
+const HtmlCampaign = () => {
   return (
-    <div>HtmlCampaign</div>
-  )
-}
+    <main className="flex flex-col gap-7">
+      <PageTitle title="Custom HTML" />
+    </main>
+  );
+};
 
-export default HtmlCampaign
+export default HtmlCampaign;
