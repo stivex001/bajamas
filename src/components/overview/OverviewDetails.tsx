@@ -8,6 +8,9 @@ import DashboardCard from "../dashboard/DashboardCard";
 import { PageTitle } from "../PageTitle";
 import { CardLayout } from "../shared/CardLayout";
 import Metrics from "../dashboard/charts/Metrics";
+import bullish from "@/assets/images/arrow.png";
+import ImportViaCSV from "./ImportViaCSV";
+import ImportViaApi from "./ImportViaApi";
 
 const OverviewDetails = () => {
   return (
@@ -36,6 +39,31 @@ const OverviewDetails = () => {
       </div>
       <CardLayout>
         <Metrics />
+      </CardLayout>
+      <CardLayout>
+        <div>
+          <div className="border-b border-b-[#E5E7EB] pb-4">
+            <div className="flex items-center gap-4">
+              <div className="w-4 h-4 ">
+                <img
+                  src={bullish}
+                  alt="bullish"
+                  className="w-full h-full"
+                />
+              </div>
+              <h2 className="font-semibold text-base text-[#A7A9AB]">
+                Quick action
+              </h2>
+            </div>
+            <h2 className="text-[8px] lg:text-[10px] text-[#A7A9AB] font-semibold mt-4">
+              Well show you how to grow your audience and add contacts quickly
+            </h2>
+          </div>
+          <div className="flex flex-col gap-6 lg:gap-2 mt-4">
+            <ImportViaCSV />
+            <ImportViaApi />
+          </div>
+        </div>
       </CardLayout>
     </main>
   );
