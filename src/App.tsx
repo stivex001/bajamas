@@ -16,6 +16,7 @@ const Templates = lazy(() => import("./pages/dashboard/Templates"));
 const SMSCampaign = lazy(() => import("./pages/dashboard/SMSCampaign"));
 const PlainCampaign = lazy(() => import("./pages/emailCampaign/PlainCampaign"));
 const HtmlCampaign = lazy(() => import("./pages/emailCampaign/HtmlCampaign"));
+const Overview = lazy(() => import("./pages/list/Overview"));
 const RegularCampaign = lazy(
   () => import("./pages/emailCampaign/RegularCampaign")
 );
@@ -74,12 +75,12 @@ const router = createBrowserRouter([
               {
                 path: "",
                 index: true,
-                element: <Dashboard />,
+                element: <Overview />,
               },
               {
                 path: "overview",
                 index: true,
-                element: <Dashboard />,
+                element: <Overview />,
               },
               {
                 path: "subscribers",
