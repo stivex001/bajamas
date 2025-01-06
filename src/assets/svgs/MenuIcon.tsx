@@ -224,3 +224,19 @@ export const TimerIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+
+export const EyeIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={54}
+    height={40}
+    fill="none"
+    {...props}
+  >
+    <path fill="#CFD9E0" d="M0 0h1v40H0z" />
+    <path
+      fill="#718096"
+      d="M23.281 20a2.625 2.625 0 1 0 5.25 0 2.625 2.625 0 0 0-5.25 0Zm12.802-.605C33.86 14.715 30.503 12.36 26 12.36c-4.505 0-7.86 2.356-10.083 7.039a1.414 1.414 0 0 0 0 1.207c2.222 4.68 5.58 7.036 10.083 7.036 4.505 0 7.86-2.356 10.083-7.039.18-.38.18-.82 0-1.207Zm-10.177 4.73a4.125 4.125 0 1 1 0-8.25 4.125 4.125 0 0 1 0 8.25Z"
+    />
+  </svg>
+)

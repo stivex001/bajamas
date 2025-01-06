@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useState } from "react";
 import { useController, Control } from "react-hook-form";
 import { cn } from "../../lib/utils";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { EyeIcon } from "@/assets/svgs/MenuIcon";
 
 type ControlledInputProps = {
   name: string;
@@ -52,6 +53,12 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
     [styles.invalid]: invalid,
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <div className={`space-y-3`}>
       <Label
@@ -60,11 +67,11 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
       >
         {label}
       </Label>
-      <div className={` flex items-center space-x-2`}>
+      <div className={` flex items-center space-x-2 relative`}>
         <Input
           id={name}
           name={name}
-          type={type}
+          type={type === "password" && showPassword ? "text" : type}
           placeholder={placeholder}
           onChange={onChange}
           onBlur={onBlur}
@@ -78,6 +85,14 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
             className="w-8 h-8 border rounded"
             style={{ backgroundColor: value || "#ffffff" }}
           />
+        )}
+        {type === "password" && (
+          <div
+            className="absolute right-0 cursor-pointer"
+            onClick={togglePasswordVisibility}
+          >
+            <EyeIcon />
+          </div>
         )}
       </div>
       {error && (
