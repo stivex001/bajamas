@@ -18,6 +18,7 @@ const PlainCampaign = lazy(() => import("./pages/emailCampaign/PlainCampaign"));
 const HtmlCampaign = lazy(() => import("./pages/emailCampaign/HtmlCampaign"));
 const Overview = lazy(() => import("./pages/list/Overview"));
 const Subscribers = lazy(() => import("./pages/list/Subscribers"));
+const NewSubscriber = lazy(() => import("./pages/list/NewSubscriber"));
 const RegularCampaign = lazy(
   () => import("./pages/emailCampaign/RegularCampaign")
 );
@@ -71,6 +72,11 @@ const router = createBrowserRouter([
             index: true,
           },
           {
+            path: "/new-subscriber",
+            index: true,
+            element: <NewSubscriber />,
+          },
+          {
             path: "/list",
             children: [
               {
@@ -88,11 +94,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Subscribers />,
               },
-              {
-                path: "overview",
-                index: true,
-                element: <Dashboard />,
-              },
+
               {
                 path: "unsubscribes",
                 index: true,

@@ -9,6 +9,7 @@ import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const showList = [
   { value: "20", label: "10" },
@@ -28,6 +29,7 @@ const fields: Field[] = [
 const tempplateTable: any[] = [];
 
 const Subscribers = () => {
+    const navigate = useNavigate()
   const { control } = useDynamicForm<AuthUser>(fields, {});
   const isPending = false;
 
@@ -46,6 +48,7 @@ const Subscribers = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [entriesPerPage]);
+
 
   return (
     <main className="flex flex-col gap-7">
@@ -70,6 +73,7 @@ const Subscribers = () => {
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
+              onClick={() => navigate("/new-subscriber")}
             />
 
             <CustomButton
@@ -78,6 +82,7 @@ const Subscribers = () => {
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
+              onClick={() => navigate("/new-subscriber")}
             />
           </div>
         </div>
