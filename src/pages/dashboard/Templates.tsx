@@ -4,6 +4,7 @@ import { CardLayout } from "@/components/shared/CardLayout";
 import { CustomSelect } from "@/components/shared/ControlledSelect";
 import CustomButton from "@/components/shared/CustomButton";
 import Pagination from "@/components/shared/Pagination";
+import Section from "@/components/shared/Section";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import TemplateTable from "@/components/templates/TemplateTable";
 import useDynamicForm from "@/hooks/useDynamicForm";
@@ -45,7 +46,7 @@ const Templates = () => {
     }, [entriesPerPage]);
 
   return (
-    <main className="flex flex-col gap-7">
+    <Section>
       <PageTitle title="Templates" />
       <CardLayout>
         <div className="flex items-center justify-between mb-9">
@@ -100,7 +101,7 @@ const Templates = () => {
           )}
         </div>
       </CardLayout>
-    </main>
+    </Section>
   );
 };
 
