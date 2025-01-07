@@ -1,4 +1,5 @@
 import { CloudIcon, ListIcon, PlugIcon } from "@/assets/svgs/Icons";
+import { UploadSubscribers } from "@/components/list/UploadSubscribers";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import Section from "@/components/shared/Section";
@@ -9,16 +10,19 @@ const tabs = [
     id: 1,
     icon: <CloudIcon />,
     label: "Import from a file",
+    content: <UploadSubscribers />,
   },
   {
     id: 2,
     icon: <ListIcon />,
     label: "Copy/Paste subscriber list",
+    content: <p>Content for Import from a file</p>,
   },
   {
     id: 3,
     icon: <PlugIcon />,
     label: "Via API",
+    content: <p>Content for Import from a file</p>,
   },
 ];
 
@@ -52,6 +56,9 @@ const NewSubscriber = () => {
               </p>
             </div>
           ))}
+        </div>
+        <div className="mt-16">
+          {tabs.find((tab) => tab.id === activeTab)?.content}
         </div>
       </CardLayout>
     </Section>

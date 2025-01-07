@@ -72,7 +72,7 @@ const router = createBrowserRouter([
             index: true,
           },
           {
-            path: "/new-subscriber",
+            path: "/list/subscribers/new-subscriber",
             index: true,
             element: <NewSubscriber />,
           },

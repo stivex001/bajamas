@@ -73,7 +73,7 @@ const Subscribers = () => {
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
-              onClick={() => navigate("/new-subscriber")}
+              onClick={() => navigate("/list/subscribers/new-subscriber")}
             />
 
             <CustomButton
@@ -82,7 +82,7 @@ const Subscribers = () => {
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
-              onClick={() => navigate("/new-subscriber")}
+              onClick={() => navigate("/list/subscribers/new-subscriber")}
             />
           </div>
         </div>
