@@ -83,7 +83,7 @@ const Register = () => {
             name="fullname"
             control={control}
             placeholder="Enter full name"
-            type="email"
+            type="text"
             label="Full Name"
             variant="primary"
             rules={{ required: true }}
@@ -108,7 +108,7 @@ const Register = () => {
             rules={{ required: true }}
           />
           <ControlledInput
-            name="password"
+            name="confirmPassword"
             control={control}
             placeholder="Password"
             type="password"
