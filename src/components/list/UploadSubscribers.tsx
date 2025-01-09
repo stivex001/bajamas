@@ -5,7 +5,7 @@ import example from "@/assets/images/example.png"
 export const UploadSubscribers = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-[18px] ">
-      <div className="flex-1 rounded-[14px] shadow-lg py-8 px-12">
+      <div className="flex-1 rounded-[14px] shadow-lg py-8 px-4 lg:px-12">
         <h1 className="text-[#79B078] text-2xl mb-2 ">
           Upload subscribers from file
         </h1>
@@ -15,7 +15,7 @@ export const UploadSubscribers = () => {
         </p>
         <div className="border  border-dashed border-primary flex items-center justify-center mt-3">
           <div className="pt-[51px] pb-6 max-w-[315px] mx-auto flex flex-col gap-7">
-            <p className="text-xs text-[#83848F]">
+            <p className="text-xs text-[#83848F] px-6 lg:px-0 leading-[21px]">
               Drag and drop file or choose from your computer
             </p>
             <button className="bg-primary w-fit mx-auto rounded-[5px] flex items-center py-1 px-6 gap-3 h-8">
@@ -39,7 +39,7 @@ export const UploadSubscribers = () => {
           </div>
         </div>
       </div>
-      <div className="flex-1 rounded-[14px] shadow-lg py-8 px-12">
+      <div className="flex-1 rounded-[14px] shadow-lg py-8 px-4 lg:px-12">
         <h1 className="text-[#437742] text-2xl mb-2 ">List example</h1>
         <p className="text-base text-[#83848F]">
           Each subscriber must be in a new row, subscriber fields must be in

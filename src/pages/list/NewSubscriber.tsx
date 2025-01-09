@@ -1,4 +1,5 @@
 import { CloudIcon, ListIcon, PlugIcon } from "@/assets/svgs/Icons";
+import CopyPasteSubList from "@/components/list/CopyPasteSubList";
 import { UploadSubscribers } from "@/components/list/UploadSubscribers";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
@@ -15,8 +16,8 @@ const tabs = [
   {
     id: 2,
     icon: <ListIcon />,
-    label: "Copy/Paste subscriber list",
-    content: <p>Content for Import from a file</p>,
+    label: "Copy/Paste Subscriber list",
+    content: <CopyPasteSubList />
   },
   {
     id: 3,
@@ -46,7 +47,7 @@ const NewSubscriber = () => {
                 {tab.icon}
               </div>
               <p
-                className={` text-sm text-center max-w-[100px] ${
+                className={`text-xs md:text-sm text-center max-w-[100px] ${
                   activeTab === tab.id
                     ? "font-bold"
                     : "font-medium text-[#979797]"

@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useController, Control } from "react-hook-form";
 import { cn } from "../../lib/utils";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { EyeIcon } from "@/assets/svgs/MenuIcon";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { MdOutlineDateRange } from "react-icons/md";
 
 type ControlledInputProps = {
   name: string;
@@ -16,6 +19,7 @@ type ControlledInputProps = {
   type?: string;
   method?: string;
   currency?: string;
+  dontShowTime?: boolean;
   variant?: "primary" | "secondary" | "tertiary";
 } & React.ComponentProps<typeof Input>;
 
@@ -28,6 +32,7 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
   type = "text",
   method,
   variant = "primary",
+  dontShowTime = false,
   ...props
 }) => {
   const {
@@ -53,6 +58,8 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
     [styles.invalid]: invalid,
   });
 
+  const datePickerRef = useRef<any>(null);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -68,18 +75,44 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
         {label}
       </Label>
       <div className={` flex items-center space-x-2 relative`}>
-        <Input
-          id={name}
-          name={name}
-          type={type === "password" && showPassword ? "text" : type}
-          placeholder={placeholder}
-          onChange={onChange}
-          onBlur={onBlur}
-          value={value}
-          ref={ref}
-          className={inputClassName}
-          {...props}
-        />
+        {type === "date" ? (
+          <div
+            {...props}
+            className={`${inputClassName} bg-[#F5F5F9] rounded-md flex items-center justify-between px-3 gap-3 cursor-pointer`}
+          >
+            <DatePicker
+              selected={value}
+              onChange={(date) => onChange(date)}
+              showTimeSelect={dontShowTime ? false : true}
+              timeFormat="HH:mm:ss"
+              // timeIntervals={1}
+              dateFormat="dd.MM.yyyy HH:mm:ss"
+              placeholderText={placeholder}
+              className="bg-transparent w-full outline-none cursor-pointer"
+              id={name}
+              name={name}
+              onBlur={onBlur}
+              ref={datePickerRef}
+              preventOpenOnFocus
+              timeIntervals={30}
+            />
+            <MdOutlineDateRange className="size-6" />
+          </div>
+        ) : (
+          <Input
+            id={name}
+            name={name}
+            type={type === "password" && showPassword ? "text" : type}
+            placeholder={placeholder}
+            onChange={onChange}
+            onBlur={onBlur}
+            value={value}
+            ref={ref}
+            className={inputClassName}
+            {...props}
+          />
+        )}
+
         {type === "color" && (
           <div
             className="w-8 h-8 border rounded"
