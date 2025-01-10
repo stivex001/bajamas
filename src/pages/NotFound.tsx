@@ -10,7 +10,7 @@ const NotFound = () => {
         404 Not Found
       </p>
       <span>{pathname} is not available at the moment</span>
-      <Link to="/">
+      <Link to="/dashboard">
         <CustomButton label="Go To Home" variant="primary" />
       </Link>
     </section>

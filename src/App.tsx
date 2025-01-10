@@ -1,7 +1,11 @@
 import { Toaster } from "sonner";
 import { ScreenLoader } from "./components/shared/ScreenLoader";
 import { lazy, Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Root from "./components/Root";
 import ProtectedRoutes from "./components/layouts/ProtectedRoutes";
 import Login from "./pages/auth/Login";
@@ -33,9 +37,12 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes />,
         children: [
           {
+            index: true,
+            element: <Navigate to="/dashboard" replace />,
+          },
+          {
             path: "/dashboard",
             element: <Dashboard />,
-            index: true,
           },
           {
             path: "/notifications",
