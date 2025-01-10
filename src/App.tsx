@@ -23,6 +23,7 @@ const HtmlCampaign = lazy(() => import("./pages/emailCampaign/HtmlCampaign"));
 const Overview = lazy(() => import("./pages/list/Overview"));
 const Subscribers = lazy(() => import("./pages/list/Subscribers"));
 const UnSubscribe = lazy(() => import("./pages/list/UnSubscribe"));
+const SpamReport = lazy(() => import("./pages/list/SpamReport"));
 const NewSubscriber = lazy(() => import("./pages/list/NewSubscriber"));
 const RegularCampaign = lazy(
   () => import("./pages/emailCampaign/RegularCampaign")
@@ -116,7 +117,7 @@ const router = createBrowserRouter([
               {
                 path: "spam_report",
                 index: true,
-                element: <Dashboard />,
+                element: <SpamReport />,
               },
               {
                 path: "tag",
