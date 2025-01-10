@@ -25,7 +25,7 @@ const customStyle = {
   padding: "16px",
   fontSize: "14px",
   lineHeight: "1.5",
-  overflowX: "auto",
+  overflowX: "auto" as "auto",
   border: "none"
 };
 
