@@ -1,5 +1,4 @@
 import { AuthUser } from "@/api/hooks/types";
-import SubscriberTable from "@/components/list/SubscriberTable";
 import UnSubscriberTable from "@/components/list/UnSubscriberTable";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
