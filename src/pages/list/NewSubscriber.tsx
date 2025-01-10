@@ -1,5 +1,6 @@
 import { CloudIcon, ListIcon, PlugIcon } from "@/assets/svgs/Icons";
 import CopyPasteSubList from "@/components/list/CopyPasteSubList";
+import { SynthaxHighlighter } from "@/components/list/SynthaxHighlighter";
 import { UploadSubscribers } from "@/components/list/UploadSubscribers";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
@@ -23,7 +24,7 @@ const tabs = [
     id: 3,
     icon: <PlugIcon />,
     label: "Via API",
-    content: <p>Content for Import from a file</p>,
+    content: <SynthaxHighlighter />,
   },
 ];
 
