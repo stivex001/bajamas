@@ -26,6 +26,7 @@ const UnSubscribe = lazy(() => import("./pages/list/UnSubscribe"));
 const SpamReport = lazy(() => import("./pages/list/SpamReport"));
 const Tag = lazy(() => import("./pages/list/Tag"));
 const Collaborations = lazy(() => import("./pages/list/Collaborations"));
+const Invitees = lazy(() => import("./pages/list/Invitees"));
 const NewSubscriber = lazy(() => import("./pages/list/NewSubscriber"));
 const RegularCampaign = lazy(
   () => import("./pages/emailCampaign/RegularCampaign")
@@ -134,7 +135,7 @@ const router = createBrowserRouter([
               {
                 path: "invites",
                 index: true,
-                element: <Dashboard />,
+                element: <Invitees />,
               },
             ],
           },
