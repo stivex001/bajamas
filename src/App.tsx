@@ -25,6 +25,7 @@ const Subscribers = lazy(() => import("./pages/list/Subscribers"));
 const UnSubscribe = lazy(() => import("./pages/list/UnSubscribe"));
 const SpamReport = lazy(() => import("./pages/list/SpamReport"));
 const Tag = lazy(() => import("./pages/list/Tag"));
+const BlackList = lazy(() => import("./pages/list/BlackList"));
 const Collaborations = lazy(() => import("./pages/list/Collaborations"));
 const Invitees = lazy(() => import("./pages/list/Invitees"));
 const NewSubscriber = lazy(() => import("./pages/list/NewSubscriber"));
@@ -141,7 +142,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/sending_blacklist",
-            element: <Dashboard />,
+            element: <BlackList />,
             index: true,
           },
           {
