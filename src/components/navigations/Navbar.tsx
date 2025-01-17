@@ -90,7 +90,7 @@ export const Navbar = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 h-14  py-3 ">
+                <Link to='/profile' className="flex items-center gap-3 h-14  py-3 ">
                   <ProfileWithBorderIcon />
                   <div className="space-y-1">
                     <h2 className="text-sm font-semibold font-Nunito text-darker">
@@ -100,7 +100,7 @@ export const Navbar = () => {
                       Update your profile
                     </p>
                   </div>
-                </div>
+                </Link>
               </div>
             </PopoverContent>
           </Popover>
