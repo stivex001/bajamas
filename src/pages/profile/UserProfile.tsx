@@ -1,12 +1,21 @@
 import { PageTitle } from "@/components/PageTitle";
-import React from "react";
+import { EditProfile } from "@/components/profile/EditProfile";
+import { UserInfo } from "@/components/profile/UserInfo";
+import { useState } from "react";
 
-type Props = {};
+const UserProfile = () => {
+  const [isEditing, setIsEditing] = useState(false);
 
-const UserProfile = (props: Props) => {
+  const handleEdit = () => setIsEditing(true);
+
   return (
     <main className="flex flex-col gap-7">
       <PageTitle title="Profile" />
+      {isEditing ? (
+        <EditProfile /> 
+      ) : (
+        <UserInfo onEdit={handleEdit} /> // Pass a prop to handle editing
+      )}
     </main>
   );
 };
