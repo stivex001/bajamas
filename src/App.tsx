@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const UserProfile = lazy(() => import("./pages/profile/UserProfile"));
+const Pricing = lazy(() => import("./pages/pricing/Pricing"));
 const ChangePassword = lazy(() => import("./pages/profile/ChangePassword"));
 const EmailCampaign = lazy(() => import("./pages/dashboard/EmailCampaign"));
 const Templates = lazy(() => import("./pages/dashboard/Templates"));
@@ -159,7 +160,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/pricing",
-            element: <Dashboard />,
+            element: <Pricing />,
             index: true,
           },
           {
