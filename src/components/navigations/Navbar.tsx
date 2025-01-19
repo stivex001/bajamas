@@ -48,7 +48,7 @@ export const Navbar = () => {
           searchTerm={searchTerm}
         />
         <div className=" flex items-center">
-          <Link to='/notifications' className="relative">
+          <Link to="/notifications" className="relative">
             <NoticationBellIcon />
             <div className="absolute -top-1 -right-1 bg-[#F93C65] w-4 h-4 rounded-full flex items-center justify-center">
               <span className="text-xs font-bold text-white font-Nunito mt-0.5 ">
@@ -78,7 +78,10 @@ export const Navbar = () => {
                 </h1>
               </div>
               <div className="border-b">
-                <div className="flex items-center gap-3 h-14 py-3 ">
+                <Link
+                  to="/change_password"
+                  className="flex items-center gap-3 h-14 py-3 "
+                >
                   <SettingIconsWithBorder />
                   <div className="space-y-1">
                     <h2 className="text-sm font-semibold font-Nunito text-darker">
@@ -88,9 +91,12 @@ export const Navbar = () => {
                       Change Password
                     </p>
                   </div>
-                </div>
+                </Link>
 
-                <Link to='/profile' className="flex items-center gap-3 h-14  py-3 ">
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-3 h-14  py-3 "
+                >
                   <ProfileWithBorderIcon />
                   <div className="space-y-1">
                     <h2 className="text-sm font-semibold font-Nunito text-darker">

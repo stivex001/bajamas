@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const UserProfile = lazy(() => import("./pages/profile/UserProfile"));
+const ChangePassword = lazy(() => import("./pages/profile/ChangePassword"));
 const EmailCampaign = lazy(() => import("./pages/dashboard/EmailCampaign"));
 const Templates = lazy(() => import("./pages/dashboard/Templates"));
 const SMSCampaign = lazy(() => import("./pages/dashboard/SMSCampaign"));
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
           {
             path: "/profile",
             element: <UserProfile />,
+            index: true,
+          },
+          {
+            path: "/change_password",
+            element: <ChangePassword />,
             index: true,
           },
           {
