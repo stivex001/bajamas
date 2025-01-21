@@ -5,11 +5,13 @@ import CustomButton from "@/components/shared/CustomButton";
 import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const tempplateTable: any[] = [];
 
 const Pricing = () => {
+  const navigate = useNavigate()
   const isPending = false;
 
   const totalEntries = tempplateTable?.length;
@@ -50,7 +52,7 @@ const Pricing = () => {
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
-              // onClick={() => navigate("/list/subscribers/new-subscriber")}
+              onClick={() => navigate("/pricing/upgrade_plan")}
             />
           </div>
         </div>
