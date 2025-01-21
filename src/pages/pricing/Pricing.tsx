@@ -1,8 +1,33 @@
 import { PageTitle } from "@/components/PageTitle";
+import PricingTable from "@/components/pricing/PricingTable";
 import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
+import Pagination from "@/components/shared/Pagination";
+import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
+import { useEffect, useState } from "react";
+
+
+const tempplateTable: any[] = [];
 
 const Pricing = () => {
+  const isPending = false;
+
+  const totalEntries = tempplateTable?.length;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage] = useState<number>(10);
+  // const [openModal, setOpenModal] = useState(true);
+
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = tempplateTable?.slice(
+    indexOfFirstEntry,
+    indexOfLastEntry
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [entriesPerPage]);
+
   return (
     <main className="flex flex-col gap-7">
       <PageTitle title="Pricing" />
@@ -28,6 +53,21 @@ const Pricing = () => {
               // onClick={() => navigate("/list/subscribers/new-subscriber")}
             />
           </div>
+        </div>
+        <div>
+          {isPending ? (
+            <SkeletonTableLoader />
+          ) : (
+            <PricingTable listData={currentEntries} />
+          )}
+          {tempplateTable?.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalEntries={totalEntries}
+              entriesPerPage={entriesPerPage}
+              onPageChange={(page: any) => setCurrentPage(page)}
+            />
+          )}
         </div>
       </CardLayout>
     </main>

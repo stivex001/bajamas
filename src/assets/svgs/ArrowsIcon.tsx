@@ -75,3 +75,20 @@ export const CustomArrowIcon = (props: SVGProps<SVGSVGElement>) => (
     </mask>
   </svg>
 )
+
+export const ArrowDown = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={16}
+    height={16}
+    fill="none"
+    {...props}
+  >
+    <path
+      stroke="#18181B"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M8 3.334v9.333m0 0 4.667-4.666M8 12.667 3.333 8.001"
+    />
+  </svg>
+)
