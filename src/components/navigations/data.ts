@@ -7,7 +7,20 @@ export const generalLinks = [
     path: "/email_campaign",
     label: "Email Campaign",
   },
-  { path: "/sms_campaign", label: "SMS Campaign" },
+  {
+    path: "/sms_campaign",
+    label: "SMS Campaign",
+    sub: [
+      {
+        path: "/send_sms",
+        label: "Send SMS",
+      },
+      {
+        path: "/sms_settings",
+        label: "SMS settings",
+      },
+    ],
+  },
   { path: "/templates", label: "Templates" },
   {
     path: "/list",
