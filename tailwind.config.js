@@ -77,7 +77,9 @@ module.exports = {
         7: "-5px 0 0 #313D4A, 5px 0 0 #313D4A",
         8: "1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)",
         boxShadow: "0px 0px 47.8px 0px #00000040",
-        priceshadow: "0px 0px 10.7px 0px #00000040;"
+        priceshadow: "0px 0px 10.7px 0px #00000040;",
+        lightshadow: "0px 0px 4px 0px #0000001A"
+
 
       },
       dropShadow: {

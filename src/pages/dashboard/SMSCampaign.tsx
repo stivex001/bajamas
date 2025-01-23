@@ -2,12 +2,14 @@ import { AuthUser } from "@/api/hooks/types";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import { CustomSelect } from "@/components/shared/ControlledSelect";
+import CustomButton from "@/components/shared/CustomButton";
 import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import SmsTable from "@/components/smsCampaign/SmsTable";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const showList = [
   { value: "20", label: "10" },
@@ -27,6 +29,7 @@ const fields: Field[] = [
 const tempplateTable: any[] = [];
 
 const SMSCapaign = () => {
+  const navigate = useNavigate()
   const { control } = useDynamicForm<AuthUser>(fields, {});
   const isPending = false;
 
@@ -62,6 +65,14 @@ const SMSCapaign = () => {
               className="bg-transparent "
             />
           </aside>
+          <CustomButton
+            label="Create SMS Campaign"
+            variant="primary"
+            className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
+            size="lg"
+            type="button"
+            onClick={() => navigate("/sms_campaign/send_sms")}
+          />
         </div>
         <div>
           {isPending ? (
