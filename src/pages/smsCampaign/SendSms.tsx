@@ -69,7 +69,7 @@ const SendSms = () => {
   };
 
   return (
-    <main>
+    <main className="flex flex-col gap-7">
       <PageTitle title="New SMS campaign" />
       <CardLayout>
         <form onSubmit={handleSubmit(onSubmit)}>
