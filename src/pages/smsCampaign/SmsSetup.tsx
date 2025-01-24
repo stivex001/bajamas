@@ -1,63 +1,86 @@
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
-import CustomButton from "@/components/shared/CustomButton";
-import Pagination from "@/components/shared/Pagination";
-import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
-import SmsSettingsTable from "@/components/smsCampaign/SmsSettingsTable";
-import { useEffect, useState } from "react";
+import { MessagePreview } from "@/components/smsCampaign/MessagePreview";
+import { Purchase } from "@/components/smsCampaign/Purchase";
+import useDynamicForm from "@/hooks/useDynamicForm";
+import { Field } from "@/schemas/dynamicSchema";
 import { useNavigate } from "react-router-dom";
 
-const tempplateTable: any[] = [];
+const fields: Field[] = [
+  {
+    name: "firstname",
+    type: "text",
+    isRequired: true,
+  },
+  {
+    name: "lastname",
+    type: "text",
+    isRequired: true,
+  },
+  {
+    name: "address",
+    type: "text",
+    // isRequired: true,
+  },
+  {
+    name: "phone",
+    type: "text",
+    isRequired: true,
+  },
+
+  {
+    name: "gender",
+    type: "text",
+    // errorMessage: "job title is required",
+    isRequired: true,
+  },
+  {
+    name: "email",
+    type: "email",
+    errorMessage: "Email is required",
+    isRequired: true,
+  },
+  {
+    name: "dob",
+    type: "date",
+    errorMessage: "Date must be selected",
+    // isRequired: true,
+  },
+
+  {
+    name: "password",
+    type: "text",
+    errorMessage: "Password is required",
+    isRequired: true,
+  },
+  {
+    name: "referal",
+    type: "text",
+  },
+];
 const SmsSetup = () => {
   const navigate = useNavigate();
-  const isPending = false;
+  const { control, handleSubmit } = useDynamicForm(fields, {});
 
-  const totalEntries = tempplateTable?.length;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [entriesPerPage] = useState<number>(10);
-    // const [openModal, setOpenModal] = useState(true);
-  
-    const indexOfLastEntry = currentPage * entriesPerPage;
-    const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-    const currentEntries = tempplateTable?.slice(
-      indexOfFirstEntry,
-      indexOfLastEntry
-    );
-  
-    useEffect(() => {
-      setCurrentPage(1);
-    }, [entriesPerPage]);
-  
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
 
   return (
     <main className="flex flex-col gap-7">
-      <PageTitle title="SMS Settings" />
+      <PageTitle title="SMS setup" />
       <CardLayout>
-        <div className="flex items-center justify-end mb-8">
-          <CustomButton
-            label="Add Phone Number"
-            variant="primary"
-            className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
-            size="lg"
-            type="button"
-            onClick={() => navigate("/sms_campaign/sms_settings/sms_setup")}
-          />
-        </div>
-        <div>
-          {isPending ? (
-            <SkeletonTableLoader />
-          ) : (
-            <SmsSettingsTable listData={currentEntries} />
-          )}
-          {tempplateTable?.length > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              totalEntries={totalEntries}
-              entriesPerPage={entriesPerPage}
-              onPageChange={(page: any) => setCurrentPage(page)}
-            />
-          )}
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col lg:flex-row gap-10">
+            <div className="flex-1 pb-12 border border-[#DDDDDD] rounded-[5px] shadow-lightshadow px-5 py-6">
+            <h1 className="text-xs font-semibold text-[#9C9C9D] mb-6">This is what your customers will see as the message sender.</h1>
+            <Purchase />
+            </div>
+            <div className="flex-1 border border-[#DDDDDD] rounded-[5px] shadow-lightshadow px-5 py-6">
+              <MessagePreview />
+            </div>
+          </div>
+        </form>
       </CardLayout>
     </main>
   );

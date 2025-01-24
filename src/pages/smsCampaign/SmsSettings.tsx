@@ -40,7 +40,7 @@ const SmsSettings = () => {
             className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
             size="lg"
             type="button"
-            onClick={() => navigate("/sms_campaign/sms_setup")}
+            onClick={() => navigate("/sms_campaign/sms_settings/sms_setup")}
           />
         </div>
         <div>
