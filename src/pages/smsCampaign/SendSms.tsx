@@ -1,8 +1,10 @@
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
+import ControlledTextAreaInput from "@/components/shared/ControlledTextAreaInput";
 import CustomButton from "@/components/shared/CustomButton";
 import { MessagePreview } from "@/components/smsCampaign/MessagePreview";
+import { Checkbox } from "@/components/ui/checkbox";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import { useNavigate } from "react-router-dom";
@@ -107,7 +109,18 @@ const SendSms = () => {
                 </div>
               </div>
               <div className="border border-[#DDDDDD] rounded-[5px] shadow-lightshadow px-5 py-6">
-                <h1 className="text-base font-medium mb-6">Message text</h1>
+                <ControlledTextAreaInput
+                  label="Message text"
+                  name="message"
+                  control={control}
+                  placeholder="Write your message text here"
+                />
+                <div className="flex items-center gap-2.5 mt-5">
+                  <Checkbox />
+                  <p className="text-[#555555] text-sm">
+                    Automatically shorten links
+                  </p>
+                </div>
               </div>
             </div>
             <div className="flex-1 border border-[#DDDDDD] rounded-[5px] shadow-lightshadow px-5 py-6">
