@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const tempplateTable: any[] = [];
-const SmsSettings = () => {
+const SmsSetup = () => {
   const navigate = useNavigate();
   const isPending = false;
 
@@ -40,7 +40,7 @@ const SmsSettings = () => {
             className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
             size="lg"
             type="button"
-            onClick={() => navigate("/sms_campaign/sms_setup")}
+            onClick={() => navigate("/sms_campaign/sms_settings/sms_setup")}
           />
         </div>
         <div>
@@ -63,4 +63,4 @@ const SmsSettings = () => {
   );
 };
 
-export default SmsSettings;
+export default SmsSetup;
