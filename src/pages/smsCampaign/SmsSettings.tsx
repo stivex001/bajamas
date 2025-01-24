@@ -55,7 +55,7 @@ const SmsSettings = () => {
               totalEntries={totalEntries}
               entriesPerPage={entriesPerPage}
               onPageChange={(page: any) => setCurrentPage(page)}
-            />
+          />
           )}
         </div>
       </CardLayout>

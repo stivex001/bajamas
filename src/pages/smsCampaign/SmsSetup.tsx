@@ -1,10 +1,10 @@
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
+import CustomButton from "@/components/shared/CustomButton";
 import { MessagePreview } from "@/components/smsCampaign/MessagePreview";
 import { Purchase } from "@/components/smsCampaign/Purchase";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
-import { useNavigate } from "react-router-dom";
 
 const fields: Field[] = [
   {
@@ -59,8 +59,7 @@ const fields: Field[] = [
   },
 ];
 const SmsSetup = () => {
-  const navigate = useNavigate();
-  const { control, handleSubmit } = useDynamicForm(fields, {});
+  const { handleSubmit } = useDynamicForm(fields, {});
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -79,6 +78,15 @@ const SmsSetup = () => {
             <div className="flex-1 border border-[#DDDDDD] rounded-[5px] shadow-lightshadow px-5 py-6">
               <MessagePreview />
             </div>
+          </div>
+          <div className="flex justify-end mt-8">
+            <CustomButton
+              label="Save and continue"
+              variant="primary"
+              className="w-fit h-10 rounded-[5px] font-bold text-sm"
+              size="lg"
+              type="submit"
+            />
           </div>
         </form>
       </CardLayout>

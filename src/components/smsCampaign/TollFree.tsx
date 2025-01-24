@@ -1,9 +1,13 @@
+import englishFlag from "@/assets/images/en.png";
+import frenchFlag from "@/assets/images/fr.png";
+import spanishFlag from "@/assets/images/es.png";
+
 const tollFreeNumbers = [
-  { country: "USA", flag: "🇺🇸", number: "+1833-809-0354" },
-  { country: "France", flag: "🇫🇷", number: "+1833-809-0354" },
-  { country: "Brazil", flag: "🇧🇷", number: "+1833-809-0354" },
-  { country: "Nigeria", flag: "🇳🇬", number: "+1833-809-0354" },
-  { country: "EU", flag: "🇪🇺", number: "+1833-809-0354" },
+  { country: "USA", flag: englishFlag, number: "+1833-809-0354" },
+  { country: "France", flag: frenchFlag, number: "+1833-809-0354" },
+  { country: "Brazil", flag: spanishFlag, number: "+1833-809-0354" },
+  { country: "Nigeria", flag: spanishFlag, number: "+1833-809-0354" },
+  { country: "EU", flag: spanishFlag, number: "+1833-809-0354" },
 ];
 
 export const TollFree = () => {
@@ -16,17 +20,17 @@ export const TollFree = () => {
         {tollFreeNumbers.map((toll, index) => (
           <div
             key={index}
-            className="border border-[#CDCDCD] py-5 px-1.5 flex items-end justify-center rounded-[3px] cursor-pointer"
+            className="w-[150px] border border-[#CDCDCD] py-5 px-1.5 flex items-end justify-center rounded-[3px] cursor-pointer"
           >
             <div className="flex items-center gap-1.5">
               <img
                 className="h-[13px] w-[18px]"
-                src={`/flags/${toll.flag.toLowerCase()}.png`}
-                alt={toll.country}
+                src={toll?.flag}
+                alt={toll?.country}
               />
 
-              <p className="text-xs font-semibold text-[#7B797D] whitespace-nowrap">
-                {toll.number}
+              <p className="text-xs font-semibold text-[#7B797D] ">
+                {toll?.number}
               </p>
             </div>
           </div>

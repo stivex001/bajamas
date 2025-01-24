@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { TabDetails } from "./TabDetails";
 import { TollFree } from "./TollFree";
+import { Alphanumeric } from "./Alphanumeric";
 
 const tabs = [
   {
@@ -23,11 +24,9 @@ const tabs = [
         avalability="Supported by all Country"
       />
     ),
-    content: "gsisuhuid",
+    content: <Alphanumeric />,
   },
 ];
-
-
 
 export const Purchase: FC = () => {
   const [activeTab, setActiveTab] = useState(1);
