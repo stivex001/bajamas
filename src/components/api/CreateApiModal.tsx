@@ -5,7 +5,6 @@ import { ModalBody } from "../modal/ModalBody";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import CustomButton from "../shared/CustomButton";
-import CustomControlledSelect from "../shared/CustomControlledSelect";
 import { CustomSelect } from "../shared/ControlledSelect";
 
 const fields: Field[] = [
