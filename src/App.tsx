@@ -14,6 +14,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import NotFound from "./pages/NotFound";
 
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const Api = lazy(() => import("./pages/apiPage/Api"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const UserProfile = lazy(() => import("./pages/profile/UserProfile"));
 const Pricing = lazy(() => import("./pages/pricing/Pricing"));
@@ -189,7 +190,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/api",
-            element: <Dashboard />,
+            element: <Api />,
             index: true,
           },
         ],
