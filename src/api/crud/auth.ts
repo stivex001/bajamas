@@ -4,15 +4,8 @@ import { useApiQuery } from "../hooks/useApiQuery";
 
 export interface CurrentUserData {
   email: string;
-  firstname: string;
-  lastname: string;
-  dob: string;
-  bvn: string;
-  address: string;
-  gender: string;
-  phone: string;
-  id: ID;
-  referer_bonus_paid: string;
+  name: string;
+ password: string;
 }
 
 export interface CurrentUser {

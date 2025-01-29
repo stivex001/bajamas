@@ -1,38 +1,20 @@
+import { auth } from "@/api/crud/auth";
 import { AuthTitle } from "@/components/authDetails/AuthTitle";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const fields: Field[] = [
   {
-    name: "firstname",
-    type: "text",
-    isRequired: true,
-  },
-  {
-    name: "lastname",
-    type: "text",
-    isRequired: true,
-  },
-  {
-    name: "address",
-    type: "text",
-    // isRequired: true,
-  },
-  {
-    name: "phone",
+    name: "name",
     type: "text",
     isRequired: true,
   },
 
-  {
-    name: "gender",
-    type: "text",
-    // errorMessage: "job title is required",
-    isRequired: true,
-  },
   {
     name: "email",
     type: "email",
@@ -40,31 +22,45 @@ const fields: Field[] = [
     isRequired: true,
   },
   {
-    name: "dob",
-    type: "date",
-    errorMessage: "Date must be selected",
-    // isRequired: true,
-  },
-
-  {
     name: "password",
     type: "text",
     errorMessage: "Password is required",
     isRequired: true,
   },
-  {
-    name: "referal",
-    type: "text",
-  },
+  // {
+  //   name: "confirmPassword",
+  //   type: "text",
+  //   errorMessage: "Password must be the same as that of password",
+  //   isRequired: true,
+  // },
 ];
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { control, handleSubmit,formState } = useDynamicForm(fields, {});
 
-  const { control, handleSubmit } = useDynamicForm(fields, {});
+  const { isValid } = formState;
 
-  const onSubmit = (data:any) => {
-    console.log(data);
-  }
+  const { registerUser } = auth();
+
+  const { isPending, mutateAsync } = registerUser;
+
+  const onSubmit = async(data: any) => {
+    try {
+      await mutateAsync(data, {
+        onSuccess: (response: any) => {
+          console.log(response, "res_");
+          toast.success("Registered Successfully");
+          navigate("/auth/login");
+        },
+        onError: (error: any) => {
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {
+      console.log("An error occurred: ", error);
+    }
+  };
 
   return (
     <AuthLayout>
@@ -80,7 +76,7 @@ const Register = () => {
           className="flex flex-col space-y-7"
         >
           <ControlledInput
-            name="fullname"
+            name="name"
             control={control}
             placeholder="Enter full name"
             type="text"
@@ -88,7 +84,7 @@ const Register = () => {
             variant="primary"
             rules={{ required: true }}
           />
-         
+
           <ControlledInput
             name="email"
             control={control}
@@ -116,7 +112,7 @@ const Register = () => {
             variant="primary"
             rules={{ required: true }}
           />
-          
+
           <div className="flex justify-center">
             <CustomButton
               label="Sign Up"
@@ -124,7 +120,8 @@ const Register = () => {
               className="w-full"
               size="lg"
               type="submit"
-              // disabled={!isValid}
+              disabled={!isValid}
+              isLoading={isPending}
             />
           </div>
         </form>
