@@ -326,7 +326,7 @@ export interface AuthUser {
   isActive: boolean;
   name: string;
   email: string;
-  role: string;
+  profile: string;
 }
 
 export interface Service {

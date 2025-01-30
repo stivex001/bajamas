@@ -13,14 +13,17 @@ import PieChart from "@/components/dashboard/charts/PieChart";
 import { CardLayout } from "@/components/shared/CardLayout";
 import Metrics from "@/components/dashboard/charts/Metrics";
 import ActivityLog from "@/components/dashboard/ActivityLog";
+import { useAuthStore } from "@/store/authStore";
 
 const Dashboard = () => {
+  const { currentUser } = useAuthStore();
+
   return (
     <main className="flex flex-col gap-7">
       <div className="flex flex-col gap-5">
         <PageTitle title="Dashboard" />
-        <p className="font-semibold text-lg text-darker">
-          Hello,  EMMANUEL EMMY!
+        <p className="font-semibold text-lg text-darker capitalize">
+          Hello,  {currentUser?.name}!
         </p>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 ">
@@ -57,7 +60,6 @@ const Dashboard = () => {
           </div>
         </div>
       </CardLayout>
-    
     </main>
   );
 };

@@ -5,13 +5,13 @@ import { useApiQuery } from "../hooks/useApiQuery";
 export interface CurrentUserData {
   email: string;
   name: string;
- password: string;
+  password: string;
 }
 
 export interface CurrentUser {
   access_token?: any;
   name: string;
-  role: string;
+  profile: string;
   new: string;
   confirmPassword: string;
   createdAt: string;
