@@ -29,7 +29,7 @@ export interface Wallet {
 
 export const auth = () => {
   const registerUser = useApiMutation<AuthResponse, FormData>({
-    url: "/register ",
+    url: "/registering ",
     method: "POST",
   });
 

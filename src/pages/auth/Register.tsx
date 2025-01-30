@@ -50,7 +50,7 @@ const Register = () => {
       await mutateAsync(data, {
         onSuccess: (response: any) => {
           console.log(response, "res_");
-          toast.success("Registered Successfully");
+          toast.success(response?.message);
           navigate("/auth/login");
         },
         onError: (error: any) => {

@@ -1,3 +1,4 @@
+import { auth } from "@/api/crud/auth";
 import { AuthTitle } from "@/components/authDetails/AuthTitle";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
@@ -5,36 +6,12 @@ import CustomButton from "@/components/shared/CustomButton";
 import { Checkbox } from "@/components/ui/checkbox";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
-import { Link } from "react-router-dom";
+import { useAuthStore } from "@/store/authStore";
+import { useLayoutEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const fields: Field[] = [
-  {
-    name: "firstname",
-    type: "text",
-    isRequired: true,
-  },
-  {
-    name: "lastname",
-    type: "text",
-    isRequired: true,
-  },
-  {
-    name: "address",
-    type: "text",
-    // isRequired: true,
-  },
-  {
-    name: "phone",
-    type: "text",
-    isRequired: true,
-  },
-
-  {
-    name: "gender",
-    type: "text",
-    // errorMessage: "job title is required",
-    isRequired: true,
-  },
   {
     name: "email",
     type: "email",
@@ -42,29 +19,55 @@ const fields: Field[] = [
     isRequired: true,
   },
   {
-    name: "dob",
-    type: "date",
-    errorMessage: "Date must be selected",
-    // isRequired: true,
-  },
-
-  {
     name: "password",
     type: "text",
     errorMessage: "Password is required",
     isRequired: true,
   },
-  {
-    name: "referal",
-    type: "text",
-  },
 ];
 
 const Login = () => {
-  const { control, handleSubmit } = useDynamicForm(fields, {});
+  const navigate = useNavigate();
+  const { setAccessToken, accessToken, setCurrentUser } = useAuthStore();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const { control, handleSubmit, formState } = useDynamicForm(fields, {});
+
+  useLayoutEffect(() => {
+    if (accessToken) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [navigate, accessToken]);
+
+  const { isValid } = formState;
+
+  const { loginUser } = auth();
+
+  const { isPending, mutateAsync } = loginUser;
+
+  const onSubmit = async (data: any) => {
+    try {
+      await mutateAsync(data, {
+        onSuccess: (response: any) => {
+          if (response?.status === true) {
+            const token = response?.data?.access_token;
+            const user = response?.data?.user;
+            if (token && user) {
+              setAccessToken(token);
+              setCurrentUser(user);
+            }
+            toast.success("Login successfully!");
+            navigate("/dashboard");
+          } else {
+            toast.error(response?.message);
+          }
+        },
+        onError: (error: any) => {
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {
+      console.log("An error occurred: ", error);
+    }
   };
 
   return (
@@ -106,7 +109,12 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-            <Link to='/auth/reset_password' className="text-base font-medium underline text-primary">Forgot Password?</Link>
+            <Link
+              to="/auth/reset_password"
+              className="text-base font-medium underline text-primary"
+            >
+              Forgot Password?
+            </Link>
           </div>
 
           <div className="flex justify-center">
@@ -116,7 +124,8 @@ const Login = () => {
               className="w-full"
               size="lg"
               type="submit"
-              // disabled={!isValid}
+              disabled={!isValid}
+              isLoading={isPending}
             />
           </div>
         </form>
