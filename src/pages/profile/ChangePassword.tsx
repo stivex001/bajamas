@@ -1,66 +1,80 @@
+import { auth, CurrentUser } from "@/api/crud/auth";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const fields: Field[] = [
   {
-    name: "firstname",
+    name: "old_password",
     type: "text",
+    errorMessage: "Current Password is required",
+    isRequired: true,
   },
-  {
-    name: "lastname",
-    type: "text",
-  },
-  {
-    name: "address",
-    type: "text",
-  },
-  {
-    name: "phone",
-    type: "text",
-  },
-
-  {
-    name: "gender",
-    type: "text",
-  },
-  {
-    name: "email",
-    type: "email",
-    errorMessage: "Email is required",
-  },
-  {
-    name: "dob",
-    type: "date",
-    errorMessage: "Date must be selected",
-  },
-
   {
     name: "password",
     type: "text",
     errorMessage: "Password is required",
+    isRequired: true,
   },
   {
-    name: "referal",
+    name: "confirm_pass",
     type: "text",
+    errorMessage: "Password is required",
   },
 ];
 
 const ChangePassword = () => {
-  const { control } = useDynamicForm(fields, {});
+  const navigate = useNavigate();
+  const { control, handleSubmit, reset, formState, watch } =
+    useDynamicForm<CurrentUser>(fields, {});
+
+  const newPassword = watch("password");
+  const confirmPassword = watch("confirm_pass");
+
+  const passwordMismatch = newPassword !== confirmPassword;
+
+  const { isValid } = formState;
+
+  const { changePassword } = auth();
+
+  const { isPending, mutateAsync } = changePassword;
+
+  const onSubmit = async (data: any) => {
+    try {
+      await mutateAsync(data, {
+        onSuccess: (response: any) => {
+          console.log(response);
+          if (response?.status === true) {
+            toast.success(response?.message);
+            navigate("/auth/login");
+            reset();
+          } else {
+            toast.error(response?.message);
+          }
+        },
+        onError: (error: any) => {
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {
+      console.log("An error occurred: ", error);
+    }
+  };
 
   return (
     <main className="flex flex-col gap-7">
       <PageTitle title="Change Password" />
 
       <CardLayout className="py-5">
-        <form className="lg:w-5/12 mx-auto ">
+        <form onSubmit={handleSubmit(onSubmit)} className="lg:w-5/12 mx-auto ">
           <div className="grid grid-cols-1 gap-y-7">
             <ControlledInput
-              name="email"
+              name="old_password"
               control={control}
               placeholder=""
               type="password"
@@ -68,7 +82,7 @@ const ChangePassword = () => {
               variant="primary"
             />
             <ControlledInput
-              name="email"
+              name="password"
               control={control}
               placeholder=""
               type="password"
@@ -77,7 +91,7 @@ const ChangePassword = () => {
             />
 
             <ControlledInput
-              name="email"
+              name="confirm_pass"
               control={control}
               placeholder=""
               type="password"
@@ -92,7 +106,8 @@ const ChangePassword = () => {
               className="w-[274px]"
               size="lg"
               type="submit"
-              // disabled={!isValid}
+              disabled={!isValid || passwordMismatch}
+              isLoading={isPending}
             />
           </div>
         </form>

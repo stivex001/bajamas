@@ -14,6 +14,8 @@ export interface CurrentUser {
   profile: string;
   new: string;
   confirmPassword: string;
+  password: string;
+  confirm_pass: string;
   createdAt: string;
   id: ID;
   companyId: ID;
@@ -49,7 +51,7 @@ export const auth = () => {
   });
 
   const changePassword = useApiMutation<AuthResponse, FormData>({
-    url: "/change-password",
+    url: "/changepassword",
     method: "POST",
   });
 

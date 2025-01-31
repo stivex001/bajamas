@@ -12,7 +12,7 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 export const MobileNav = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuthStore();
+  const { logout, currentUser } = useAuthStore();
 
   const { isOpen, openModal } = useModalClose();
 
@@ -38,7 +38,7 @@ export const MobileNav = () => {
           /> */}
           <AvarterIcon />
           <span className=" ml-2 text-sm font-bold text-gray-900 truncate ">
-            Odejinmi emmanuel
+            {currentUser?.name}
           </span>
         </div>
         <div className="flex-grow overflow-y-auto hide-scrollbar no-scrollbar ">
