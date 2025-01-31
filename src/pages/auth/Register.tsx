@@ -27,12 +27,12 @@ const fields: Field[] = [
     errorMessage: "Password is required",
     isRequired: true,
   },
-  // {
-  //   name: "confirmPassword",
-  //   type: "text",
-  //   errorMessage: "Password must be the same as that of password",
-  //   isRequired: true,
-  // },
+  {
+    name: "confirmPassword",
+    type: "text",
+    errorMessage: "Password must be the same as that of password",
+    isRequired: true,
+  },
 ];
 
 const Register = () => {
