@@ -39,7 +39,7 @@ export const auth = () => {
   });
 
   const forgotPassword = useApiMutation<AuthResponse, FormData>({
-    url: "/reset-password-request",
+    url: "/forgetpas",
     method: "POST",
   });
 

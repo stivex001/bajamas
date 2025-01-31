@@ -1,68 +1,55 @@
+import { auth } from "@/api/crud/auth";
 import { AuthTitle } from "@/components/authDetails/AuthTitle";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const fields: Field[] = [
-  {
-    name: "firstname",
-    type: "text",
-    isRequired: true,
-  },
-  {
-    name: "lastname",
-    type: "text",
-    isRequired: true,
-  },
-  {
-    name: "address",
-    type: "text",
-    // isRequired: true,
-  },
-  {
-    name: "phone",
-    type: "text",
-    isRequired: true,
-  },
-
-  {
-    name: "gender",
-    type: "text",
-    // errorMessage: "job title is required",
-    isRequired: true,
-  },
   {
     name: "email",
     type: "email",
     errorMessage: "Email is required",
     isRequired: true,
   },
-  {
-    name: "dob",
-    type: "date",
-    errorMessage: "Date must be selected",
-    // isRequired: true,
-  },
-
-  {
-    name: "password",
-    type: "text",
-    errorMessage: "Password is required",
-    isRequired: true,
-  },
-  {
-    name: "referal",
-    type: "text",
-  },
 ];
 
 const ResetPassword = () => {
-  const { control, handleSubmit } = useDynamicForm(fields, {});
+  const navigate = useNavigate();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const { control, handleSubmit, reset, formState } = useDynamicForm(
+    fields,
+    {}
+  );
+
+  const { isValid } = formState;
+
+  const { forgotPassword } = auth();
+
+  const { isPending, mutateAsync } = forgotPassword;
+
+  const onSubmit = async (data: any) => {
+    try {
+      await mutateAsync(data, {
+        onSuccess: (response: any) => {
+          console.log(response, "res_");
+          toast.success(response?.message);
+          navigate(
+            `/confirm_password?email=${encodeURIComponent(data?.email)}`
+          );
+          reset();
+        },
+        onError: (error: any) => {
+          console.log(error, "jjjj");
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {
+      console.log("An error occurred: ", error);
+    }
   };
 
   return (
@@ -87,9 +74,6 @@ const ResetPassword = () => {
             variant="primary"
             rules={{ required: true }}
           />
-          
-
-
 
           <div className="flex justify-center">
             <CustomButton
@@ -98,7 +82,8 @@ const ResetPassword = () => {
               className="w-full"
               size="lg"
               type="submit"
-              // disabled={!isValid}
+              disabled={!isValid}
+              isLoading={isPending}
             />
           </div>
         </form>
