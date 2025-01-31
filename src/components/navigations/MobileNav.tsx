@@ -19,7 +19,7 @@ export const MobileNav = () => {
   const handleLogout = () => {
     logout();
     toast.success("Logged out successfully");
-    navigate("/login");
+    navigate("/auth/login");
   };
 
   return (

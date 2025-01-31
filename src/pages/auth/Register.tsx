@@ -1,4 +1,5 @@
 import { auth } from "@/api/crud/auth";
+import { AuthUser } from "@/api/hooks/types";
 import { AuthTitle } from "@/components/authDetails/AuthTitle";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
@@ -7,6 +8,7 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 const fields: Field[] = [
   {
@@ -31,13 +33,16 @@ const fields: Field[] = [
     name: "confirmPassword",
     type: "text",
     errorMessage: "Password must be the same as that of password",
-    isRequired: true,
   },
 ];
 
 const Register = () => {
   const navigate = useNavigate();
-  const { control, handleSubmit,formState } = useDynamicForm(fields, {});
+  const { control, handleSubmit, formState, watch, setError } =
+    useDynamicForm<AuthUser>(fields, {});
+
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
 
   const { isValid } = formState;
 
@@ -45,7 +50,22 @@ const Register = () => {
 
   const { isPending, mutateAsync } = registerUser;
 
-  const onSubmit = async(data: any) => {
+  useEffect(() => {
+    if (confirmPassword && confirmPassword !== password) {
+      setError("confirmPassword", {
+        message: "Passwords do not match",
+      });
+    }
+  }, [confirmPassword, password, setError]);
+
+  const onSubmit = async (data: any) => {
+    if (data.password !== data.confirmPassword) {
+      setError("confirmPassword", {
+        message: "Passwords do not match",
+      });
+      return;
+    }
+
     try {
       await mutateAsync(data, {
         onSuccess: (response: any) => {

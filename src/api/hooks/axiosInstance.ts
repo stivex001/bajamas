@@ -21,9 +21,9 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (error.response?.status === 401) {
-      const { logout } = useAuthStore();
-      logout();
-      window.location.href = "/login";
+      // const { logout } = useAuthStore();
+      // logout();
+      // window.location.href = "/auth/login";
     }
     return Promise.reject(error);
   }

@@ -327,6 +327,8 @@ export interface AuthUser {
   name: string;
   email: string;
   profile: string;
+  password: string;
+  confirmPassword: string;
 }
 
 export interface Service {
