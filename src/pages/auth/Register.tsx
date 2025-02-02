@@ -38,7 +38,7 @@ const fields: Field[] = [
 
 const Register = () => {
   const navigate = useNavigate();
-  const { control, handleSubmit, formState, watch, setError } =
+  const { control, handleSubmit, formState, watch, setError, clearErrors } =
     useDynamicForm<AuthUser>(fields, {});
 
   const password = watch("password");
@@ -51,12 +51,17 @@ const Register = () => {
   const { isPending, mutateAsync } = registerUser;
 
   useEffect(() => {
-    if (confirmPassword && confirmPassword !== password) {
-      setError("confirmPassword", {
-        message: "Passwords do not match",
-      });
+    if (confirmPassword) {
+      if (confirmPassword !== password) {
+        setError("confirmPassword", {
+          type: "manual",
+          message: "Passwords do not match",
+        });
+      } else {
+        clearErrors("confirmPassword");
+      }
     }
-  }, [confirmPassword, password, setError]);
+  }, [confirmPassword, password, setError, clearErrors]);
 
   const onSubmit = async (data: any) => {
     if (data.password !== data.confirmPassword) {

@@ -5,7 +5,6 @@ import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const fields: Field[] = [
@@ -18,7 +17,7 @@ const fields: Field[] = [
 ];
 
 const ResetPassword = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { control, handleSubmit, reset, formState } = useDynamicForm(
     fields,
@@ -37,9 +36,9 @@ const ResetPassword = () => {
         onSuccess: (response: any) => {
           console.log(response, "res_");
           toast.success(response?.message);
-          navigate(
-            `/confirm_password?email=${encodeURIComponent(data?.email)}`
-          );
+          // navigate(
+          //   `/confirm_password?email=${encodeURIComponent(data?.email)}`
+          // );
           reset();
         },
         onError: (error: any) => {
