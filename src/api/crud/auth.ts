@@ -66,12 +66,6 @@ export const auth = () => {
       method: "GET",
     });
 
-  const getUserWallet = () =>
-    useApiQuery<Wallet>(["wallet"], {
-      url: `/wallet-balance`,
-      method: "GET",
-    });
-
   return {
     loginUser,
     registerUser,
@@ -79,7 +73,6 @@ export const auth = () => {
     resetPassword,
     changePassword,
     getCurrentUser,
-    getUserWallet,
     updateProfile,
   };
 };

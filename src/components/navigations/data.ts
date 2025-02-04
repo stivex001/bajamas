@@ -43,8 +43,8 @@ export const generalLinks = [
         label: "Spam Report",
       },
       {
-        path: "/tag",
-        label: "Tag",
+        path: "/group",
+        label: "Group",
       },
       {
         path: "/collaboration",

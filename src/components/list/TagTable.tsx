@@ -1,13 +1,15 @@
+import { formatDate } from "@/utils/formatDate";
 import TableLayout from "../shared/TableLayout";
 
 const headers = [
   { content: <>#</> },
+  { content: <> Business Id</> },
+  { content: <> User Id</> },
   { content: <>Name</> },
-  { content: <> Total</> },
-  { content: <> Active</> },
-  { content: <> Unsubscribed</> },
-  { content: <> Bounced</> },
-  { content: <> Spam Reported</> },
+  // { content: <> Active</> },
+  // { content: <> Unsubscribed</> },
+  // { content: <> Bounced</> },
+  // { content: <> Spam Reported</> },
   { content: <> Created At</> },
   { content: <> Updated At</> },
   { content: <> Actions</> },
@@ -25,16 +27,19 @@ const renderRow = (item: any, index: number) => {
     >
       {/* <td className="py-1 px-4">{item?.id}</td> */}
       <td className="py-1 px-4">{index + 1}</td>
-      <td className="py-1 px-4">{item?.acctName}</td>
-      <td className="py-1 px-4 text-center">{item?.branchID}</td>
+      <td className="py-1 px-4">{item?.business_id}</td>
+      <td className="py-1 px-4">{item?.user_id}</td>
+      <td className="py-1 px-4">{item?.name}</td>
+      <td className="py-1 px-4 text-center">{formatDate(item?.created_at)}</td>
+      <td className="py-1 px-4 text-center">{formatDate(item?.updated_at)}</td>
       {/* <td className="py-1 px-4 text-center">{item?.regionName}</td>
         <td className="py-1 px-4 text-center">{item?.branchName}</td> */}
-      <td className="py-1 px-4 text-center">{item?.ledgerClassName}</td>
-      <td className="py-1 px-4 text-center">{item?.ledgerSubClassName}</td>
-      <td className="py-1 px-4 text-center">
+      {/* <td className="py-1 px-4 text-center">{item?.ledgerClassName}</td> */}
+      {/* <td className="py-1 px-4 text-center">{item?.ledgerSubClassName}</td> */}
+      {/* <td className="py-1 px-4 text-center">
         {item?.accountClassificationName}
-      </td>
-      <td className="py-1 px-4">{item?.currencyName}</td>
+      </td> */}
+      {/* <td className="py-1 px-4">{item?.currencyName}</td> */}
     </tr>
   );
 };

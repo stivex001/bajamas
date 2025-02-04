@@ -157,7 +157,7 @@ const router = createBrowserRouter([
                 element: <SpamReport />,
               },
               {
-                path: "tag",
+                path: "group",
                 index: true,
                 element: <Tag />,
               },

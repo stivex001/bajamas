@@ -82,7 +82,7 @@ const CampaignTypeModal = () => {
             </h2>
             <CustomButton
               variant="primary"
-              label="Submit"
+              label="Continue"
               onClick={handleSubmit}
               className="w-[129px] h-10 rounded-lg text-xs font-Nunito font-bold mx-auto mt-3"
               size="lg"
