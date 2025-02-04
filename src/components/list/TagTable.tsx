@@ -1,5 +1,7 @@
 import { formatDate } from "@/utils/formatDate";
 import TableLayout from "../shared/TableLayout";
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import { ThreeDotIcon } from "@/assets/svgs/MenuIcon";
 
 const headers = [
   { content: <>#</> },
@@ -32,14 +34,24 @@ const renderRow = (item: any, index: number) => {
       <td className="py-1 px-4">{item?.name}</td>
       <td className="py-1 px-4 text-center">{formatDate(item?.created_at)}</td>
       <td className="py-1 px-4 text-center">{formatDate(item?.updated_at)}</td>
-      {/* <td className="py-1 px-4 text-center">{item?.regionName}</td>
-        <td className="py-1 px-4 text-center">{item?.branchName}</td> */}
-      {/* <td className="py-1 px-4 text-center">{item?.ledgerClassName}</td> */}
-      {/* <td className="py-1 px-4 text-center">{item?.ledgerSubClassName}</td> */}
-      {/* <td className="py-1 px-4 text-center">
-        {item?.accountClassificationName}
-      </td> */}
-      {/* <td className="py-1 px-4">{item?.currencyName}</td> */}
+      <td className="py-1 px-4 text-center">
+        <Popover className="relative">
+          <PopoverButton>
+            <div className="w-[85px] bg-primary hover:bg-primary/70 transition flex items-center justify-center rounded-[13px] py-2.5">
+              <ThreeDotIcon />
+            </div>
+          </PopoverButton>
+          <PopoverPanel
+            anchor="bottom end"
+            className="flex flex-col gap-2 bg-white rounded-lg shadow-xl px-5 py-3"
+          >
+            {/* <UpdateRole user={user} />
+            <UpdateProfile user={user} />
+            <DeleteUser user={user} /> */}
+          </PopoverPanel>
+        </Popover>
+      </td>
+      
     </tr>
   );
 };

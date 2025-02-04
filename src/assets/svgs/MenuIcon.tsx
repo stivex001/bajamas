@@ -330,3 +330,18 @@ export const FlyIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
+
+export const ThreeDotIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={19}
+    height={6}
+    fill="none"
+    {...props}
+  >
+    <path
+      fill="#fff"
+      d="M2.5.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm7 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm7 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"
+    />
+  </svg>
+);
