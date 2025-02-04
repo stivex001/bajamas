@@ -80,3 +80,10 @@ input[type="number"]::-webkit-inner-spin-button {
   border-collapse: separate;
   border-spacing: 0px 3px;
 }
+
+.loader {
+  width: 60px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side,#365F36 90%,#365F36) 0/calc(100%/3) 100% no-repeat;
+  animation: l2 1s steps(3) infinite;
+}

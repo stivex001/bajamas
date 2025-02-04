@@ -1,6 +1,7 @@
 import React, { ButtonHTMLAttributes, FC } from "react";
 import { Button as HeadlessButton } from "@headlessui/react";
 import { cn } from "@/lib/utils";
+import { Spinner } from "./Spinner";
 // import clsx from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -60,7 +61,7 @@ const CustomButton: FC<ButtonProps> = ({
       // style={{zIndex: 9999999999999}}
     >
       {isLoading ? (
-        <span className="loader" />
+        <Spinner />
       ) : (
         <>
           {Icon && <Icon className="mr-2" />}
