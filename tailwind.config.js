@@ -38,7 +38,7 @@ module.exports = {
       colors: {
         gray1: "#F7FAFC",
         primary: "#365F36",
-        "primary-hover": "#0052cc",
+        tertiary: "#79B078",
         secondary: "#eef0f3",
         dark: "#1d2023",
         gray2: "#CFD9E0",
