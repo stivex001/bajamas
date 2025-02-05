@@ -4,8 +4,7 @@ import { toast } from "sonner";
 import logo from "../../../public/logo.png";
 import SidebarMenu from "./SidebarMenu";
 import { generalLinks } from "./data";
-
-
+import { LogoutIcon } from "@/assets/svgs/NavigationIcons";
 
 export const Sidebar = () => {
   const { logout } = useAuthStore();
@@ -32,6 +31,7 @@ export const Sidebar = () => {
         onClick={handleLogout}
         className=" flex items-center px-20 py-4  text-darker font-semibold text-base font-Nunito"
       >
+        <LogoutIcon />
         Logout
       </button>
     </div>

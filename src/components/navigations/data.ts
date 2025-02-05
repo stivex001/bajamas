@@ -1,15 +1,29 @@
+import {
+  ApiIcon,
+  BucketListIcon,
+  DashboardIcon,
+  ListIcon,
+  MessageIcon,
+  PricingIcon,
+  SmsIcon,
+  TemplateIcon,
+} from "@/assets/svgs/NavigationIcons";
+
 export const generalLinks = [
   {
     path: "/dashboard",
     label: "Dashboard",
+    icon: DashboardIcon,
   },
   {
     path: "/email_campaign",
     label: "Email Campaign",
+    icon: MessageIcon,
   },
   {
     path: "/sms_campaign",
     label: "SMS Campaign",
+    icon: SmsIcon,
     sub: [
       {
         path: "/send_sms",
@@ -21,10 +35,11 @@ export const generalLinks = [
       },
     ],
   },
-  { path: "/templates", label: "Templates" },
+  { path: "/templates", label: "Templates", icon: TemplateIcon },
   {
     path: "/list",
     label: "List Menu",
+    icon: ListIcon,
     sub: [
       {
         path: "/overview",
@@ -56,7 +71,11 @@ export const generalLinks = [
       },
     ],
   },
-  { path: "/sending_blacklist", label: "Sending BlackList" },
-  { path: "/pricing", label: "Pricing" },
-  { path: "/api", label: "API" },
+  {
+    path: "/sending_blacklist",
+    label: "Sending BlackList",
+    icon: BucketListIcon,
+  },
+  { path: "/pricing", label: "Pricing", icon: PricingIcon },
+  { path: "/api", label: "API", icon: ApiIcon },
 ];

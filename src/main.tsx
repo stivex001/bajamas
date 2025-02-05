@@ -8,7 +8,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ModalCloseProvider } from "./context/SheetCloseModal.tsx";
-import { Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -16,11 +16,12 @@ const queryClient = new QueryClient({
       console.log(err, "err");
 
       if (
-        err.message === "invalid signature" ||
-        err.message === "Unauthenticated." ||
-        err.message === "jwt expired"
+        err?.message === "invalid signature" ||
+        err?.message === "Unauthenticated." ||
+        err?.message === "jwt expired"
       ) {
-        alert("you are not authenticated");
+        toast.warning("Oops!! Kindly Login");
+        window.location.href = "/auth/login";
       }
     },
   }),

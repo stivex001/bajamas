@@ -7,6 +7,7 @@ import { ArrowRightIcon } from "@/assets/svgs/ArrowsIcon";
 interface Link {
   path: string;
   label: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   sub?: any[];
 }
 
@@ -40,7 +41,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ links, mobile }) => {
       }`}
     >
       <nav className="flex flex-col items-start justify-center space-y-1">
-        {links?.map(({ path, label, sub }) => {
+        {links?.map(({ path, label,icon: Icon, sub }) => {
           const isActive = isRouteActive(location.pathname, path);
           const isOpen = activeParent === path;
 
@@ -68,18 +69,19 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ links, mobile }) => {
                 <div
                   className={`${
                     isActive ? "bg-primary" : ""
-                  }  w-full rounded-[6px] h-12 mr-6 flex items-center  px-6 text-white hover:bg-primary/50`}
+                  }  w-full rounded-[6px] h-12 mr-6 flex items-center  text-white hover:bg-primary/50`}
                 >
-                  <p
-                    className={`text-sm font-semibold ml-6 font-Nunito group-hover:text-white  ${
+                  <div
+                    className={`flex items-center gap-2 text-sm font-semibold ml-6 font-Nunito group-hover:text-white  ${
                       isActive ? "text-white" : "text-darker"
                     }`}
                   >
+                    <Icon className="mr-2 size-6" />
                     {label}
-                  </p>
+                  </div>
                   {sub && (
                     <ArrowRightIcon
-                      className={`ml-auto ${
+                      className={`ml-auto mr-3 ${
                         isActive ? "text-white" : "text-darker"
                       }  size-3 transition-transform ${
                         isOpen ? "rotate-90" : ""
