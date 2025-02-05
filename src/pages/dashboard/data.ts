@@ -26,3 +26,5 @@ export const counts = [
         icon: SubCribersIcon
     },
 ]
+
+export const sortOrder = ["asc", "desc"];

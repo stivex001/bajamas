@@ -9,8 +9,7 @@ import TagTable from "@/components/list/TagTable";
 import { AddTagModal } from "@/components/list/AddTagModal";
 import FilterSelect from "@/components/shared/FilterSelect";
 import { groups } from "@/api/crud/groups";
-
-const sortOrder = ["asc", "desc"];
+import { sortOrder } from "../dashboard/data";
 
 const Tag = () => {
   const [groupModal, setGroupModal] = useState(false);

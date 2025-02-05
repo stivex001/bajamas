@@ -3,20 +3,21 @@ import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "../shared/ControlledInput";
 import CustomControlledSelect from "../shared/CustomControlledSelect";
 import { useState } from "react";
+import { groups } from "@/api/crud/groups";
 
 const fields: Field[] = [
   {
-    name: "firstname",
+    name: "fname",
     type: "text",
     isRequired: true,
   },
   {
-    name: "lastname",
+    name: "lname",
     type: "text",
     isRequired: true,
   },
   {
-    name: "address",
+    name: "country",
     type: "text",
     // isRequired: true,
   },
@@ -27,7 +28,7 @@ const fields: Field[] = [
   },
 
   {
-    name: "gender",
+    name: "state",
     type: "text",
     // errorMessage: "job title is required",
     isRequired: true,
@@ -46,15 +47,12 @@ const fields: Field[] = [
   },
 
   {
-    name: "password",
+    name: "tag",
     type: "text",
-    errorMessage: "Password is required",
+    errorMessage: "Select A Tag",
     isRequired: true,
   },
-  {
-    name: "referal",
-    type: "text",
-  },
+ 
 ];
 
 const countries = [
@@ -73,6 +71,21 @@ const countries = [
 const CopyPasteSubList = () => {
   const { control, handleSubmit } = useDynamicForm(fields, {});
   const [searchTerm, setSearchTerm] = useState("");
+
+  const { getGroupList } = groups();
+
+  const { data: list } = getGroupList();
+
+  const groupList = list?.message;
+
+  const tagList = Array.isArray(groupList)
+    ? groupList?.map((tag: any) => ({
+        value: `${tag?.id}`,
+        label: tag?.name,
+      }))
+    : [];
+
+    
 
   const country = Array.isArray(countries)
     ? countries?.map((country: any) => ({
@@ -99,7 +112,7 @@ const CopyPasteSubList = () => {
             rules={{ required: true }}
           />
           <ControlledInput
-            name="firstname"
+            name="fname"
             control={control}
             placeholder="Enter full name"
             type="text"
@@ -108,7 +121,7 @@ const CopyPasteSubList = () => {
             rules={{ required: true }}
           />
           <ControlledInput
-            name="lastname"
+            name="lname"
             control={control}
             placeholder="Enter full name"
             type="text"
@@ -126,17 +139,27 @@ const CopyPasteSubList = () => {
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
           />
+          <CustomControlledSelect
+            name="state"
+            control={control}
+            label="State"
+            placeholder="Select State"
+            options={country}
+            searchable
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+          />
           <ControlledInput
             name="phone"
             control={control}
-            placeholder="Enter full name"
+            placeholder=""
             type="text"
             label="Phone Number"
             variant="primary"
             rules={{ required: true }}
           />
           <ControlledInput
-            name="date"
+            name="dob"
             control={control}
             placeholder="dd/mm/yyyy"
             type="date"
@@ -149,7 +172,7 @@ const CopyPasteSubList = () => {
             control={control}
             label="Tag"
             placeholder="Select Your Tag"
-            options={country}
+            options={tagList}
             searchable
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}

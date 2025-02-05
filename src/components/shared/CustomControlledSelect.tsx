@@ -55,8 +55,7 @@ const CustomControlledSelect: React.FC<CustomSelectProps> = ({
     );
   }, [searchable, searchTerm, options]);
 
-  const baseStyles =
-    "w-full h-14 px-3 bg-[#F5F5F9] rounded-md";
+  const baseStyles = "w-full h-14 px-3 bg-[#F5F5F9] rounded-md";
   const styles = {
     primary: "border-bordergray bg-gray1 focus:ring-primary",
     secondary: "border-secondary bg-yellow-100",
@@ -73,7 +72,7 @@ const CustomControlledSelect: React.FC<CustomSelectProps> = ({
   return (
     <Field className="space-y-3 relative">
       <Label
-         className={`text-base font-medium capitalize text-boxgray`}
+        className={`text-base font-medium capitalize text-boxgray`}
         htmlFor={name}
       >
         {label}
@@ -88,17 +87,16 @@ const CustomControlledSelect: React.FC<CustomSelectProps> = ({
           onClick={() => setIsOpen((prev) => !prev)}
         >
           {value
-            ? typeof value === "string"
-              ? truncateText(value, 80)
-              : truncateText(
-                  (
-                    options?.find(
-                      (opt) => typeof opt !== "string" && opt?.value === value
-                    ) as Option
-                  )?.label || "",
-                  80
-                )
+            ? truncateText(
+                (
+                  options?.find(
+                    (opt) => typeof opt !== "string" && opt?.value === value
+                  ) as Option
+                )?.label || placeholder,
+                80
+              )
             : placeholder}
+
           <FaChevronDown className="text-secondary" />
         </div>
 
@@ -150,7 +148,7 @@ const CustomControlledSelect: React.FC<CustomSelectProps> = ({
                 )
               ) : (
                 <li className="py-2 px-4 text-center text-gray-500">
-                  Job not found
+                  {label} not found
                 </li>
               )}
             </ul>
