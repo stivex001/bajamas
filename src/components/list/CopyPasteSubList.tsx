@@ -4,6 +4,10 @@ import ControlledInput from "../shared/ControlledInput";
 import CustomControlledSelect from "../shared/CustomControlledSelect";
 import { useState } from "react";
 import { groups } from "@/api/crud/groups";
+import { useSubscribers } from "@/api/crud/subscribers";
+import { toast } from "sonner";
+import CustomButton from "../shared/CustomButton";
+import { useNavigate } from "react-router-dom";
 
 const fields: Field[] = [
   {
@@ -31,7 +35,7 @@ const fields: Field[] = [
     name: "state",
     type: "text",
     // errorMessage: "job title is required",
-    isRequired: true,
+    // isRequired: true,
   },
   {
     name: "email",
@@ -41,7 +45,7 @@ const fields: Field[] = [
   },
   {
     name: "dob",
-    type: "date",
+    type: "string",
     errorMessage: "Date must be selected",
     // isRequired: true,
   },
@@ -52,7 +56,6 @@ const fields: Field[] = [
     errorMessage: "Select A Tag",
     isRequired: true,
   },
- 
 ];
 
 const countries = [
@@ -69,14 +72,19 @@ const countries = [
 ];
 
 const CopyPasteSubList = () => {
+  const navigate = useNavigate()
   const { control, handleSubmit } = useDynamicForm(fields, {});
   const [searchTerm, setSearchTerm] = useState("");
 
   const { getGroupList } = groups();
+  const { createSubscriber, getSubscriberList } = useSubscribers();
 
+  const { refetch } = getSubscriberList();
   const { data: list } = getGroupList();
 
   const groupList = list?.message;
+
+  const { isPending, mutate } = createSubscriber;
 
   const tagList = Array.isArray(groupList)
     ? groupList?.map((tag: any) => ({
@@ -85,8 +93,6 @@ const CopyPasteSubList = () => {
       }))
     : [];
 
-    
-
   const country = Array.isArray(countries)
     ? countries?.map((country: any) => ({
         value: `${country?.value}`,
@@ -94,8 +100,22 @@ const CopyPasteSubList = () => {
       }))
     : [];
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    try {
+      await mutate(data, {
+        onSuccess: (response: any) => {
+          console.log(response, "res_");
+          toast.success(response?.message);
+          refetch();
+          navigate("/list/subscribers")
+        },
+        onError: (error: any) => {
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {
+      console.log("An error occurred: ", error);
+    }
   };
 
   return (
@@ -164,7 +184,7 @@ const CopyPasteSubList = () => {
             placeholder="dd/mm/yyyy"
             type="date"
             label="Date Of Birth"
-            rules={{ required: true }}
+            // rules={{ required: true }}
             dontShowTime
           />
           <CustomControlledSelect
@@ -178,9 +198,14 @@ const CopyPasteSubList = () => {
             onSearchChange={setSearchTerm}
           />
         </div>
-        <button className="bg-primary w-[180px] h-[44px] rounded-[10px] flex items-center justify-center py-1 px-6 gap-3 text-white mx-auto mt-7">
-          Submit
-        </button>
+        <CustomButton
+          size="lg"
+          isLoading={isPending}
+          label="Submit"
+          // disabled={!isValid}
+          type="submit"
+          className="bg-primary w-[180px] h-[44px] rounded-[10px] flex items-center justify-center py-1 px-6 gap-3 mx-auto mt-7"
+        />
       </form>
     </div>
   );
