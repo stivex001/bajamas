@@ -45,9 +45,9 @@ const fields: Field[] = [
   },
   {
     name: "dob",
-    type: "string",
+    type: "date",
     errorMessage: "Date must be selected",
-    // isRequired: true,
+    isRequired: true,
   },
 
   {
@@ -184,7 +184,6 @@ const CopyPasteSubList = () => {
             placeholder="dd/mm/yyyy"
             type="date"
             label="Date Of Birth"
-            // rules={{ required: true }}
             dontShowTime
           />
           <CustomControlledSelect

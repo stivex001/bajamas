@@ -52,12 +52,18 @@ const createSchema = (fields: Field[]) => {
         break;
       case "date":
         schemaField = z
-          .string({ message: `${field?.name} is required` })
-          .regex(
-            /^\d{4}-\d{2}-\d{2}$/,
+          .union([z.string(), z.date(), z.null()]) // Allow null values
+          .optional() // Optional if not required
+          .refine(
+            (val) =>
+              val === null || // Allow null
+              (typeof val === "string"
+                ? /^\d{4}-\d{2}-\d{2}$/.test(val) // Validate string format
+                : val instanceof Date), // Validate Date object
             field.errorMessage || "Invalid date format (YYYY-MM-DD)"
           );
         break;
+
       case "time":
         schemaField = z
           .string({ message: `${field?.name} is required` })
