@@ -2,12 +2,13 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import ControlledInput from "../shared/ControlledInput";
 import CustomControlledSelect from "../shared/CustomControlledSelect";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { groups } from "@/api/crud/groups";
-import { useSubscribers } from "@/api/crud/subscribers";
+import { SubscriberData, useSubscribers } from "@/api/crud/subscribers";
 import { toast } from "sonner";
 import CustomButton from "../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
+import { Country, State } from "country-state-city";
 
 const fields: Field[] = [
   {
@@ -58,23 +59,55 @@ const fields: Field[] = [
   },
 ];
 
-const countries = [
-  {
-    id: 1,
-    name: "United States",
-    value: "USA",
-  },
-  {
-    id: 2,
-    name: "Nigeria",
-    value: "NG",
-  },
-];
+// const countries = [
+//   {
+//     id: 1,
+//     name: "United States",
+//     value: "USA",
+//   },
+//   {
+//     id: 2,
+//     name: "Nigeria",
+//     value: "NG",
+//   },
+// ];
 
 const CopyPasteSubList = () => {
-  const navigate = useNavigate()
-  const { control, handleSubmit } = useDynamicForm(fields, {});
+  const navigate = useNavigate();
+  const { control, handleSubmit, watch } = useDynamicForm<SubscriberData>(
+    fields,
+    {}
+  );
   const [searchTerm, setSearchTerm] = useState("");
+  const [countries, setCountries] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [states, setStates] = useState<{ value: string; label: string }[]>([]);
+
+  const selectedCountry = watch("country");
+
+  useEffect(() => {
+    const countryList = Country?.getAllCountries()?.map((country) => ({
+      value: country?.isoCode,
+      label: country?.name,
+    }));
+    setCountries(countryList);
+  }, []);
+
+  // Fetch states when country changes
+  useEffect(() => {
+    if (selectedCountry) {
+      const stateList = State?.getStatesOfCountry(selectedCountry)?.map(
+        (state) => ({
+          value: state.isoCode,
+          label: state.name,
+        })
+      );
+      setStates(stateList);
+    } else {
+      setStates([]); // Reset state when no country is selected
+    }
+  }, [selectedCountry]);
 
   const { getGroupList } = groups();
   const { createSubscriber, getSubscriberList } = useSubscribers();
@@ -96,7 +129,14 @@ const CopyPasteSubList = () => {
   const country = Array.isArray(countries)
     ? countries?.map((country: any) => ({
         value: `${country?.value}`,
-        label: country?.name,
+        label: country?.label,
+      }))
+    : [];
+
+  const stateOptions = Array.isArray(states)
+    ? states?.map((state: any) => ({
+        value: `${state?.isoCode}`,
+        label: state?.label,
       }))
     : [];
 
@@ -107,7 +147,7 @@ const CopyPasteSubList = () => {
           console.log(response, "res_");
           toast.success(response?.message);
           refetch();
-          navigate("/list/subscribers")
+          navigate("/list/subscribers");
         },
         onError: (error: any) => {
           toast.error(error?.message);
@@ -164,7 +204,7 @@ const CopyPasteSubList = () => {
             control={control}
             label="State"
             placeholder="Select State"
-            options={country}
+            options={stateOptions}
             searchable
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}

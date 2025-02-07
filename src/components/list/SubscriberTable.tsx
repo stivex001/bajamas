@@ -33,7 +33,7 @@ const renderRow = (item: any, index: number) => {
       <td className="py-1 px-4">{item?.tag_id}</td>
 
       <td className="py-1 px-4 ">
-        <ActionModal desc={"Group"} />
+        <ActionModal desc={"Subscriber"} />
       </td>
     </tr>
   );
