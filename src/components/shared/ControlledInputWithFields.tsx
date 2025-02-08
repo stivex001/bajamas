@@ -5,6 +5,8 @@ import { cn } from "../../lib/utils";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { EmojiIcons } from "@/assets/svgs/MenuIcon";
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
 import {
   Select,
   SelectContent,
@@ -51,7 +53,7 @@ const ControlledInputWithFields: React.FC<ControlledInputProps> = ({
 
   const baseStyles = "w-full h-14";
   const styles = {
-    primary: "border-bordergray bg-gray1 focus:ring-primary",
+    primary: "border-bordergray bg-gray1 focus:ring-primary w-full",
     secondary:
       "border border-yellow-300 focus:border-yellow-500 focus:ring-yellow-500",
     tertiary:
@@ -74,6 +76,7 @@ const ControlledInputWithFields: React.FC<ControlledInputProps> = ({
   };
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const options = Object.keys(variableMap);
 
@@ -84,6 +87,15 @@ const ControlledInputWithFields: React.FC<ControlledInputProps> = ({
   const handleSelectChange = (selectedLabel: string) => {
     const variableFormat = `\${${variableMap[selectedLabel]}}`;
     onChange(value ? `${value} ${variableFormat}` : variableFormat);
+  };
+
+  const handleEmojiSelect = (emoji: any) => {
+    onChange(value ? `${value} ${emoji.native}` : emoji.native);
+    setShowEmojiPicker(false);
+  };
+
+  const handleBackdropClick = () => {
+    setShowEmojiPicker(false);
   };
 
   return (
@@ -107,12 +119,22 @@ const ControlledInputWithFields: React.FC<ControlledInputProps> = ({
           className={inputClassName}
           {...props}
         />
-        <div className="absolute right-2 cursor-pointer flex items-center gap-1">
-          <div className="cursor-pointer">
-            <EmojiIcons />
+        <div className="absolute right-0 lg:right-2 cursor-pointer flex items-center lg:gap-1">
+          <div className="relative">
+            <div
+              onClick={() => setShowEmojiPicker((prev) => !prev)}
+              className="cursor-pointer"
+            >
+              <EmojiIcons />
+            </div>
+            {showEmojiPicker && (
+              <div className="absolute right-0 -top-10 z-[99]">
+                <Picker data={data} onEmojiSelect={handleEmojiSelect} />
+              </div>
+            )}
           </div>
           <Select onValueChange={handleSelectChange}>
-            <SelectTrigger className="w-[180px] h-7 border-none bg-transparent placeholder:text-[#555555]">
+            <SelectTrigger className=" lg:w-[180px] h-7 border-none bg-transparent placeholder:text-[#555555]">
               <SelectValue placeholder="Custom fields" />
             </SelectTrigger>
             <SelectContent>
@@ -140,6 +162,12 @@ const ControlledInputWithFields: React.FC<ControlledInputProps> = ({
           </Select>
         </div>
       </div>
+      {showEmojiPicker && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-30 z-50"
+          onClick={handleBackdropClick}
+        ></div>
+      )}
       {error && (
         <p className="mt-1 text-xs text-red-500 capitalize">{error.message}</p>
       )}
