@@ -51,7 +51,7 @@ export const generalLinks = [
       },
       {
         path: "/unsubscribes",
-        label: "Unsubscribes",
+        label: "Unsubscribe",
       },
       {
         path: "/spam_report",

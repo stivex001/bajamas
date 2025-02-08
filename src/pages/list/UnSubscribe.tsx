@@ -1,52 +1,33 @@
-import { AuthUser } from "@/api/hooks/types";
+import { useSubscribers } from "@/api/crud/subscribers";
 import UnSubscriberTable from "@/components/list/UnSubscriberTable";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
-import { CustomSelect } from "@/components/shared/ControlledSelect";
 import CustomButton from "@/components/shared/CustomButton";
+import FilterSelect from "@/components/shared/FilterSelect";
 import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
-import useDynamicForm from "@/hooks/useDynamicForm";
-import { Field } from "@/schemas/dynamicSchema";
 import { useEffect, useState } from "react";
-
-const showList = [
-  { value: "20", label: "10" },
-  { value: "10", label: "20" },
-  { value: "4", label: "4" },
-];
-
-const fields: Field[] = [
-  {
-    name: "email",
-    type: "email",
-    errorMessage: "Email is required",
-    isRequired: true,
-  },
-];
-
-const tempplateTable: any[] = [];
+import { sortOrder } from "../dashboard/data";
 
 const UnSubscribe = () => {
-  const { control } = useDynamicForm<AuthUser>(fields, {});
-  const isPending = false;
+  const { getUnsubcriberList } = useSubscribers();
 
-  const totalEntries = tempplateTable?.length;
+  const { data: list, isPending } = getUnsubcriberList();
+
+  const groupList = list?.message;
+
+  const totalEntries = groupList?.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState<number>(10);
   // const [openModal, setOpenModal] = useState(true);
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = tempplateTable?.slice(
-    indexOfFirstEntry,
-    indexOfLastEntry
-  );
+  const currentEntries = groupList?.slice(indexOfFirstEntry, indexOfLastEntry);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [entriesPerPage]);
-
 
   return (
     <main className="flex flex-col gap-7">
@@ -55,17 +36,14 @@ const UnSubscribe = () => {
         <div className="flex items-center justify-between mb-9">
           <aside className="flex items-center gap-2 ">
             <h3 className="text-xs font-medium text-black">Sort By:</h3>
-            <CustomSelect
-              name="bank"
-              options={showList}
-              control={control}
-              rules={{ required: true }}
-              placeholder="10"
-              className="bg-transparent "
+            <FilterSelect<string>
+              options={sortOrder}
+              // label="Sort By"
+              // onChange={(selected) => updateFilter("sortOrder", selected)}
+              value={sortOrder[0]}
             />
           </aside>
           <div className="flex items-center gap-2.5">
-            
             <CustomButton
               label="Download"
               variant="primary"
@@ -82,7 +60,7 @@ const UnSubscribe = () => {
           ) : (
             <UnSubscriberTable listData={currentEntries} />
           )}
-          {tempplateTable?.length > 0 && (
+          {(groupList?.length ?? 0) > entriesPerPage && (
             <Pagination
               currentPage={currentPage}
               totalEntries={totalEntries}

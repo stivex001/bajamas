@@ -10,17 +10,14 @@ import { useNavigate } from "react-router-dom";
 import { sortOrder } from "../dashboard/data";
 import { useSubscribers } from "@/api/crud/subscribers";
 
-
 const Subscribers = () => {
   const navigate = useNavigate();
 
-  
-    const { getSubscriberList } = useSubscribers();
-  
-    const { data: list, isPending } = getSubscriberList();
-  
-    const groupList = list?.message;
+  const { getSubscriberList } = useSubscribers();
 
+  const { data: list, isPending } = getSubscriberList();
+
+  const groupList = list?.message;
 
   const totalEntries = groupList?.length;
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,10 +26,7 @@ const Subscribers = () => {
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = groupList?.slice(
-    indexOfFirstEntry,
-    indexOfLastEntry
-  );
+  const currentEntries = groupList?.slice(indexOfFirstEntry, indexOfLastEntry);
 
   useEffect(() => {
     setCurrentPage(1);
