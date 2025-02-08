@@ -1,36 +1,18 @@
-import { AuthUser } from "@/api/hooks/types";
 import CampaignTypeModal from "@/components/emailCampaign/CampaignTypeModal";
 import EmailCampaignTable from "@/components/emailCampaign/EmailCampaignTable";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
-import { CustomSelect } from "@/components/shared/ControlledSelect";
 import CustomButton from "@/components/shared/CustomButton";
+import FilterSelect from "@/components/shared/FilterSelect";
 import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import useDynamicForm from "@/hooks/useDynamicForm";
-import { Field } from "@/schemas/dynamicSchema";
 import { useEffect, useState } from "react";
-
-const showList = [
-  { value: "20", label: "10" },
-  { value: "10", label: "20" },
-  { value: "4", label: "4" },
-];
-
-const fields: Field[] = [
-  {
-    name: "email",
-    type: "email",
-    errorMessage: "Email is required",
-    isRequired: true,
-  },
-];
+import { sortOrder } from "./data";
 
 const emailTable: any[] = [];
 
 const EmailCampaign = () => {
-  const { control } = useDynamicForm<AuthUser>(fields, {});
   const isPending = false;
 
   const totalEntries = emailTable?.length;
@@ -53,13 +35,11 @@ const EmailCampaign = () => {
         <div className="flex items-center justify-between mb-9">
           <aside className="flex items-center gap-2 ">
             <h3 className="text-xs font-medium text-black">Sort By:</h3>
-            <CustomSelect
-              name="bank"
-              options={showList}
-              control={control}
-              rules={{ required: true }}
-              placeholder="10"
-              className="bg-transparent "
+            <FilterSelect<string>
+              options={sortOrder}
+              // label="Sort By"
+              // onChange={(selected) => updateFilter("sortOrder", selected)}
+              value={sortOrder[0]}
             />
           </aside>
           <Dialog>

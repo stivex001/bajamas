@@ -1,60 +1,31 @@
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
+import ControlledInputWithFields from "@/components/shared/ControlledInputWithFields";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 
 const fields: Field[] = [
   {
-    name: "firstname",
+    name: "title",
     type: "text",
     isRequired: true,
   },
   {
-    name: "lastname",
-    type: "text",
-    isRequired: true,
-  },
-  {
-    name: "address",
-    type: "text",
-    // isRequired: true,
-  },
-  {
-    name: "phone",
-    type: "text",
-    isRequired: true,
-  },
-
-  {
-    name: "gender",
-    type: "text",
-    // errorMessage: "job title is required",
-    isRequired: true,
-  },
-  {
-    name: "email",
+    name: "from_email",
     type: "email",
-    errorMessage: "Email is required",
     isRequired: true,
   },
   {
-    name: "dob",
-    type: "date",
-    errorMessage: "Date must be selected",
+    name: "from_name",
+    type: "text",
     // isRequired: true,
   },
-
   {
-    name: "password",
+    name: "content",
     type: "text",
-    errorMessage: "Password is required",
     isRequired: true,
-  },
-  {
-    name: "referal",
-    type: "text",
   },
 ];
 
@@ -63,7 +34,7 @@ const RegularCampaign = () => {
 
   const onSubmit = (data: any) => {
     console.log(data);
-};
+  };
 
   return (
     <main className="flex flex-col gap-7">
@@ -78,8 +49,8 @@ const RegularCampaign = () => {
               </h2>
             </div>
             <div className="space-y-5">
-              <ControlledInput
-                name="email"
+              <ControlledInputWithFields
+                name="title"
                 control={control}
                 placeholder=""
                 type="text"
@@ -87,8 +58,8 @@ const RegularCampaign = () => {
                 variant="primary"
                 rules={{ required: true }}
               />
-              <ControlledInput
-                name="email"
+              <ControlledInputWithFields
+                name="content"
                 control={control}
                 placeholder=""
                 type="text"
@@ -98,16 +69,16 @@ const RegularCampaign = () => {
               />
               <div className="grid lg:grid-cols-2 gap-x-1 gap-y-7">
                 <ControlledInput
-                  name="email"
+                  name="from_name"
                   control={control}
-                  placeholder="Enter Email"
+                  placeholder="Enter Your Name"
                   type="text"
                   label="From name"
                   variant="primary"
                   rules={{ required: true }}
                 />
                 <ControlledInput
-                  name="email"
+                  name="from_email"
                   control={control}
                   placeholder=""
                   type="email"
