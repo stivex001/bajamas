@@ -47,7 +47,7 @@ const UnSubscribe = () => {
             <CustomButton
               label="Download"
               variant="primary"
-              className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
+              className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium bg-tertiary"
               size="lg"
               type="button"
               // onClick={() => navigate("/list/subscribers/new-subscriber")}
