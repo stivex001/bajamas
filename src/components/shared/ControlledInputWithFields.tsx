@@ -134,7 +134,7 @@ const ControlledInputWithFields: React.FC<ControlledInputProps> = ({
             )}
           </div>
           <Select onValueChange={handleSelectChange}>
-            <SelectTrigger className=" lg:w-[180px] h-7 border-none bg-transparent placeholder:text-[#555555]">
+            <SelectTrigger className=" lg:w-[130px] h-7 border-none bg-transparent placeholder:text-[#555555]">
               <SelectValue placeholder="Custom fields" />
             </SelectTrigger>
             <SelectContent>

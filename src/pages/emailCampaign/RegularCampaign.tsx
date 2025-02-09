@@ -5,6 +5,8 @@ import ControlledInputWithFields from "@/components/shared/ControlledInputWithFi
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
+import { useCampaignStore } from "@/store/useCampaignStore";
+import { useNavigate } from "react-router-dom";
 
 const fields: Field[] = [
   {
@@ -30,10 +32,13 @@ const fields: Field[] = [
 ];
 
 const RegularCampaign = () => {
+  const navigate = useNavigate()
   const { control, handleSubmit } = useDynamicForm(fields, {});
+  const { setCampaignData } = useCampaignStore();
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    setCampaignData(data);
+    navigate(`/email_campaign/add_tag`)
   };
 
   return (
