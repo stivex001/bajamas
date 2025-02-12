@@ -33,7 +33,6 @@ const campaignTypes: CampaignType[] = [
     link: "/email_campaign/custom-html-campaign",
   },
 ];
-
 const CampaignTypeModal = () => {
   const navigate = useNavigate();
 
