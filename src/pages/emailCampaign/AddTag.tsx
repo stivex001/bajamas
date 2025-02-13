@@ -1,3 +1,4 @@
+import { FilterIcon, SearchIcon } from "@/assets/svgs/SearchIcon";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
@@ -20,11 +21,25 @@ const AddTag = () => {
               type="submit"
             />
           </div>
-          <h1>Review Your Campaign Data</h1>
-          <p>Title: {campaignData.title}</p>
-          <p>From Name: {campaignData.from_name}</p>
-          <p>From Email: {campaignData.from_email}</p>
-          <p>Content: {campaignData.content}</p>
+          <div className="bg-[#00000000]">
+            <h1 className="font-semibold text-base text-[#464547] mb-2.5">Send to these groups/segments</h1>
+            <div className="flex items-center gap-2.5 mb-5">
+              <div className="border-2 border-[#D5D5D5] rounded-[3px] px-2 py-3 flex items-center gap-3">
+                <SearchIcon />
+                <input
+                  className="text-xs w-full outline-none fo"
+                  type="text"
+                  placeholder="Find by name"
+                />
+              </div>
+              <FilterIcon />
+            </div>
+            <h1>Review Your Campaign Data</h1>
+            <p>Title: {campaignData.title}</p>
+            <p>From Name: {campaignData.from_name}</p>
+            <p>From Email: {campaignData.from_email}</p>
+            <p>Content: {campaignData.content}</p>
+          </div>
         </form>
       </CardLayout>
     </main>
