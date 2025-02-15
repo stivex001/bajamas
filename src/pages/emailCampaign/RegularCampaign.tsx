@@ -22,7 +22,7 @@ const fields: Field[] = [
   {
     name: "from_name",
     type: "text",
-    // isRequired: true,
+    isRequired: true,
   },
   {
     name: "content",
