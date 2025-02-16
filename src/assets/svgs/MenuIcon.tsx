@@ -360,3 +360,25 @@ export const EmojiIcons = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 )
+
+export const EditIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={15}
+    height={15}
+    fill="none"
+    {...props}
+  >
+    <g clipPath="url(#a)">
+      <path
+        fill="#555"
+        d="m7.971 3.456 3.495 3.497-7.591 7.597-3.118.35a.637.637 0 0 1-.53-.196.639.639 0 0 1-.197-.532l.35-3.12 7.591-7.596Zm5.662-.518-1.65-1.65a1.244 1.244 0 0 0-.587-.336 1.362 1.362 0 0 0-.67 0c-.225.056-.42.168-.588.335L8.586 2.84l3.495 3.498 1.552-1.553c.168-.168.28-.364.336-.588a1.365 1.365 0 0 0 0-.671 1.245 1.245 0 0 0-.336-.588Z"
+      />
+    </g>
+    <defs>
+      <clipPath id="a">
+        <path fill="#fff" d="M.02 14.9h14V.91h-14z" />
+      </clipPath>
+    </defs>
+  </svg>
+)

@@ -33,7 +33,7 @@ module.exports = {
         // gradient: "linear-gradient(to bottom,var(--white),var(--primary-50))",
         authbg: "url('/authbg.png')",
         heroImg: "url('/5g_background.jpg')",
-        pricebg: "url('/Bg.png')"
+        pricebg: "url('/Bg.png')",
       },
       colors: {
         gray1: "#F7FAFC",
@@ -78,9 +78,7 @@ module.exports = {
         8: "1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)",
         boxShadow: "0px 0px 47.8px 0px #00000040",
         priceshadow: "0px 0px 10.7px 0px #00000040;",
-        lightshadow: "0px 0px 4px 0px #0000001A"
-
-
+        lightshadow: "0px 0px 4px 0px #0000001A",
       },
       dropShadow: {
         1: "0px 1px 0px #E2E8F0",
