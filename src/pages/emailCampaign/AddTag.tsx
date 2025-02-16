@@ -7,9 +7,14 @@ import filterIcon from "@/assets/svgs/filter.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { groups } from "@/api/crud/groups";
 import { ScreenLoader } from "@/components/shared/ScreenLoader";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const AddTag = () => {
-  const { campaignData } = useCampaignStore();
+  const navigate = useNavigate();
+  const { control, handleSubmit } = useForm();
+  const { setCampaignData } = useCampaignStore();
 
   const { getGroupList } = groups();
 
@@ -17,8 +22,18 @@ const AddTag = () => {
 
   const groupList = list?.message;
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredGroups = groupList?.filter((group) =>
+    group?.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   console.log(groupList, "list___");
-  
+
+  const onSubmit = (data: any) => {
+    setCampaignData(data);
+    navigate(`/email_campaign/confirm_details`);
+  };
 
   if (isPending) {
     return <ScreenLoader />;
@@ -28,7 +43,7 @@ const AddTag = () => {
     <main className="flex flex-col gap-7">
       <PageTitle title="Add Tag" />
       <CardLayout>
-        <form className="flex flex-col gap-9">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-9">
           <div className="self-end">
             <CustomButton
               label="Save and Continue"
@@ -50,6 +65,8 @@ const AddTag = () => {
                     className="text-xs w-full outline-none bg-transparent"
                     type="text"
                     placeholder="Find by name"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <div className="w-12 h-10 bg-[#eeeeee] flex items-center justify-center cursor-pointer rounded-md ">
@@ -57,7 +74,7 @@ const AddTag = () => {
                 </div>
               </div>
               <div>
-                <div className="flex items-center space-x-2">
+                <div className="h-16 flex items-center space-x-2">
                   <Checkbox />
                   <label
                     htmlFor="terms"
@@ -67,11 +84,30 @@ const AddTag = () => {
                   </label>
                 </div>
               </div>
-              <h1>Review Your Campaign Data</h1>
-              <p>Title: {campaignData.title}</p>
-              <p>From Name: {campaignData.from_name}</p>
-              <p>From Email: {campaignData.from_email}</p>
-              <p>Content: {campaignData.content}</p>
+              <div>
+                {filteredGroups?.length ?? 0 > 0 ? (
+                  <div className="flex flex-col gap-4">
+                    {filteredGroups?.map((group, index) => (
+                      <div
+                        key={group?.id}
+                        className={`h-16 flex items-center gap-2.5 ${
+                          index !== filteredGroups.length - 1 ? "border-b" : ""
+                        }`}
+                      >
+                        <Checkbox
+                          {...control.register(`tag_id.${group?.id}`)}
+                        />
+                        
+                        <p className="text-sm font-semibold text-[#7E7C7B]">
+                          {group?.name}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center text-gray-500">No data found</p>
+                )}
+              </div>
             </div>
             <div className="flex-1 py-7 px-6 rounded-lg"></div>
           </div>

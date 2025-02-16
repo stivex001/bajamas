@@ -8,6 +8,7 @@ export interface GroupData {
   server: string;
   status: number;
   user_id: ID;
+  id: ID;
   networkID: ID;
   created_at: Date;
   updated_at: Date;

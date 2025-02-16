@@ -1,7 +1,16 @@
-export const ScreenLoader = () => {
+import { Spinner } from "./Spinner";
+
+type prop = {
+  className?: string;
+};
+
+export const ScreenLoader = ({ className }: prop) => {
   return (
-    <div className="text-[#164e63] w-full min-h-screen flex items-center justify-center">
-      <span className="loader"></span>
+    <div
+      className={` min-h-[40vh] flex items-center justify-center ${className}`}
+    >
+      {/* <span className="loader"></span> */}
+      <Spinner />
     </div>
   );
 };
