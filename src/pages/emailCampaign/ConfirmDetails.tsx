@@ -3,9 +3,15 @@ import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
 import { Preview } from "../../components/emailCampaign/Preview";
 import { Design } from "../../components/emailCampaign/Design";
+import { SuccesModal } from "@/components/modal/SuccesModal";
+import { useState } from "react";
 
 const ConfirmDetails = () => {
-  
+  const [successModalOpen, setSuccessModalOpen] = useState<boolean>(false);
+
+  const handleSend = () => {
+    setSuccessModalOpen(true);
+  };
 
   return (
     <main className="flex flex-col gap-7">
@@ -25,7 +31,8 @@ const ConfirmDetails = () => {
               variant="primary"
               className="w-fit h-12 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
-              type="submit"
+              type="button"
+              onClick={handleSend}
             />
           </div>
 
@@ -35,6 +42,14 @@ const ConfirmDetails = () => {
           </div>
         </form>
       </CardLayout>
+      {successModalOpen && (
+        <SuccesModal
+          open={successModalOpen}
+          toggle={setSuccessModalOpen}
+          url="/email_campaign"
+          content="Your Email has been sent Successfully"
+        />
+      )}
     </main>
   );
 };
