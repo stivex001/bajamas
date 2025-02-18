@@ -1,8 +1,8 @@
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
-import { Preview } from "./Preview";
-import { Design } from "./Design";
+import { Preview } from "../../components/emailCampaign/Preview";
+import { Design } from "../../components/emailCampaign/Design";
 
 const ConfirmDetails = () => {
   
