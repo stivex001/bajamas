@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import authDetails from "@/assets/images/authdetails.png";
+import authDetails from "@/assets/images/newImg.png";
 import { motion } from "framer-motion";
 import { SkipIcon } from "@/assets/svgs/SkipIcon";
 import logo from "../../../public/logo.png";
