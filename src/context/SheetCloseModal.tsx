@@ -24,7 +24,7 @@ export const ModalCloseProvider: React.FC<{ children: ReactNode }> = ({
 export const useModalClose = () => {
   const context = useContext(SheetModalCloseContext);
   if (!context) {
-    throw new Error("useModalClose must be used within a ModalCloseProvider");
+    throw new Error("useModalClose mustssss be used within a ModalCloseProvider");
   }
   return context;
 };

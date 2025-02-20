@@ -1,3 +1,4 @@
+import { TemplateModal } from "@/components/emailCampaign/TemplateModal";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
@@ -6,7 +7,7 @@ import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import { useCampaignStore } from "@/store/useCampaignStore";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const fields: Field[] = [
   {
@@ -32,13 +33,14 @@ const fields: Field[] = [
 ];
 
 const RegularCampaign = () => {
-  const navigate = useNavigate()
+  const [templateModalOpen, setTemplateModalOpen] = useState(false);
   const { control, handleSubmit } = useDynamicForm(fields, {});
   const { setCampaignData } = useCampaignStore();
 
   const onSubmit = (data: any) => {
     setCampaignData(data);
-    navigate(`/email_campaign/add_tag`)
+    setTemplateModalOpen(true);
+    // navigate(`/email_campaign/add_tag`)
   };
 
   return (
@@ -106,6 +108,12 @@ const RegularCampaign = () => {
           </div>
         </form>
       </CardLayout>
+      {templateModalOpen && (
+        <TemplateModal
+          open={templateModalOpen}
+          onClose={() => setTemplateModalOpen(false)}
+        />
+      )}
     </main>
   );
 };
