@@ -1,6 +1,9 @@
 import { X } from "lucide-react";
 import { SearchIcon } from "@/assets/svgs/SearchIcon";
 import { useState } from "react";
+import { useTemplates } from "@/api/crud/template";
+import { ScreenLoader } from "../shared/ScreenLoader";
+import { TemplatesCard } from "./TemplatesCard";
 
 type AddTagModalProps = {
   onClose: any;
@@ -14,10 +17,6 @@ const templateList = [
   },
   {
     id: 2,
-    name: "Default templates",
-  },
-  {
-    id: 3,
     name: "My templates",
   },
 ];
@@ -25,6 +24,32 @@ const templateList = [
 export const TemplateModal = ({ open, onClose }: AddTagModalProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTemplate, setActiveTemplate] = useState<number | null>(1);
+
+  const { getGeneralTemplatesList, getUserTemplatesList } = useTemplates();
+
+  const { data: generalList, isFetching } = getGeneralTemplatesList();
+  const { data: userList, isFetching: userFecthing } = getUserTemplatesList();
+
+  const renderedGeneralList = generalList?.message;
+  const renderedUserList = userList?.message;
+
+  const filteredGeneralTemplates = renderedGeneralList?.filter((template) =>
+    template?.template_name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredUserTemplates = renderedUserList?.filter((template) =>
+    template?.template_name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  console.log(filteredGeneralTemplates, "general");
+  console.log(filteredUserTemplates, "user");
+
+  const displayedTemplates =
+    activeTemplate === 1
+      ? filteredGeneralTemplates
+      : filteredUserTemplates || [];
+
+  if (isFetching || userFecthing) return <ScreenLoader />;
 
   return (
     <div>
@@ -45,7 +70,7 @@ export const TemplateModal = ({ open, onClose }: AddTagModalProps) => {
                   activeTemplate === temp.id
                     ? "bg-primary text-white"
                     : "bg-[#E6F2E6]  text-primary"
-                } text-sm rounded-[16px] px-2.5 py-1.5`}
+                } text-sm rounded-[16px] px-2.5 py-1.5 capitalize`}
               >
                 {temp.name}
               </button>
@@ -63,32 +88,15 @@ export const TemplateModal = ({ open, onClose }: AddTagModalProps) => {
           </div>
         </div>
         <div className=" p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            <button className="bg-white shadow-lightshadow p-2 h-[300px] border flex flex-col">
-              <div className="flex-grow border"></div>
-              <h1 className="text-sm font-semibold text-center py-3">4th of July sale light</h1>
-            </button>
-            <button className="bg-white shadow-lightshadow p-2 h-[300px] border flex flex-col">
-              <div className="flex-grow border"></div>
-              <h1 className="text-sm font-semibold text-center py-3">4th of July sale light</h1>
-            </button>
-            <button className="bg-white shadow-lightshadow p-2 h-[300px] border flex flex-col">
-              <div className="flex-grow border"></div>
-              <h1 className="text-sm font-semibold text-center py-3">4th of July sale light</h1>
-            </button>
-            <button className="bg-white shadow-lightshadow p-2 h-[300px] border flex flex-col">
-              <div className="flex-grow border"></div>
-              <h1 className="text-sm font-semibold text-center py-3">4th of July sale light</h1>
-            </button>
-            <button className="bg-white shadow-lightshadow p-2 h-[300px] border flex flex-col">
-              <div className="flex-grow border"></div>
-              <h1 className="text-sm font-semibold text-center py-3">4th of July sale light</h1>
-            </button>
-            <button className="bg-white shadow-lightshadow p-2 h-[300px] border flex flex-col">
-              <div className="flex-grow border"></div>
-              <h1 className="text-sm font-semibold text-center py-3">4th of July sale light</h1>
-            </button>
-          </div>
+          {displayedTemplates && displayedTemplates?.length > 0 ? (
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              {displayedTemplates?.map((template) => (
+                <TemplatesCard key={template.id} template={template} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-500">No templates found.</p>
+          )}
         </div>
       </div>
       {open && (
