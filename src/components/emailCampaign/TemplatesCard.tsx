@@ -11,8 +11,7 @@ export const TemplatesCard = ({ template }: Props) => {
   const { setCampaignData } = useCampaignStore();
 
   const handleTemplateHandler = () => {
-    setCampaignData({ template_id: template.id }); // Add template_id to campaignData
-    // navigate(`/email_campaign/add_tag`);
+    setCampaignData({ template_id: template.id }); 
     navigate(`/email_campaign/edit_template`);
   };
 

@@ -7,6 +7,8 @@ type CampaignData = {
   from_name?: string;
   content?: string;
   template_id?: ID;
+  design_content?: string;
+  design_html?: string;
 };
 
 type CampaignStore = {
