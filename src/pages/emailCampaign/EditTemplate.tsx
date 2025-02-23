@@ -25,7 +25,7 @@ const EditTemplate = () => {
 
   const loadSelectedTemplate = () => {
     const templateId = campaignData?.template_id;
-    if (!templateId || !emailEditorRef.current) return;
+    if (!templateId || !emailEditorRef.current?.editor) return;
 
     // Find the matching template
     const selectedTemplate =
@@ -33,7 +33,7 @@ const EditTemplate = () => {
       renderedUserList?.find((t) => t.id === templateId);
 
     if (selectedTemplate?.design_content) {
-      emailEditorRef.current.loadDesign(
+      emailEditorRef.current?.editor?.loadDesign(
         JSON.parse(selectedTemplate.design_content)
       );
     }
@@ -45,12 +45,12 @@ const EditTemplate = () => {
 
   const onReady = () => {
     setShowSaveButton(true);
-    // loadSelectedTemplate();
+    loadSelectedTemplate();
   };
 
   const exportHtml = () => {
-    if (emailEditorRef?.current) {
-      emailEditorRef?.current?.exportHtml((data: any) => {
+    if (emailEditorRef?.current?.editor) {
+      emailEditorRef?.current?.editor?.exportHtml((data: any) => {
         const { design, html } = data;
         setCampaignData({
           design_content: JSON.stringify(design),

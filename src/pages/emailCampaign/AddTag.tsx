@@ -14,7 +14,9 @@ import { useForm } from "react-hook-form";
 const AddTag = () => {
   const navigate = useNavigate();
   const { control, handleSubmit } = useForm();
-  const { setCampaignData } = useCampaignStore();
+  const { setCampaignData, campaignData } = useCampaignStore();
+
+  console.log(campaignData, "camp");
 
   const { getGroupList } = groups();
 
