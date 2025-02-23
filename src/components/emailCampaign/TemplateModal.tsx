@@ -24,7 +24,6 @@ const templateList = [
 export const TemplateModal = ({ open, onClose }: AddTagModalProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTemplate, setActiveTemplate] = useState<number | null>(1);
-
   const { getGeneralTemplatesList, getUserTemplatesList } = useTemplates();
 
   const { data: generalList, isFetching } = getGeneralTemplatesList();
@@ -40,14 +39,12 @@ export const TemplateModal = ({ open, onClose }: AddTagModalProps) => {
   const filteredUserTemplates = renderedUserList?.filter((template) =>
     template?.template_name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  console.log(filteredGeneralTemplates, "general");
-  console.log(filteredUserTemplates, "user");
-
   const displayedTemplates =
     activeTemplate === 1
       ? filteredGeneralTemplates
       : filteredUserTemplates || [];
+
+      
 
   if (isFetching || userFecthing) return <ScreenLoader />;
 

@@ -1,3 +1,4 @@
+import { ID } from "@/api/hooks/types";
 import { create } from "zustand";
 
 type CampaignData = {
@@ -5,6 +6,7 @@ type CampaignData = {
   from_email?: string;
   from_name?: string;
   content?: string;
+  template_id?: ID;
 };
 
 type CampaignStore = {

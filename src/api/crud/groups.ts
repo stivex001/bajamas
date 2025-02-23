@@ -27,7 +27,7 @@ export const groups = () => {
 
   const getGroupList = () =>
     useApiQuery<Group>(["group-list"], {
-      url: `/viewtags`,
+      url: `/view-groups`,
       method: "GET",
     });
 

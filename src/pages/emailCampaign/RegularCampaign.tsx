@@ -40,7 +40,6 @@ const RegularCampaign = () => {
   const onSubmit = (data: any) => {
     setCampaignData(data);
     setTemplateModalOpen(true);
-    // navigate(`/email_campaign/add_tag`)
   };
 
   return (
