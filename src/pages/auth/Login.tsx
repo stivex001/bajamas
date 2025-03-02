@@ -110,7 +110,7 @@ const Login = () => {
               </label>
             </div>
             <Link
-              to="/auth/reset_password"
+              to="/auth/forgot_password"
               className="text-base font-medium underline text-primary"
             >
               Forgot Password?

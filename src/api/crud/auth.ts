@@ -55,6 +55,11 @@ export const auth = () => {
     method: "POST",
   });
 
+  const updatePassword = useApiMutation<AuthResponse, FormData>({
+    url: "/updatepassword",
+    method: "POST",
+  });
+
   const updateProfile = useApiMutation<AuthResponse, FormData>({
     url: "/profile-update",
     method: "POST",
@@ -71,6 +76,7 @@ export const auth = () => {
     registerUser,
     forgotPassword,
     resetPassword,
+    updatePassword,
     changePassword,
     getCurrentUser,
     updateProfile,

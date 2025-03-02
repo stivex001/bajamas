@@ -12,6 +12,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import NotFound from "./pages/NotFound";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const Api = lazy(() => import("./pages/apiPage/Api"));
@@ -227,6 +228,10 @@ const router = createBrowserRouter([
     element: <Register />,
   },
 
+  {
+    path: "/auth/forgot_password",
+    element: <ForgotPassword />,
+  },
   {
     path: "/auth/reset_password",
     element: <ResetPassword />,

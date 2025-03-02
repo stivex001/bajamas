@@ -329,6 +329,7 @@ export interface AuthUser {
   profile: string;
   password: string;
   confirmPassword: string;
+  confirm_pass: string;
 }
 
 export interface Service {

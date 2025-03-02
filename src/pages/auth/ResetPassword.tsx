@@ -1,10 +1,13 @@
 import { auth } from "@/api/crud/auth";
+import { AuthUser } from "@/api/hooks/types";
 import { AuthTitle } from "@/components/authDetails/AuthTitle";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const fields: Field[] = [
@@ -14,21 +17,63 @@ const fields: Field[] = [
     errorMessage: "Email is required",
     isRequired: true,
   },
+  {
+    name: "code",
+    type: "text",
+    errorMessage: "Code is required",
+    isRequired: true,
+  },
+  {
+    name: "password",
+    type: "text",
+    errorMessage: "Email is required",
+    isRequired: true,
+  },
+  {
+    name: "confirm_pass",
+    type: "text",
+    errorMessage: "Password must be the same as that of password",
+  },
 ];
 
 const ResetPassword = () => {
-  // const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const navigate = useNavigate();
+  const email = params.get("email");
 
-  const { control, handleSubmit, reset, formState } = useDynamicForm(
-    fields,
-    {}
-  );
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState,
+    watch,
+    setError,
+    clearErrors,
+  } = useDynamicForm<AuthUser>(fields, {
+    email: email || "",
+  });
+
+  const password = watch("password");
+  const confirm_pass = watch("confirm_pass");
 
   const { isValid } = formState;
 
-  const { forgotPassword } = auth();
+  const { updatePassword } = auth();
 
-  const { isPending, mutateAsync } = forgotPassword;
+  const { isPending, mutateAsync } = updatePassword;
+
+  useEffect(() => {
+    if (confirm_pass) {
+      if (confirm_pass !== password) {
+        setError("confirm_pass", {
+          type: "manual",
+          message: "Passwords do not match",
+        });
+      } else {
+        clearErrors("confirm_pass");
+      }
+    }
+  }, [confirm_pass, password, setError, clearErrors]);
 
   const onSubmit = async (data: any) => {
     try {
@@ -36,10 +81,10 @@ const ResetPassword = () => {
         onSuccess: (response: any) => {
           console.log(response, "res_");
           toast.success(response?.message);
-          // navigate(
-          //   `/confirm_password?email=${encodeURIComponent(data?.email)}`
-          // );
-          reset();
+          if (response?.status === true) {
+            navigate(`/auth/login`);
+            reset();
+          }
         },
         onError: (error: any) => {
           console.log(error, "jjjj");
@@ -73,10 +118,37 @@ const ResetPassword = () => {
             variant="primary"
             rules={{ required: true }}
           />
+          <ControlledInput
+            name="code"
+            control={control}
+            placeholder="Enter Code Sent to your mail"
+            type="text"
+            label="Code"
+            variant="primary"
+            rules={{ required: true }}
+          />
+          <ControlledInput
+            name="password"
+            control={control}
+            placeholder="Enter New Password"
+            type="text"
+            label="Password"
+            variant="primary"
+            rules={{ required: true }}
+          />
+          <ControlledInput
+            name="confirm_pass"
+            control={control}
+            placeholder="Confirm Password"
+            type="text"
+            label="Confirm Password"
+            variant="primary"
+            rules={{ required: true }}
+          />
 
           <div className="flex justify-center">
             <CustomButton
-              label="Send Password Reset Link"
+              label="Confirm"
               variant="primary"
               className="w-full"
               size="lg"
