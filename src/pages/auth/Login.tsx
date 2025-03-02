@@ -8,7 +8,7 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import { useAuthStore } from "@/store/authStore";
 import { useLayoutEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const fields: Field[] = [
@@ -28,6 +28,7 @@ const fields: Field[] = [
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { setAccessToken, accessToken, setCurrentUser } = useAuthStore();
 
   const { control, handleSubmit, formState } = useDynamicForm(fields, {});
@@ -56,7 +57,9 @@ const Login = () => {
               setCurrentUser(user);
             }
             toast.success("Login successfully!");
-            navigate("/dashboard");
+            navigate(location.state?.from?.pathname || "/dashboard", {
+              replace: true,
+            });
           } else {
             toast.error(response?.message);
           }
