@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { CustomSearchInput } from "../shared/CustomSearchInput";
 import { NoticationBellIcon } from "@/assets/svgs/NotificationIcon";
-import { AvarterIcon } from "@/assets/svgs/Avarter";
 import { CustomArrowIcon } from "@/assets/svgs/ArrowsIcon";
 import Dropdown from "../shared/Dropdown";
 import englishFlag from "@/assets/images/en.png";
@@ -16,6 +15,7 @@ import logo from "../../../public/logo.png";
 import { MobileNav } from "./MobileNav";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
+import avater from "@/assets/images/avater.png";
 
 const languages = [
   { label: "English", value: "en", flag: englishFlag },
@@ -33,7 +33,6 @@ export const Navbar = () => {
     label: lang?.label,
     flag: lang?.flag,
   }));
-
 
   return (
     <>
@@ -65,7 +64,9 @@ export const Navbar = () => {
           <Popover>
             <PopoverTrigger>
               <div className="hidden lg:flex items-center gap-6 lg:ml-6">
-                <AvarterIcon />
+                <div className="w-[44px] h-[44px]  flex items-center justify-center">
+                  <img src={avater} alt={currentUser?.name} className="w-full h-full rounded-full object-cover"/>
+                </div>
                 <p className="hidden lg:block text-sm font-bold font-Nunito text-[#404040] capitalize">
                   {currentUser?.name}
                 </p>
