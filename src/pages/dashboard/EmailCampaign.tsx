@@ -9,20 +9,22 @@ import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
 import { sortOrder } from "./data";
-
-const emailTable: any[] = [];
+import { useCampaign } from "@/api/crud/campaigns";
 
 const EmailCampaign = () => {
-  const isPending = false;
+  const { getCampaignList } = useCampaign();
 
-  const totalEntries = emailTable?.length;
+  const { data: list, isPending } = getCampaignList();
+
+  const groupList = list?.message;
+
+  const totalEntries = groupList?.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState<number>(10);
-  // const [openModal, setOpenModal] = useState(true);
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = emailTable?.slice(indexOfFirstEntry, indexOfLastEntry);
+  const currentEntries = groupList?.slice(indexOfFirstEntry, indexOfLastEntry);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -61,7 +63,7 @@ const EmailCampaign = () => {
           ) : (
             <EmailCampaignTable listData={currentEntries} />
           )}
-          {emailTable?.length > 0 && (
+          {(groupList?.length ?? 0) > entriesPerPage && (
             <Pagination
               currentPage={currentPage}
               totalEntries={totalEntries}

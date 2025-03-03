@@ -7,14 +7,18 @@ import filterIcon from "@/assets/svgs/filter.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { groups } from "@/api/crud/groups";
 import { ScreenLoader } from "@/components/shared/ScreenLoader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { ID } from "@/api/hooks/types";
 
 const AddTag = () => {
   const navigate = useNavigate();
-  const { control, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
   const { setCampaignData, campaignData } = useCampaignStore();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedGroupIds, setSelectedGroupIds] = useState<ID[]>([]);
+  const [selectAll, setSelectAll] = useState(false);
 
   console.log(campaignData, "camp");
 
@@ -24,16 +28,38 @@ const AddTag = () => {
 
   const groupList = list?.message;
 
-  const [searchTerm, setSearchTerm] = useState("");
-
   const filteredGroups = groupList?.filter((group) =>
     group?.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  console.log(groupList, "list___");
+  const handleCheckboxChange = (id: ID) => {
+    setSelectedGroupIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedGroupIds([]);
+    } else {
+      setSelectedGroupIds(filteredGroups?.map((group) => group?.id) || []);
+    }
+    setSelectAll(!selectAll);
+  };
+
+  useEffect(() => {
+    if (
+      selectedGroupIds.length === filteredGroups?.length &&
+      filteredGroups?.length > 0
+    ) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  }, [selectedGroupIds, filteredGroups]);
 
   const onSubmit = (data: any) => {
-    setCampaignData(data);
+    setCampaignData({ ...data, tag_id: selectedGroupIds });
     navigate(`/email_campaign/confirm_details`);
   };
 
@@ -77,7 +103,10 @@ const AddTag = () => {
               </div>
               <div>
                 <div className="h-16 flex items-center space-x-2">
-                  <Checkbox />
+                  <Checkbox
+                    checked={selectAll}
+                    onCheckedChange={handleSelectAll}
+                  />
                   <label
                     htmlFor="terms"
                     className="text-sm text-[#C7C6C6] font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -97,9 +126,12 @@ const AddTag = () => {
                         }`}
                       >
                         <Checkbox
-                          {...control.register(`tag_id.${group?.id}`)}
+                          checked={selectedGroupIds.includes(group?.id)}
+                          onCheckedChange={() =>
+                            handleCheckboxChange(group?.id)
+                          }
                         />
-                        
+
                         <p className="text-sm font-semibold text-[#7E7C7B]">
                           {group?.name}
                         </p>

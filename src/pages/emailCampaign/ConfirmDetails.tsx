@@ -5,12 +5,63 @@ import { Preview } from "../../components/emailCampaign/Preview";
 import { Design } from "../../components/emailCampaign/Design";
 import { SuccesModal } from "@/components/modal/SuccesModal";
 import { useState } from "react";
+import { useCampaignStore } from "@/store/useCampaignStore";
+import { useCampaign } from "@/api/crud/campaigns";
+import { toast } from "sonner";
 
 const ConfirmDetails = () => {
+  const { campaignData } = useCampaignStore();
   const [successModalOpen, setSuccessModalOpen] = useState<boolean>(false);
 
-  const handleSend = () => {
-    setSuccessModalOpen(true);
+  const { createCampaign, getCampaignList } = useCampaign();
+
+  const { mutate, isPending } = createCampaign;
+  const { refetch } = getCampaignList();
+
+  console.log(campaignData, "confirm");
+
+  const handleSend = async () => {
+    const payload = new FormData();
+
+    // Append each tag_id separately
+    if (Array.isArray(campaignData?.tag_id)) {
+      campaignData.tag_id.forEach((id) => {
+        payload.append("tag_id[]", id.toString());
+      });
+    }
+
+    payload.append("title", campaignData?.title || "");
+    payload.append("subject", campaignData?.title || "");
+    payload.append("from_email", campaignData?.from_email || "");
+    payload.append("from_name", campaignData?.from_name || "");
+    payload.append("content", campaignData?.content || "");
+    payload.append("content_type", "text");
+    payload.append(
+      "schedule_date",
+      campaignData?.schedule_date?.toString() || "2025-07-14"
+    );
+    payload.append(
+      "reply_to",
+      campaignData?.reply_to || "stephenadeyemo@gmail.com"
+    );
+    payload.append("status", "1");
+
+    try {
+      await mutate(payload, {
+        onSuccess: (res: any) => {
+          console.log(res, "res");
+          if (res?.status === true) {
+            refetch();
+            setSuccessModalOpen(true);
+          } else {
+            toast.error(res?.message);
+          }
+        },
+        onError: (error: any) => {
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {}
   };
 
   return (
@@ -33,6 +84,8 @@ const ConfirmDetails = () => {
               size="lg"
               type="button"
               onClick={handleSend}
+              disabled={isPending}
+              isLoading={isPending}
             />
           </div>
 

@@ -1,3 +1,4 @@
+import { ActionModal } from "../shared/ActionModal";
 import TableLayout from "../shared/TableLayout";
 
 const headers = [
@@ -6,9 +7,7 @@ const headers = [
   { content: <> Title</> },
   { content: <> From</> },
   { content: <> Recipient</> },
-  { content: <> Last Edited</> },
-  { content: <> Sent Date</> },
-  { content: <> Acc. Classification</> },
+  { content: <> Content</> },
   { content: <> Status</> },
   { content: <> Actions</> },
 ];
@@ -23,18 +22,16 @@ const renderRow = (item: any, index: number) => {
       key={index}
       className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"
     >
-      {/* <td className="py-1 px-4">{item?.id}</td> */}
       <td className="py-1 px-4">{index + 1}</td>
-      <td className="py-1 px-4">{item?.acctName}</td>
-      <td className="py-1 px-4 text-center">{item?.branchID}</td>
-      {/* <td className="py-1 px-4 text-center">{item?.regionName}</td>
-        <td className="py-1 px-4 text-center">{item?.branchName}</td> */}
-      <td className="py-1 px-4 text-center">{item?.ledgerClassName}</td>
-      <td className="py-1 px-4 text-center">{item?.ledgerSubClassName}</td>
-      <td className="py-1 px-4 text-center">
-        {item?.accountClassificationName}
+      <td className="py-1 px-4">{item?.images}</td>
+      <td className="py-1 px-4">{item?.title}</td>
+      <td className="py-1 px-4">{item?.from_name}</td>
+      <td className="py-1 px-4">{item?.reply_to}</td>
+      <td className="py-1 px-4">{item?.content}</td>
+      <td className="py-1 px-4">{item?.status}</td>
+      <td className="py-1 px-4 ">
+        <ActionModal desc={"Campaign"} />
       </td>
-      <td className="py-1 px-4">{item?.currencyName}</td>
     </tr>
   );
 };

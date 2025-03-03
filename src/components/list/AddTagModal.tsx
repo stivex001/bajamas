@@ -61,7 +61,7 @@ export const AddTagModal = ({ open, onClose }: AddTagModalProps) => {
               <ControlledInput
                 name="name"
                 control={control}
-                placeholder="Enter Your Name"
+                placeholder="Enter Group Name"
                 type="text"
                 label="Name"
                 variant="primary"
