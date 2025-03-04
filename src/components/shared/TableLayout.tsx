@@ -27,12 +27,12 @@ const TableLayout = <T,>({ headers, data, renderRow }: TableProps<T>) => {
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 ? (
-            data.map((item, index) => renderRow(item, index))
+          {data?.length > 0 ? (
+            data?.map((item, index) => renderRow(item, index))
           ) : (
             <tr>
               <td
-                colSpan={headers.length}
+                colSpan={headers?.length}
                 className="text-center py-14 "
               >
                 <EmptyTableState />
