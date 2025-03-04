@@ -4,23 +4,23 @@ import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import { useEffect, useState } from "react";
 import CollaborationTable from "@/components/list/CollaboarationTable";
-
-const tempplateTable: any[] = [];
+import { useCollaborator } from "@/api/crud/collaboration";
 
 const Collaborations = () => {
-  const isPending = false;
+  const { getCollaboratorList } = useCollaborator();
 
-  const totalEntries = tempplateTable?.length;
+  const { data: list, isPending } = getCollaboratorList();
+
+  const groupList = list?.message;
+
+  const totalEntries = groupList?.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState<number>(10);
   // const [openModal, setOpenModal] = useState(true);
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = tempplateTable?.slice(
-    indexOfFirstEntry,
-    indexOfLastEntry
-  );
+  const currentEntries = groupList?.slice(indexOfFirstEntry, indexOfLastEntry);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -36,7 +36,7 @@ const Collaborations = () => {
           ) : (
             <CollaborationTable listData={currentEntries} />
           )}
-          {tempplateTable?.length > 0 && (
+          {(groupList?.length ?? 0) > entriesPerPage && (
             <Pagination
               currentPage={currentPage}
               totalEntries={totalEntries}
