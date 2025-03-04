@@ -6,6 +6,8 @@ import ControlledInput from "../shared/ControlledInput";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import CustomButton from "../shared/CustomButton";
+import { useSpamReport } from "@/api/crud/spamReport";
+import { toast } from "sonner";
 
 const fields: Field[] = [
   {
@@ -16,35 +18,68 @@ const fields: Field[] = [
   },
 ];
 
-export const ReportSpamModal = () => {
-  const { control, handleSubmit } = useDynamicForm(fields, {});
+type ReportSpamModalProps = {
+  onClose: any;
+  open: boolean;
+};
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+export const ReportSpamModal = ({ open, onClose }: ReportSpamModalProps) => {
+  const { control, handleSubmit, formState } = useDynamicForm(fields, {});
+
+  const { isValid } = formState;
+
+  const { ReportSpam, getSpamList } = useSpamReport();
+
+  const { isPending, mutate } = ReportSpam;
+  const { refetch } = getSpamList();
+
+  const onSubmit = async (data: any) => {
+    try {
+      await mutate(data, {
+        onSuccess: (response: any) => {
+          console.log(response, "res_");
+          toast.success(response?.message);
+          refetch();
+          onClose();
+        },
+        onError: (error: any) => {
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {
+      console.log("An error occurred: ", error);
+    }
   };
 
   return (
-    <DialogContent className="rounded-[26px] w-[350px]  lg:w-[530px]">
-      <ModalHeader title="Report Spam" icon={X} />
-      <form  onSubmit={handleSubmit(onSubmit)}>
-        <ModalBody className="border-t border-b py-5">
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder="Enter Email"
-            type="email"
-            label="Email"
-            variant="primary"
-            rules={{ required: true }}
-          />
-        </ModalBody>
-        <CustomButton
-          variant="primary"
-          label="Submit"
-          className="w-[129px] h-10 rounded-lg text-xs font-Nunito font-bold mx-auto mt-3"
-          size="lg"
-        />
-      </form>
-    </DialogContent>
+    <>
+      {open && (
+        <DialogContent className="rounded-[26px] w-[350px]  lg:w-[530px]">
+          <ModalHeader title="Report Spam" icon={X} />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalBody className="border-t border-b py-5">
+              <ControlledInput
+                name="email"
+                control={control}
+                placeholder="Enter Email"
+                type="email"
+                label="Email"
+                variant="primary"
+                rules={{ required: true }}
+              />
+            </ModalBody>
+            <CustomButton
+              variant="primary"
+              label="Submit"
+              className="w-[129px] h-10 rounded-lg text-xs font-Nunito font-bold mx-auto mt-3"
+              size="lg"
+              isLoading={isPending}
+              disabled={!isValid}
+              type="submit"
+            />
+          </form>
+        </DialogContent>
+      )}
+    </>
   );
 };
