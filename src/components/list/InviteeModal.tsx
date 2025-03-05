@@ -44,9 +44,13 @@ export const InviteeModal = ({ open, onClose }: AddInviteeModalProps) => {
       await mutate(data, {
         onSuccess: (response: any) => {
           console.log(response, "res_");
-          toast.success(response?.message);
-          refetch();
-          onClose();
+          if (response?.status === true) {
+            toast.success(response?.message);
+            refetch();
+            onClose();
+          } else {
+            toast.error(response?.message);
+          }
         },
         onError: (error: any) => {
           toast.error(error?.message);
