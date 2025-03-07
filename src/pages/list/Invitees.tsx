@@ -41,8 +41,6 @@ const Invitees = () => {
             <h3 className="text-xs font-medium text-black">Sort By:</h3>
             <FilterSelect<string>
               options={sortOrder}
-              // label="Sort By"
-              // onChange={(selected) => updateFilter("sortOrder", selected)}
               value={sortOrder[0]}
             />
           </aside>
