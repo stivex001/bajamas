@@ -9,7 +9,7 @@ type CampaignData = {
   template_id?: ID;
   design_content?: string;
   design_html?: string;
-  tag_id?: ID[];
+  group?: any;
   reply_to?: string;
   schedule_date?: Date;
   status?: number;

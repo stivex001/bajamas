@@ -1,18 +1,25 @@
 import { EditIcon } from "@/assets/svgs/MenuIcon";
 import CustomButton from "../shared/CustomButton";
-import { useSubscribers } from "@/api/crud/subscribers";
-import { ScreenLoader } from "../shared/ScreenLoader";
+import { useCampaignStore } from "@/store/useCampaignStore";
 
+interface Subscriber {
+  id: string;
+  email: string;
+  fname: string;
+  lname: string;
+}
+
+interface Group {
+  subscribers: Subscriber[];
+}
 export const SubcriberContents = () => {
-  const { getSubscriberList } = useSubscribers();
+  const { campaignData } = useCampaignStore();
+  const group = campaignData?.group || [];
 
-  const { data: list, isPending } = getSubscriberList();
-
-  const groupList = list?.message;
-
-  if (isPending) {
-    return <ScreenLoader />;
-  }
+  const totalSubscribers: number = group?.reduce(
+    (acc: number, curr: Group) => acc + (curr.subscribers?.length || 0),
+    0
+  );
 
   return (
     <div className="bg-white border border-[#DDDDDD] shadow-lightshadow py-6">
@@ -27,14 +34,39 @@ export const SubcriberContents = () => {
           icon={EditIcon}
         />
       </div>
-      <div className="flex flex-col mt-7 px-">
-        <div className="flex items-center justify-between border-b border-b-[#DDDDDD] h-7 pb-3 px-5">
-          <p className="text-[#555555] text-sm">Sending to</p>
-          <p className="text-[#555555] text-sm">Subscribers</p>
+      <div className="flex flex-col mt-7">
+        <div className=" pb-3 ">
+          <table className="w-full  ">
+            <thead className="pb-3 border-b">
+              <tr className="">
+                <th className="px-5 text-left text-sm text-[#555555] pb-3">
+                  Sending to
+                </th>
+                <th className=" px-5 text-left text-sm text-[#555555] pb-3">
+                  Subscribers
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {group?.map((item: any) =>
+                item?.subscribers?.map((sub: any) => (
+                  <tr key={sub?.id} className=" ">
+                    <td className="p-5 text-sm text-black border-b ">
+                      {sub?.email}
+                    </td>
+                    <td className="p-5 text-sm text-black border-b text-left">
+                      {sub?.fname} {sub?.lname}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
+
         <div className="flex flex-col gap-2 p-5">
           <p className="text-[#555555] text-sm">Total subscribers</p>
-          <h3 className="text-base font-bold text-black">{groupList?.length}</h3>
+          <h3 className="text-base font-bold text-black">{totalSubscribers}</h3>
         </div>
       </div>
     </div>

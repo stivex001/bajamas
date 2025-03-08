@@ -1,4 +1,4 @@
-import { ActionModal } from "../shared/ActionModal";
+// import { ActionModal } from "../shared/ActionModal";
 import TableLayout from "../shared/TableLayout";
 
 const headers = [
@@ -9,7 +9,7 @@ const headers = [
   { content: <> Recipient</> },
   { content: <> Content</> },
   { content: <> Status</> },
-  { content: <> Actions</> },
+  // { content: <> Actions</> },
 ];
 
 type listType = {
@@ -25,13 +25,13 @@ const renderRow = (item: any, index: number) => {
       <td className="py-1 px-4">{index + 1}</td>
       <td className="py-1 px-4">{item?.images}</td>
       <td className="py-1 px-4">{item?.title}</td>
-      <td className="py-1 px-4">{item?.from_name}</td>
+      <td className="py-1 px-4 whitespace-nowrap">{item?.from_name}</td>
       <td className="py-1 px-4">{item?.reply_to}</td>
       <td className="py-1 px-4">{item?.content}</td>
       <td className="py-1 px-4">{item?.status}</td>
-      <td className="py-1 px-4 ">
+      {/* <td className="py-1 px-4 ">
         <ActionModal desc={"Campaign"} />
-      </td>
+      </td> */}
     </tr>
   );
 };

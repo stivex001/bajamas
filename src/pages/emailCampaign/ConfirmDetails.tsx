@@ -12,6 +12,7 @@ import { toast } from "sonner";
 const ConfirmDetails = () => {
   const { campaignData } = useCampaignStore();
   const [successModalOpen, setSuccessModalOpen] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
   const { createCampaign, getCampaignList } = useCampaign();
 
@@ -20,15 +21,19 @@ const ConfirmDetails = () => {
 
   console.log(campaignData, "confirm");
 
+  const group = campaignData?.group || [];
+  const subscribers = group
+    ?.flatMap((grp: any) => grp.subscribers?.map((sub: any) => sub.email))
+    ?.join(", ");
+
   const handleSend = async () => {
     const payload = new FormData();
 
-    // Append each tag_id separately
-    if (Array.isArray(campaignData?.tag_id)) {
-      campaignData.tag_id.forEach((id) => {
-        payload.append("tag_id[]", id.toString());
-      });
-    }
+    const groupIds = group?.map((grp: any) => grp.id) || [];
+
+    groupIds.forEach((id: any) => {
+      payload.append("tag_id[]", id.toString());
+    });
 
     payload.append("title", campaignData?.title || "");
     payload.append("subject", campaignData?.title || "");
@@ -40,10 +45,7 @@ const ConfirmDetails = () => {
       "schedule_date",
       campaignData?.schedule_date?.toString() || "2025-07-14"
     );
-    payload.append(
-      "reply_to",
-      campaignData?.reply_to || "stephenadeyemo@gmail.com"
-    );
+    payload.append("reply_to", subscribers || "");
     payload.append("status", "1");
 
     try {
@@ -53,6 +55,7 @@ const ConfirmDetails = () => {
           if (res?.status === true) {
             refetch();
             setSuccessModalOpen(true);
+            setSuccessMessage(res?.message);
           } else {
             toast.error(res?.message);
           }
@@ -100,7 +103,7 @@ const ConfirmDetails = () => {
           open={successModalOpen}
           toggle={setSuccessModalOpen}
           url="/email_campaign"
-          content="Your Email has been sent Successfully"
+          content={successMessage}
         />
       )}
     </main>

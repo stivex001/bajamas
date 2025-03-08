@@ -23,14 +23,14 @@ const AddTag = () => {
   const groupList = list?.message;
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+  const [selectedGroups, setSelectedGroups] = useState<any[]>([]);
 
   const filteredGroups =
     groupList?.filter((group) =>
-      group?.name.toLowerCase().includes(searchTerm.toLowerCase())
+      group?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase())
     ) || [];
 
-  const handleSelectGroup = (groupId: string) => {
+  const handleSelectGroup = (groupId: any) => {
     setSelectedGroups((prev) =>
       prev.includes(groupId)
         ? prev.filter((id) => id !== groupId)
@@ -53,7 +53,7 @@ const AddTag = () => {
   console.log(groupList, "list___");
 
   const onSubmit = (data: any) => {
-    setCampaignData({ ...data, tag_id: selectedGroups });
+    setCampaignData({ ...data, group: selectedGroups });
     navigate(`/email_campaign/confirm_details`);
   };
 
@@ -120,12 +120,8 @@ const AddTag = () => {
                         }`}
                       >
                         <Checkbox
-                          checked={selectedGroups.includes(
-                            group?.id.toString()
-                          )}
-                          onCheckedChange={() =>
-                            handleSelectGroup(group?.id.toString())
-                          }
+                          checked={selectedGroups.includes(group)}
+                          onCheckedChange={() => handleSelectGroup(group)}
                         />
 
                         <p className="text-sm font-semibold text-[#7E7C7B]">
