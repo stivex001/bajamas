@@ -1,8 +1,10 @@
 import { EditIcon } from "@/assets/svgs/MenuIcon";
 import CustomButton from "../shared/CustomButton";
 import { useCampaignStore } from "@/store/useCampaignStore";
+import { useNavigate } from "react-router-dom";
 
 export const ContentsPreview = () => {
+  const navigate = useNavigate();
   const { campaignData } = useCampaignStore();
 
   console.log(campaignData, "cam");
@@ -15,8 +17,9 @@ export const ContentsPreview = () => {
           variant="primary"
           className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium bg-[#EEEEEE] text-[#555555] hover:bg-[#EEEEEE]"
           size="lg"
-          type="submit"
+          type="button"
           icon={EditIcon}
+          onClick={() => navigate("/email_campaign/regular-campaign")}
         />
       </div>
       <div className="flex flex-col gap-5">

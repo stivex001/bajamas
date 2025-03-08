@@ -1,6 +1,7 @@
 import { EditIcon } from "@/assets/svgs/MenuIcon";
 import CustomButton from "../shared/CustomButton";
 import { useCampaignStore } from "@/store/useCampaignStore";
+import { useNavigate } from "react-router-dom";
 
 interface Subscriber {
   id: string;
@@ -13,6 +14,7 @@ interface Group {
   subscribers: Subscriber[];
 }
 export const SubcriberContents = () => {
+  const navigate = useNavigate();
   const { campaignData } = useCampaignStore();
   const group = campaignData?.group || [];
 
@@ -30,8 +32,9 @@ export const SubcriberContents = () => {
           variant="primary"
           className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium bg-[#EEEEEE] text-[#555555] hover:bg-[#EEEEEE]"
           size="lg"
-          type="submit"
+          type="button"
           icon={EditIcon}
+          onClick={() => navigate("/email_campaign/add_tag")}
         />
       </div>
       <div className="flex flex-col mt-7">

@@ -33,9 +33,14 @@ const fields: Field[] = [
 ];
 
 const RegularCampaign = () => {
+  const { setCampaignData, campaignData } = useCampaignStore();
   const [templateModalOpen, setTemplateModalOpen] = useState(false);
-  const { control, handleSubmit } = useDynamicForm(fields, {});
-  const { setCampaignData } = useCampaignStore();
+  const { control, handleSubmit } = useDynamicForm(fields, {
+    title: campaignData?.title,
+    from_email: campaignData?.from_email,
+    from_name: campaignData?.from_name,
+    content: campaignData?.content,
+  });
 
   const onSubmit = (data: any) => {
     setCampaignData(data);
