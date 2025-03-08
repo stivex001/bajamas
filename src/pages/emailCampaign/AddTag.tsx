@@ -7,20 +7,14 @@ import filterIcon from "@/assets/svgs/filter.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { groups } from "@/api/crud/groups";
 import { ScreenLoader } from "@/components/shared/ScreenLoader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { ID } from "@/api/hooks/types";
 
 const AddTag = () => {
   const navigate = useNavigate();
   const { handleSubmit } = useForm();
-  const { setCampaignData, campaignData } = useCampaignStore();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedGroupIds, setSelectedGroupIds] = useState<ID[]>([]);
-  const [selectAll, setSelectAll] = useState(false);
-
-  console.log(campaignData, "camp");
+  const { setCampaignData } = useCampaignStore();
 
   const { getGroupList } = groups();
 
@@ -28,38 +22,38 @@ const AddTag = () => {
 
   const groupList = list?.message;
 
-  const filteredGroups = groupList?.filter((group) =>
-    group?.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
 
-  const handleCheckboxChange = (id: ID) => {
-    setSelectedGroupIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+  const filteredGroups =
+    groupList?.filter((group) =>
+      group?.name.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
+
+  const handleSelectGroup = (groupId: string) => {
+    setSelectedGroups((prev) =>
+      prev.includes(groupId)
+        ? prev.filter((id) => id !== groupId)
+        : [...prev, groupId]
     );
   };
 
   const handleSelectAll = () => {
-    if (selectAll) {
-      setSelectedGroupIds([]);
+    if (selectedGroups?.length === filteredGroups?.length) {
+      setSelectedGroups([]); // Unselect all
     } else {
-      setSelectedGroupIds(filteredGroups?.map((group) => group?.id) || []);
+      setSelectedGroups(filteredGroups?.map((group) => group.id.toString())); // Select all
     }
-    setSelectAll(!selectAll);
   };
 
-  useEffect(() => {
-    if (
-      selectedGroupIds.length === filteredGroups?.length &&
-      filteredGroups?.length > 0
-    ) {
-      setSelectAll(true);
-    } else {
-      setSelectAll(false);
-    }
-  }, [selectedGroupIds, filteredGroups]);
+  const isAllSelected =
+    filteredGroups.length > 0 &&
+    selectedGroups?.length === filteredGroups.length;
+
+  console.log(groupList, "list___");
 
   const onSubmit = (data: any) => {
-    setCampaignData({ ...data, tag_id: selectedGroupIds });
+    setCampaignData({ ...data, tag_id: selectedGroups });
     navigate(`/email_campaign/confirm_details`);
   };
 
@@ -104,7 +98,7 @@ const AddTag = () => {
               <div>
                 <div className="h-16 flex items-center space-x-2">
                   <Checkbox
-                    checked={selectAll}
+                    checked={isAllSelected}
                     onCheckedChange={handleSelectAll}
                   />
                   <label
@@ -126,9 +120,11 @@ const AddTag = () => {
                         }`}
                       >
                         <Checkbox
-                          checked={selectedGroupIds.includes(group?.id)}
+                          checked={selectedGroups.includes(
+                            group?.id.toString()
+                          )}
                           onCheckedChange={() =>
-                            handleCheckboxChange(group?.id)
+                            handleSelectGroup(group?.id.toString())
                           }
                         />
 
