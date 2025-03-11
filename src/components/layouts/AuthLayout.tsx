@@ -90,13 +90,6 @@ const AuthLayout = ({ children }: Props) => {
         {children}
       </div>
       <div className="hidden flex-1 lg:flex flex-col items-center py-16 px-12 bg-authbg bg-cover bg-no-repeat no-scrollbar">
-        <motion.div
-          key={slidesData[currentSlide].id}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center"
-        >
           <div className="w-[600px] mb-14">
             <img
               src={slidesData[currentSlide].image}
@@ -104,6 +97,13 @@ const AuthLayout = ({ children }: Props) => {
               className="w-full h-full object-cover"
             />
           </div>
+        <motion.div
+          key={slidesData[currentSlide].id}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center"
+        >
           <div className="flex flex-col gap-9">
             <h3 className="text-gray1 font-semibold text-2xl text-center">
               {slidesData[currentSlide].title}
