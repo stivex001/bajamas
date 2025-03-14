@@ -20,7 +20,7 @@ export const Sidebar = () => {
   return (
     <div className="hidden lg:flex flex-col lg:w-[18%] bg-white h-screen overflow-y-scroll scrollbar-hidden">
       <div className="w-[148px] h-10 mx-auto">
-        <img src={logo} />
+        <img src={logo} alt="Logo" />
       </div>
       <div className="flex-grow overflow-y-auto no-scrollbar  pt-9">
         <div>
