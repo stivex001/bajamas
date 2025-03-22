@@ -15,8 +15,6 @@ const EditTemplate = () => {
 
   const { getGeneralTemplatesList, getUserTemplatesList } = useTemplates();
 
-  console.log(campaignData, "camp");
-
   const { data: generalList } = getGeneralTemplatesList();
   const { data: userList } = getUserTemplatesList();
 
