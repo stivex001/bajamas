@@ -6,6 +6,8 @@ import { useCampaignStore } from "@/store/useCampaignStore";
 import { useRef, useState } from "react";
 import EmailEditor from "react-email-editor";
 import { useNavigate } from "react-router-dom";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import AiAssitance from "@/components/emailCampaign/AiAssitance";
 
 const EditTemplate = () => {
   const navigate = useNavigate();
@@ -67,13 +69,19 @@ const EditTemplate = () => {
 
       <CardLayout>
         <div className="flex items-center gap-3 justify-end mb-0.5">
-          <CustomButton
-            label=" AI Assistance"
-            variant="primary"
-            className="w-fit h-12 rounded-[4px] p-2 text-xs font-medium"
-            size="lg"
-            type="button"
-          />
+          <Dialog>
+            <DialogTrigger>
+              <CustomButton
+                label=" AI Assistance"
+                variant="primary"
+                className="w-fit h-12 rounded-[4px] p-2 text-xs font-medium"
+                size="lg"
+                type="button"
+              />
+            </DialogTrigger>
+            <AiAssitance />
+          </Dialog>
+
           {showSavedButton && (
             <CustomButton
               label="Save and continue"
