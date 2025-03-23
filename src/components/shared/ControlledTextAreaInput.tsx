@@ -1,7 +1,7 @@
 import { useController, Control } from "react-hook-form";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
-import { AddIcon, EmojiIcon } from "@/assets/svgs/MenuIcon";
+// import { AddIcon, EmojiIcon } from "@/assets/svgs/MenuIcon";
 
 type ControlledInputProps = {
   name: string;
@@ -53,13 +53,13 @@ const ControlledTextAreaInput = ({
           onBlur={onBlur}
           value={value}
           ref={ref}
-          className="w-full h-[120px] border border-[#DDDDDD] rounded-[5px] p-2.5 placeholder:text-sm placeholder:text-[#757575]"
+          className="w-full h-[150px] border border-[#DDDDDD] rounded-[5px] p-2.5 placeholder:text-sm placeholder:text-[#757575]"
         />
         <div className="bg-[#eeeeee] rounded-[5px] h-10 px-1.5 py-2.5 flex items-center justify-between">
           <p className="text-sm text-[#AAAAAA]">
             {value?.length ?? 0}/{maxLength}
           </p>
-          <div className="flex items-center gap-6">
+          {/* <div className="flex items-center gap-6">
             <button
               type="button"
               className="flex items-center gap-1 px-3 py-1 text-sm border border-gray-300 rounded-md bg-[AAAAAA] text-[#AAAAAA]"
@@ -72,7 +72,7 @@ const ControlledTextAreaInput = ({
             >
               <EmojiIcon />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
