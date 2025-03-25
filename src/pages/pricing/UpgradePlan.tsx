@@ -1,114 +1,124 @@
-import { MasterCardIcon, VisaCardIcon } from "@/assets/svgs/CardIcon";
+import { usePricing } from "@/api/crud/pricing";
+// import { MasterCardIcon, VisaCardIcon } from "@/assets/svgs/CardIcon";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
-import CustomButton from "@/components/shared/CustomButton";
-import { useState } from "react";
+import { ScreenLoader } from "@/components/shared/ScreenLoader";
 
-interface Plan {
-  title: string;
-  price: string;
-  cat: string;
-  features: string[];
-}
+// interface Plan {
+//   title: string;
+//   price: string;
+//   cat: string;
+//   features: string[];
+// }
 
-const tabs = [
-  {
-    id: 1,
-    label: "Monthly",
-  },
-  {
-    id: 2,
-    label: "Yearly",
-  },
-];
+// const tabs = [
+//   {
+//     id: 1,
+//     label: "Monthly",
+//   },
+//   {
+//     id: 2,
+//     label: "Yearly",
+//   },
+// ];
 
-const plans = {
-  Monthly: [
-    {
-      title: "Free",
-      price: "$0",
-      features: [
-        "500 subscribers",
-        "10,000 monthly email sends",
-        "Everything in Free",
-      ],
-      cat: "Monthly Charge",
-    },
-    {
-      title: "Standard",
-      price: "$15.83",
-      features: [
-        "2,500 subscribers",
-        "30,000 monthly email sends",
-        "No Sender branding in emails and forms",
-        "SMS messaging",
-        "Multi-user access",
-      ],
-      cat: "Monthly Charge",
-    },
-    {
-      title: "Professional",
-      price: "$29.17",
-      features: [
-        "2,500 subscribers",
-        "60,000 monthly email sends",
-        "Free SMS included (worth $35/mo.)",
-        "Advanced automation",
-        "Animated countdown timers",
-        "Priority support",
-      ],
-      cat: "Monthly Charge",
-    },
-  ],
-  Yearly: [
-    {
-      title: "Free",
-      price: "$0",
-      features: [
-        "500 subscribers",
-        "10,000 monthly email sends",
-        "Everything in Free",
-      ],
-      cat: "Yearly Charge",
-    },
-    {
-      title: "Standard",
-      price: "$150",
-      features: [
-        "2,500 subscribers",
-        "30,000 monthly email sends",
-        "No Sender branding in emails and forms",
-        "SMS messaging",
-        "Multi-user access",
-      ],
-      cat: "Yearly Charge",
-    },
-    {
-      title: "Professional",
-      price: "$290",
-      features: [
-        "2,500 subscribers",
-        "60,000 monthly email sends",
-        "Free SMS included (worth $35/mo.)",
-        "Advanced automation",
-        "Animated countdown timers",
-        "Priority support",
-      ],
-      cat: "Yearly Charge",
-    },
-  ],
-};
+// const plans = {
+//   Monthly: [
+//     {
+//       title: "Free",
+//       price: "$0",
+//       features: [
+//         "500 subscribers",
+//         "10,000 monthly email sends",
+//         "Everything in Free",
+//       ],
+//       cat: "Monthly Charge",
+//     },
+//     {
+//       title: "Standard",
+//       price: "$15.83",
+//       features: [
+//         "2,500 subscribers",
+//         "30,000 monthly email sends",
+//         "No Sender branding in emails and forms",
+//         "SMS messaging",
+//         "Multi-user access",
+//       ],
+//       cat: "Monthly Charge",
+//     },
+//     {
+//       title: "Professional",
+//       price: "$29.17",
+//       features: [
+//         "2,500 subscribers",
+//         "60,000 monthly email sends",
+//         "Free SMS included (worth $35/mo.)",
+//         "Advanced automation",
+//         "Animated countdown timers",
+//         "Priority support",
+//       ],
+//       cat: "Monthly Charge",
+//     },
+//   ],
+//   Yearly: [
+//     {
+//       title: "Free",
+//       price: "$0",
+//       features: [
+//         "500 subscribers",
+//         "10,000 monthly email sends",
+//         "Everything in Free",
+//       ],
+//       cat: "Yearly Charge",
+//     },
+//     {
+//       title: "Standard",
+//       price: "$150",
+//       features: [
+//         "2,500 subscribers",
+//         "30,000 monthly email sends",
+//         "No Sender branding in emails and forms",
+//         "SMS messaging",
+//         "Multi-user access",
+//       ],
+//       cat: "Yearly Charge",
+//     },
+//     {
+//       title: "Professional",
+//       price: "$290",
+//       features: [
+//         "2,500 subscribers",
+//         "60,000 monthly email sends",
+//         "Free SMS included (worth $35/mo.)",
+//         "Advanced automation",
+//         "Animated countdown timers",
+//         "Priority support",
+//       ],
+//       cat: "Yearly Charge",
+//     },
+//   ],
+// };
 
 const UpgradePlan = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  // const [activeTab, setActiveTab] = useState(1);
 
-  const activePlans = activeTab === 1 ? plans.Monthly : plans.Yearly;
+  // const activePlans = activeTab === 1 ? plans.Monthly : plans.Yearly;
+
+  const { getPricingList } = usePricing();
+
+  const { data: pricingData, isLoading } = getPricingList();
+
+  const pricingList = pricingData?.data;
+
+  console.log(pricingList, "pricing");
+
+  if (isLoading) return <ScreenLoader />;
 
   return (
     <main className="flex flex-col gap-7">
       <PageTitle title="Pricing" />
       <CardLayout className="">
-        <div className="w-[232px] mx-auto flex items-center py-2.5 px-4 rounded-[5px] shadow-boxShadow">
+        {/* <div className="w-[232px] mx-auto flex items-center py-2.5 px-4 rounded-[5px] shadow-boxShadow">
           {tabs.map((tab) => (
             <div
               key={tab.id}
@@ -122,45 +132,43 @@ const UpgradePlan = () => {
               {tab.label}
             </div>
           ))}
-        </div>
+        </div> */}
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px] mt-5">
-          {activePlans?.map((plan: Plan, index: number) => (
+          {pricingList?.map((plan) => (
             <div
-              key={index}
+              key={plan?.id}
               className="bg-pricebg bg-cover bg-no-repeat py-10 px-6 shadow-priceshadow  text-center flex flex-col justify-between items-center"
             >
               <div className="border-b-2 border-b-[#212121]/10 pb-10 w-full">
-                <h3 className="text-xl font-bold text-[#202224] mb-2.5 font-Nunito">
-                  {plan?.title}
+                <h3 className="text-xl font-bold text-[#202224] mb-2.5 font-Nunito uppercase">
+                  {plan?.plan}
                 </h3>
-                <h2 className="text-base mb-2.5 font-Nunito">{plan?.cat}</h2>
+                {/* <h2 className="text-base mb-2.5 font-Nunito">{plan?.cat}</h2> */}
                 <p className="text-5xl font-extrabold text-primary mb-4">
-                  {plan.price}
+                  ₦{plan?.amount}
                 </p>
               </div>
               <ul className="mt-10 w-full border-b-2 border-b-[#212121]/10 pb-10 h-[400px]">
-                {plan?.features?.map((feature: string, idx: number) => (
-                  <li
-                    key={idx}
-                    className="mb-7 text-lg text-[#212121] font-Nunito"
-                  >
-                    {feature}
-                  </li>
-                ))}
+                {/* {plan?.features?.map((feature: string, idx: number) => (
+                  
+                ))} */}
+                <li className="mb-7 text-lg text-[#212121] font-Nunito">
+                  {plan?.data}
+                </li>
               </ul>
-              {plan?.title !== "Free" ? (
+              {/* {plan?.plan !== "free" ? (
                 <button className="mt-10 border-2 border-primary rounded-[30px] text-primary text-base font-bold font-Nunito py-5 px-7">
                   Choose this plan
                 </button>
               ) : (
                 <button className="mt-10  rounded-[30px] text-primary text-base font-bold font-Nunito py-5 px-7"></button>
-              )}
+              )} */}
             </div>
           ))}
         </div>
 
-        <div className="lg:w-[78%] mx-auto mt-14 py-2 px-7 shadow-priceshadow flex flex-col gap-3">
+        {/* <div className="lg:w-[78%] mx-auto mt-14 py-2 px-7 shadow-priceshadow flex flex-col gap-3">
           <h2 className="text-base font-Nunito font-bold">Order Summary</h2>
           <p className="text-base font-Nunito">
             You will be Charged $350.00 your plan will be valid until
@@ -181,7 +189,7 @@ const UpgradePlan = () => {
             <MasterCardIcon />
             <VisaCardIcon />
           </div>
-        </div>
+        </div> */}
       </CardLayout>
     </main>
   );
