@@ -5,7 +5,6 @@ import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
-import { FaCamera } from "react-icons/fa";
 
 const fields: Field[] = [
   { name: "name", type: "text" },
@@ -27,6 +26,14 @@ export const UserInfo = ({ onEdit }: Props) => {
   const { data } = getCurrentUser();
   const userInfo = Array.isArray(data?.data) ? data?.data[0] || {} : {};
 
+  const getInitials = (fullName: string) => {
+    return fullName
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .toUpperCase();
+  };
+
   // Initialize form hook with empty values
   const { control, setValue } = useDynamicForm(fields, {
     name: "",
@@ -37,6 +44,7 @@ export const UserInfo = ({ onEdit }: Props) => {
     country: "",
     state: "",
     city: "",
+    profile: "",
   });
 
   // When userInfo changes, update the form values
@@ -50,14 +58,24 @@ export const UserInfo = ({ onEdit }: Props) => {
       setValue("country", userInfo.country || "");
       setValue("state", userInfo.state || "");
       setValue("city", userInfo.city || "");
+      setValue("profile", userInfo.profile || "");
     }
-  }, [userInfo, setValue]); // Re-run effect when userInfo changes
-
+  }, [userInfo, setValue]);
   return (
     <CardLayout className="py-5">
       <form className="lg:w-8/12 mx-auto flex flex-col gap-9">
         <div className="bg-[#ECECEE] w-20 h-20 rounded-full mx-auto flex items-center justify-center cursor-pointer">
-          <FaCamera />
+          {userInfo.profile ? (
+            <img
+              src={userInfo.profile}
+              alt="Profile"
+              className="w-full h-full rounded-full object-cover"
+            />
+          ) : (
+            <span className="text-xl font-semibold text-gray-700">
+              {userInfo.name ? getInitials(userInfo.name) : "?"}
+            </span>
+          )}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-7 gap-x-12">
           {fields.map((field) => (

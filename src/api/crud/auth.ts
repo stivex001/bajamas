@@ -68,8 +68,17 @@ export const auth = () => {
   });
 
   const updateProfile = useApiMutation<AuthResponse, FormData>({
-    url: "/profile-update",
+    url: "/update-user-info",
     method: "POST",
+  });
+
+  const uploadProfilePics = useApiMutation<AuthResponse, FormData>({
+    url: "/upload-profile-pix",
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Accept: "application/json",
+    },
   });
 
   const getCurrentUser = () =>
@@ -87,5 +96,6 @@ export const auth = () => {
     changePassword,
     getCurrentUser,
     updateProfile,
+    uploadProfilePics
   };
 };
