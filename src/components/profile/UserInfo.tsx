@@ -67,7 +67,7 @@ export const UserInfo = ({ onEdit }: Props) => {
         <div className="bg-[#ECECEE] w-20 h-20 rounded-full mx-auto flex items-center justify-center cursor-pointer">
           {userInfo.profile ? (
             <img
-              src={userInfo.profile}
+              src={userInfo?.profile}
               alt="Profile"
               className="w-full h-full rounded-full object-cover"
             />

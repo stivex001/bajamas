@@ -7,14 +7,15 @@ const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEdit = () => setIsEditing(true);
+  const handleExitEdit = () => setIsEditing(false); 
 
   return (
     <main className="flex flex-col gap-7">
       <PageTitle title="Profile" />
       {isEditing ? (
-        <EditProfile /> 
+        <EditProfile onExitEdit={handleExitEdit} /> 
       ) : (
-        <UserInfo onEdit={handleEdit} /> // Pass a prop to handle editing
+        <UserInfo onEdit={handleEdit} />
       )}
     </main>
   );

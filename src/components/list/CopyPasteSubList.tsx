@@ -59,18 +59,6 @@ const fields: Field[] = [
   },
 ];
 
-// const countries = [
-//   {
-//     id: 1,
-//     name: "United States",
-//     value: "USA",
-//   },
-//   {
-//     id: 2,
-//     name: "Nigeria",
-//     value: "NG",
-//   },
-// ];
 
 const CopyPasteSubList = () => {
   const navigate = useNavigate();
@@ -135,7 +123,7 @@ const CopyPasteSubList = () => {
 
   const stateOptions = Array.isArray(states)
     ? states?.map((state: any) => ({
-        value: `${state?.isoCode}`,
+        value: `${state?.label}`,
         label: state?.label,
       }))
     : [];

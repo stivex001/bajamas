@@ -4,8 +4,12 @@ import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import CustomControlledSelect from "../shared/CustomControlledSelect";
+import { Country, State } from "country-state-city";
 
 const fields: Field[] = [
   { name: "name", type: "text" },
@@ -16,15 +20,22 @@ const fields: Field[] = [
   { name: "country", type: "text" },
   { name: "state", type: "text" },
   { name: "city", type: "text" },
+  { name: "profile", type: "text" },
 ];
 
-export const EditProfile = () => {
+export const EditProfile = ({ onExitEdit }: any) => {
+  const navigate = useNavigate();
   const { updateProfile, getCurrentUser, uploadProfilePics } = auth();
   const { data, refetch } = getCurrentUser();
 
+  const handleBack = () => {
+    onExitEdit();
+    navigate("/profile");
+  };
+
   const userInfo = Array.isArray(data?.data) ? data?.data[0] || {} : {};
 
-  const { control, handleSubmit } = useDynamicForm(fields, {
+  const { control, handleSubmit, watch } = useDynamicForm(fields, {
     name: userInfo.name || "",
     email: userInfo.email || "",
     phone: userInfo.phone || "",
@@ -33,16 +44,90 @@ export const EditProfile = () => {
     country: userInfo.country || "",
     state: userInfo.state || "",
     city: userInfo.city || "",
-    profile: userInfo.profile || "",
   });
-  const [profilePic, setProfilePic] = useState<string | null>(null);
+
+  const { mutate, isPending } = updateProfile;
+  const { mutate: uploadPics } = uploadProfilePics;
+
+  const [profilePic, setProfilePic] = useState<any | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [states, setStates] = useState<{ value: string; label: string }[]>([]);
+  const [countries, setCountries] = useState<
+    { value: string; label: string }[]
+  >([]);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const selectedCountry = watch("country");
+
+  const country = Array.isArray(countries)
+    ? countries?.map((country: any) => ({
+        value: `${country?.value}`,
+        label: country?.label,
+      }))
+    : [];
+
+  const stateOptions = Array.isArray(states)
+    ? states?.map((state: any) => ({
+        value: `${state?.label}`,
+        label: state?.label,
+      }))
+    : [];
+
+  useEffect(() => {
+    const countryList = Country?.getAllCountries()?.map((country) => ({
+      value: country?.isoCode,
+      label: country?.name,
+    }));
+    setCountries(countryList);
+  }, []);
+
+  useEffect(() => {
+    if (selectedCountry) {
+      const stateList = State?.getStatesOfCountry(selectedCountry)?.map(
+        (state) => ({
+          value: state.isoCode,
+          label: state.name,
+        })
+      );
+      setStates(stateList);
+    } else {
+      setStates([]);
+    }
+  }, [selectedCountry]);
+
+  const handleImageUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("profile", file);
+    try {
+      await uploadPics(formData, {
+        onSuccess: (response: any) => {
+          console.log(response);
+          if (response?.status) {
+            setProfilePic(response?.data);
+            // setValue("profile", response?.data?.profilepath || "");
+            toast.success(response?.message);
+          } else {
+            toast.error(response?.message);
+          }
+        },
+        onError: (error: any) => {
+          console.log(error);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProfilePic(imageUrl);
+      // const imageUrl = URL.createObjectURL(file);
+      // console.log(imageUrl, "file");
+      // setProfilePic(imageUrl);
+      handleImageUpload(file);
     }
   };
 
@@ -50,12 +135,28 @@ export const EditProfile = () => {
     fileInputRef.current?.click();
   };
 
-  // const { mutate, isPending } = updateProfile;
-  // const { mutate: uploadPics, isPending: uploadPending } = uploadProfilePics;
-
-  const onSubmit = (data: any) => {
-    console.log(data);
-    refetch()
+  const onSubmit = async (data: any) => {
+    try {
+      const payload = {
+        ...data,
+        profile: profilePic?.profilepath || "",
+      };
+      console.log("Submitting payload:", payload);
+      await mutate(payload, {
+        onSuccess: (response: any) => {
+          console.log(response);
+          toast.success(response?.message);
+          refetch();
+          handleBack();
+        },
+        onError: (error: any) => {
+          console.log(error);
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -71,7 +172,7 @@ export const EditProfile = () => {
           >
             {profilePic ? (
               <img
-                src={profilePic}
+                src={profilePic?.profilepath}
                 alt="Profile Preview"
                 className="w-full h-full object-cover rounded-full"
               />
@@ -87,7 +188,7 @@ export const EditProfile = () => {
             />
           </div>
           <h2 className="text-primary font-semibold text-sm font-Nunito mt-4">
-            Upload Profile Picture
+            {profilePic?.profile || "No profile picture uploaded"}
           </h2>
         </div>
 
@@ -99,6 +200,7 @@ export const EditProfile = () => {
             type="text"
             label="Full Name"
             variant="primary"
+            readOnly
           />
           <ControlledInput
             name="email"
@@ -107,6 +209,7 @@ export const EditProfile = () => {
             type="text"
             label="Email Address"
             variant="primary"
+            readOnly
           />
           <ControlledInput
             name="phone"
@@ -124,22 +227,27 @@ export const EditProfile = () => {
             label="Company / Organization"
             variant="primary"
           />
-          <ControlledInput
+          <CustomControlledSelect
             name="country"
             control={control}
-            placeholder=""
-            type="text"
-            label="Country *"
-            variant="primary"
+            label="Country"
+            placeholder="Select Country"
+            options={country}
+            searchable
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
           />
-          <ControlledInput
+          <CustomControlledSelect
             name="state"
             control={control}
-            placeholder=""
-            type="text"
             label="State / Province / Region *"
-            variant="primary"
+            placeholder="Select State"
+            options={stateOptions}
+            searchable
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
           />
+
           <ControlledInput
             name="city"
             control={control}
@@ -157,14 +265,22 @@ export const EditProfile = () => {
             variant="primary"
           />
         </div>
-        <div className="flex justify-center">
+        <div className="flex gap-3 justify-center">
           <CustomButton
             label="Save"
             variant="primary"
             className="w-[274px]"
             size="lg"
             type="submit"
-            // disabled={!isValid}
+            isLoading={isPending}
+          />
+          <CustomButton
+            label="Back"
+            variant="primary"
+            className="w-[274px] bg-transparent border text-black "
+            size="lg"
+            type="button"
+            onClick={handleBack}
           />
         </div>
       </form>
