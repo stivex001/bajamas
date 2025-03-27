@@ -16,6 +16,7 @@ import { MobileNav } from "./MobileNav";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 import avater from "@/assets/images/avater.png";
+import { auth } from "@/api/crud/auth";
 
 const languages = [
   { label: "English", value: "en", flag: englishFlag },
@@ -26,6 +27,11 @@ spanishFlag;
 
 export const Navbar = () => {
   const { currentUser } = useAuthStore();
+  const { getCurrentUser } = auth();
+
+  const { data } = getCurrentUser();
+  const userInfo = Array.isArray(data?.data) ? data?.data[0] || {} : {};
+  console.log(userInfo, "data");
   const [searchTerm, setSearchTerm] = useState("");
 
   const languageOption = languages?.map((lang: any) => ({
@@ -65,10 +71,14 @@ export const Navbar = () => {
             <PopoverTrigger>
               <div className="hidden lg:flex items-center gap-6 lg:ml-6">
                 <div className="w-[44px] h-[44px]  flex items-center justify-center">
-                  <img src={avater} alt={currentUser?.name} className="w-full h-full rounded-full object-cover"/>
+                  <img
+                    src={avater}
+                    alt={currentUser?.name}
+                    className="w-full h-full rounded-full object-cover"
+                  />
                 </div>
                 <p className="hidden lg:block text-sm font-bold font-Nunito text-[#404040] capitalize">
-                  {currentUser?.name}
+                  {userInfo?.name || currentUser?.name}
                 </p>
                 <div className="">
                   <CustomArrowIcon />

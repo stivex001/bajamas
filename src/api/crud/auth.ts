@@ -6,6 +6,13 @@ export interface CurrentUserData {
   email: string;
   name: string;
   password: string;
+  phone:string
+  business:string
+  address1:string
+  address2:string
+  country:string
+  state:string
+  city:string
 }
 
 export interface CurrentUser {
@@ -67,7 +74,7 @@ export const auth = () => {
 
   const getCurrentUser = () =>
     useApiQuery<CurrentUser>(["currentUser"], {
-      url: `/profile`,
+      url: `/viewuserinfo`,
       method: "GET",
     });
 

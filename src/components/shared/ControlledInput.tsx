@@ -20,6 +20,7 @@ type ControlledInputProps = {
   method?: string;
   currency?: string;
   dontShowTime?: boolean;
+  readOnly?: boolean;
   variant?: "primary" | "secondary" | "tertiary";
 } & React.ComponentProps<typeof Input>;
 
@@ -33,6 +34,7 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
   method,
   variant = "primary",
   dontShowTime = false,
+  readOnly = false,
   ...props
 }) => {
   const {
@@ -110,6 +112,7 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
             ref={ref}
             className={inputClassName}
             {...props}
+            readOnly={readOnly}
           />
         )}
 

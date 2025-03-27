@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { auth } from "@/api/crud/auth";
 import { CardLayout } from "@/components/shared/CardLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
@@ -6,47 +8,14 @@ import { Field } from "@/schemas/dynamicSchema";
 import { FaCamera } from "react-icons/fa";
 
 const fields: Field[] = [
-  {
-    name: "firstname",
-    type: "text",
-  },
-  {
-    name: "lastname",
-    type: "text",
-  },
-  {
-    name: "address",
-    type: "text",
-  },
-  {
-    name: "phone",
-    type: "text",
-  },
-
-  {
-    name: "gender",
-    type: "text",
-  },
-  {
-    name: "email",
-    type: "email",
-    errorMessage: "Email is required",
-  },
-  {
-    name: "dob",
-    type: "date",
-    errorMessage: "Date must be selected",
-  },
-
-  {
-    name: "password",
-    type: "text",
-    errorMessage: "Password is required",
-  },
-  {
-    name: "referal",
-    type: "text",
-  },
+  { name: "name", type: "text" },
+  { name: "email", type: "email" },
+  { name: "phone", type: "text" },
+  { name: "address1", type: "text" },
+  { name: "business", type: "text" },
+  { name: "country", type: "text" },
+  { name: "state", type: "text" },
+  { name: "city", type: "text" },
 ];
 
 type Props = {
@@ -54,7 +23,35 @@ type Props = {
 };
 
 export const UserInfo = ({ onEdit }: Props) => {
-  const { control } = useDynamicForm(fields, {});
+  const { getCurrentUser } = auth();
+  const { data } = getCurrentUser();
+  const userInfo = Array.isArray(data?.data) ? data?.data[0] || {} : {};
+
+  // Initialize form hook with empty values
+  const { control, setValue } = useDynamicForm(fields, {
+    name: "",
+    email: "",
+    phone: "",
+    address1: "",
+    business: "",
+    country: "",
+    state: "",
+    city: "",
+  });
+
+  // When userInfo changes, update the form values
+  useEffect(() => {
+    if (userInfo) {
+      setValue("name", userInfo.name || "");
+      setValue("email", userInfo.email || "");
+      setValue("phone", userInfo.phone || "");
+      setValue("address1", userInfo.address1 || "");
+      setValue("business", userInfo.business?.name || "");
+      setValue("country", userInfo.country || "");
+      setValue("state", userInfo.state || "");
+      setValue("city", userInfo.city || "");
+    }
+  }, [userInfo, setValue]); // Re-run effect when userInfo changes
 
   return (
     <CardLayout className="py-5">
@@ -63,70 +60,18 @@ export const UserInfo = ({ onEdit }: Props) => {
           <FaCamera />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-7 gap-x-12">
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder=""
-            type="text"
-            label="Full Name"
-            variant="primary"
-          />
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder=""
-            type="text"
-            label="Email Address"
-            variant="primary"
-          />
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder=""
-            type="text"
-            label="Phone  Number"
-            variant="primary"
-          />
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder=""
-            type="text"
-            label="Company / Organization"
-            variant="primary"
-          />
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder=""
-            type="text"
-            label="Country *"
-            variant="primary"
-          />
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder=""
-            type="text"
-            label="State / Province / Region *"
-            variant="primary"
-          />
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder=""
-            type="text"
-            label="City *"
-            variant="primary"
-          />
-          <ControlledInput
-            name="email"
-            control={control}
-            placeholder=""
-            type="text"
-            label="Address 1 *"
-            variant="primary"
-          />
+          {fields.map((field) => (
+            <ControlledInput
+              key={field.name}
+              name={field.name}
+              control={control}
+              placeholder=""
+              type={field.type}
+              label={field.name.charAt(0).toUpperCase() + field.name.slice(1)}
+              variant="primary"
+              readOnly
+            />
+          ))}
         </div>
         <div className="flex justify-center">
           <CustomButton
@@ -135,7 +80,6 @@ export const UserInfo = ({ onEdit }: Props) => {
             className="w-[274px]"
             size="lg"
             onClick={onEdit}
-            // disabled={!isValid}
           />
         </div>
       </form>
