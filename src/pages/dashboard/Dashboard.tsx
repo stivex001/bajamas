@@ -14,9 +14,23 @@ import { CardLayout } from "@/components/shared/CardLayout";
 import Metrics from "@/components/dashboard/charts/Metrics";
 import ActivityLog from "@/components/dashboard/ActivityLog";
 import { useAuthStore } from "@/store/authStore";
+import { useSubscribers } from "@/api/crud/subscribers";
+import { useSpamReport } from "@/api/crud/spamReport";
+import { useBlackList } from "@/api/crud/blackList";
 
 const Dashboard = () => {
   const { currentUser } = useAuthStore();
+  const { getSubscriberList, getUnsubcriberList } = useSubscribers();
+  const { getSpamList } = useSpamReport();
+  const { getBlackList } = useBlackList();
+  const { data: list } = getSubscriberList();
+  const { data: unSublist } = getUnsubcriberList();
+  const { data: spamlist } = getSpamList();
+  const { data: blacklist } = getBlackList();
+  const SubList = list?.message;
+  const unSubgroupList = unSublist?.message;
+  const spamgroupList = spamlist?.message;
+  const blackgroupList = blacklist?.message;
 
   return (
     <main className="flex flex-col gap-7">
@@ -29,16 +43,24 @@ const Dashboard = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 ">
         <DashboardCard
           desc="Subscribers"
-          value="40,689"
+          value={`${SubList?.length}`}
           icon={SubCribersIcon}
         />
         <DashboardCard
           desc="Unsubscribe"
-          value="10,293"
+          value={`${unSubgroupList?.length}`}
           icon={UnSubCribersIcon}
         />
-        <DashboardCard desc="Spam Reported" value="9,000" icon={SpamIcon} />
-        <DashboardCard desc="Blacklisted" value="2040" icon={BlacklistedIcon} />
+        <DashboardCard
+          desc="Spam Reported"
+          value={`${spamgroupList?.length}`}
+          icon={SpamIcon}
+        />
+        <DashboardCard
+          desc="Blacklisted"
+          value={`${blackgroupList?.length}`}
+          icon={BlacklistedIcon}
+        />
       </div>
       <CreditUsed />
       <div className="flex flex-col  lg:flex-row gap-6 h-full">
