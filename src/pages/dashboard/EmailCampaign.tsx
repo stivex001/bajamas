@@ -34,16 +34,14 @@ const EmailCampaign = () => {
     <main className="flex flex-col gap-7">
       <PageTitle title="Campaigns" />
       <CardLayout>
-        <div className="flex items-center justify-between mb-9">
-          <aside className="flex items-center gap-2 ">
+        <div className="flex items-center justify-end mb-9">
+          {/* <aside className="flex items-center gap-2 ">
             <h3 className="text-xs font-medium text-black">Sort By:</h3>
             <FilterSelect<string>
               options={sortOrder}
-              // label="Sort By"
-              // onChange={(selected) => updateFilter("sortOrder", selected)}
               value={sortOrder[0]}
             />
-          </aside>
+          </aside> */}
           <Dialog>
             <DialogTrigger>
               <CustomButton

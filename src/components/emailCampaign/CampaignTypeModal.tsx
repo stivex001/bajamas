@@ -57,9 +57,8 @@ const CampaignTypeModal = () => {
       <div>
         <ModalBody className="w-full flex flex-col gap-6 my-5 ">
           {campaignTypes.map((type) => (
-            <div className="flex items-center gap-1.5">
+            <div key={type.label} className="flex items-center gap-1.5">
               <button
-                key={type.label}
                 onClick={() => setSelectedType(type.label)}
                 className={`w-[129px] h-8 rounded-[17px] text-darker text-sm font-semibold font-Nunito flex items-center justify-center whitespace-nowrap border p-4 ${
                   selectedType === type.label
@@ -77,7 +76,7 @@ const CampaignTypeModal = () => {
           ))}
           <div className="mt-5">
             <h2 className="text-[#434343] text-sm font-Nunito">
-              *You can choose one Select campaign type
+              *Please select one campaign type
             </h2>
             <CustomButton
               variant="primary"
