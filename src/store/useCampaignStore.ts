@@ -1,5 +1,6 @@
 import { ID } from "@/api/hooks/types";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type CampaignData = {
   title?: string;
@@ -20,8 +21,17 @@ type CampaignStore = {
   setCampaignData: (newData: CampaignData) => void;
 };
 
-export const useCampaignStore = create<CampaignStore>((set) => ({
-  campaignData: {},
-  setCampaignData: (newData) =>
-    set((state) => ({ campaignData: { ...state.campaignData, ...newData } })),
-}));
+export const useCampaignStore = create<CampaignStore>()(
+  persist(
+    (set) => ({
+      campaignData: {}, // Initial state
+      setCampaignData: (newData) =>
+        set((state) => ({
+          campaignData: { ...state.campaignData, ...newData },
+        })),
+    }),
+    {
+      name: "campaign-storage", 
+    }
+  )
+);

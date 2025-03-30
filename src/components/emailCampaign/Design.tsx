@@ -1,9 +1,13 @@
 import { EditIcon } from "@/assets/svgs/MenuIcon";
 import CustomButton from "../shared/CustomButton";
 import { useNavigate } from "react-router-dom";
+import { useCampaignStore } from "@/store/useCampaignStore";
 
 export const Design = () => {
   const navigate = useNavigate();
+  const { campaignData } = useCampaignStore();
+  
+    console.log(campaignData, "cam");
 
   return (
     <div className="flex-1 bg-white border border-[#DDDDDD] shadow-lightshadow px-5 py-6">
@@ -20,8 +24,17 @@ export const Design = () => {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <div className="border border-[#DDDDDD] h-[400px]"></div>
-        <div className="flex items-center justify-between">
+        <div className="border border-[#DDDDDD] h-fit">
+        {campaignData.design_html ? (
+            <div
+              dangerouslySetInnerHTML={{ __html: campaignData.design_html }}
+              className="w-full h-full overflow-auto bg-white p-3"
+            />
+          ) : (
+            <p className="text-gray-500 text-center">No design available</p>
+          )}
+        </div>
+        {/* <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <CustomButton
               label="Preview"
@@ -45,7 +58,7 @@ export const Design = () => {
             size="lg"
             type="button"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
