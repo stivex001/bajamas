@@ -3,7 +3,7 @@ import TableLayout from "../shared/TableLayout";
 
 const headers = [
   { content: <>#</> },
-  { content: <>images</> },
+  // { content: <>images</> },
   { content: <> Title</> },
   { content: <> From</> },
   { content: <> Recipient</> },
@@ -23,7 +23,7 @@ const renderRow = (item: any, index: number) => {
       className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"
     >
       <td className="py-1 px-4">{index + 1}</td>
-      <td className="py-1 px-4">{item?.images}</td>
+      {/* <td className="py-1 px-4">{item?.images}</td> */}
       <td className="py-1 px-4">{item?.title}</td>
       <td className="py-1 px-4 whitespace-nowrap">{item?.from_name}</td>
       <td className="py-1 px-4">{item?.reply_to}</td>

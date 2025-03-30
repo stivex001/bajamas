@@ -12,7 +12,7 @@ type CampaignData = {
   design_html?: string;
   group?: any;
   reply_to?: string;
-  schedule_date?: Date;
+  schedule_date?: any;
   status?: number;
 };
 

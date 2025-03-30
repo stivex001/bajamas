@@ -8,18 +8,18 @@ import { useState } from "react";
 import { useCampaignStore } from "@/store/useCampaignStore";
 import { useCampaign } from "@/api/crud/campaigns";
 import { toast } from "sonner";
+import ScheduleModal from "@/components/shared/ScheduleModal";
 
 const ConfirmDetails = () => {
   const { campaignData } = useCampaignStore();
   const [successModalOpen, setSuccessModalOpen] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
 
   const { createCampaign, getCampaignList } = useCampaign();
 
   const { mutate, isPending } = createCampaign;
   const { refetch } = getCampaignList();
-
-  console.log(campaignData, "confirm");
 
   const group = campaignData?.group || [];
   const subscribers = group
@@ -43,7 +43,7 @@ const ConfirmDetails = () => {
     payload.append("content_type", "text");
     payload.append(
       "schedule_date",
-      campaignData?.schedule_date?.toString() || "2025-07-14"
+      campaignData?.schedule_date?.toString() || ""
     );
     payload.append("reply_to", subscribers || "");
     payload.append("status", "1");
@@ -79,6 +79,7 @@ const ConfirmDetails = () => {
               className="w-fit h-12 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
+              onClick={() => setIsScheduleModalOpen(true)}
             />
             <CustomButton
               label="Send Now"
@@ -97,6 +98,10 @@ const ConfirmDetails = () => {
             <Design />
           </div>
         </form>
+        <ScheduleModal
+          isOpen={isScheduleModalOpen}
+          onClose={() => setIsScheduleModalOpen(false)}
+        />
       </CardLayout>
       {successModalOpen && (
         <SuccesModal
