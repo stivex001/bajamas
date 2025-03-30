@@ -59,7 +59,6 @@ const fields: Field[] = [
   },
 ];
 
-
 const CopyPasteSubList = () => {
   const navigate = useNavigate();
   const { control, handleSubmit, watch } = useDynamicForm<SubscriberData>(
@@ -133,9 +132,13 @@ const CopyPasteSubList = () => {
       await mutate(data, {
         onSuccess: (response: any) => {
           console.log(response, "res_");
-          toast.success(response?.message);
-          refetch();
-          navigate("/list/subscribers");
+          if (response.status === true) {
+            toast.success(response?.message);
+            refetch();
+            navigate("/list/subscribers");
+          } else {
+            toast.error(response?.message);
+          }
         },
         onError: (error: any) => {
           toast.error(error?.message);

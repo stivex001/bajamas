@@ -25,7 +25,7 @@ const ControlledTextAreaInput = ({
   rules,
   placeholder = "",
   // variant = "primary",
-  maxLength = 160,
+  maxLength,
 }: ControlledInputProps) => {
   const {
     field: { onChange, onBlur, value, ref },
@@ -55,11 +55,12 @@ const ControlledTextAreaInput = ({
           ref={ref}
           className="w-full h-[150px] border border-[#DDDDDD] rounded-[5px] p-2.5 placeholder:text-sm placeholder:text-[#757575]"
         />
-        <div className="bg-[#eeeeee] rounded-[5px] h-10 px-1.5 py-2.5 flex items-center justify-between">
-          <p className="text-sm text-[#AAAAAA]">
-            {value?.length ?? 0}/{maxLength}
-          </p>
-          {/* <div className="flex items-center gap-6">
+        {maxLength && (
+          <div className="bg-[#eeeeee] rounded-[5px] h-10 px-1.5 py-2.5 flex items-center justify-between">
+            <p className="text-sm text-[#AAAAAA]">
+              {value?.length ?? 0}/{maxLength}
+            </p>
+            {/* <div className="flex items-center gap-6">
             <button
               type="button"
               className="flex items-center gap-1 px-3 py-1 text-sm border border-gray-300 rounded-md bg-[AAAAAA] text-[#AAAAAA]"
@@ -73,7 +74,8 @@ const ControlledTextAreaInput = ({
               <EmojiIcon />
             </button>
           </div> */}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

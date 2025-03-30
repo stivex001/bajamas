@@ -74,12 +74,14 @@ const AiAssitance = () => {
               name="message"
               control={control}
               placeholder="Write your message text here"
-              maxLength={1000}
+              
             />
             {aiResponse && (
               <div className="mt-4">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-sm font-medium">AI Response:</h3>
+                  <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-medium">Copy Response</h3>
                   <button
                     type="button"
                     onClick={handleCopy}
@@ -92,6 +94,7 @@ const AiAssitance = () => {
                       <Copy className="h-4 w-4 text-gray-500" />
                     )}
                   </button>
+                  </div>
                 </div>
                 <div className="p-3 bg-gray-50 rounded-md border border-gray-200 text-sm whitespace-pre-wrap">
                   {aiResponse}
@@ -101,7 +104,7 @@ const AiAssitance = () => {
 
             <div className="flex justify-end mt-6">
               <CustomButton
-                label="Send"
+                label="Ask AI"
                 variant="primary"
                 className="w-fit h-10 rounded-[5px] font-bold text-sm"
                 size="lg"

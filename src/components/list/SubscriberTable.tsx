@@ -9,7 +9,7 @@ const headers = [
   { content: <> Country</> },
   { content: <> State</> },
   { content: <> Phone</> },
-  { content: <> Tag</> },
+  { content: <> Group</> },
   { content: <> Actions</> },
 ];
 

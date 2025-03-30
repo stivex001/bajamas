@@ -65,7 +65,7 @@ const EditTemplate = () => {
 
   return (
     <main className="flex flex-col gap-7">
-      <PageTitle title="Plain Text " />
+      <PageTitle title="Regular" />
 
       <CardLayout>
         <div className="flex items-center gap-3 justify-end mb-0.5">

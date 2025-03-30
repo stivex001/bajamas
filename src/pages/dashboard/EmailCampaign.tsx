@@ -3,12 +3,12 @@ import EmailCampaignTable from "@/components/emailCampaign/EmailCampaignTable";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
-import FilterSelect from "@/components/shared/FilterSelect";
+// import FilterSelect from "@/components/shared/FilterSelect";
 import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
-import { sortOrder } from "./data";
+// import { sortOrder } from "./data";
 import { useCampaign } from "@/api/crud/campaigns";
 
 const EmailCampaign = () => {

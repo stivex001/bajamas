@@ -85,10 +85,7 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
             <DatePicker
               selected={value}
               onChange={(date) => onChange(date)}
-              showTimeSelect={dontShowTime ? false : true}
-              timeFormat="HH:mm:ss"
-              // timeIntervals={1}
-              dateFormat="dd.MM.yyyy HH:mm:ss"
+              dateFormat="dd.MM.yyyy"
               placeholderText={placeholder}
               className="bg-transparent w-full outline-none cursor-pointer"
               id={name}
@@ -96,9 +93,14 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
               onBlur={onBlur}
               ref={datePickerRef}
               preventOpenOnFocus
-              timeIntervals={30}
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={100}
             />
-            <MdOutlineDateRange className="size-6" />
+            <MdOutlineDateRange
+              onClick={() => datePickerRef.current?.setOpen(true)}
+              className="size-6"
+            />
           </div>
         ) : (
           <Input
