@@ -3,13 +3,15 @@ import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
 import { useCampaignStore } from "@/store/useCampaignStore";
-import filterIcon from "@/assets/svgs/filter.svg";
+// import filterIcon from "@/assets/svgs/filter.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { groups } from "@/api/crud/groups";
 import { ScreenLoader } from "@/components/shared/ScreenLoader";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { AddTagModal } from "@/components/list/AddTagModal";
 
 const AddTag = () => {
   const navigate = useNavigate();
@@ -24,6 +26,7 @@ const AddTag = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGroups, setSelectedGroups] = useState<any[]>([]);
+  const [groupModal, setGroupModal] = useState(false);
 
   const filteredGroups =
     groupList?.filter((group) =>
@@ -91,23 +94,25 @@ const AddTag = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
-                <div className="w-12 h-10 bg-[#eeeeee] flex items-center justify-center cursor-pointer rounded-md ">
+                {/* <div className="w-12 h-10 bg-[#eeeeee] flex items-center justify-center cursor-pointer rounded-md ">
                   <img src={filterIcon} alt="icon" />
-                </div>
+                </div> */}
               </div>
               <div>
-                <div className="h-16 flex items-center space-x-2">
-                  <Checkbox
-                    checked={isAllSelected}
-                    onCheckedChange={handleSelectAll}
-                  />
-                  <label
-                    htmlFor="terms"
-                    className="text-sm text-[#C7C6C6] font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Select all
-                  </label>
-                </div>
+                {filteredGroups?.length > 0 && (
+                  <div className="h-16 flex items-center space-x-2">
+                    <Checkbox
+                      checked={isAllSelected}
+                      onCheckedChange={handleSelectAll}
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm text-[#C7C6C6] font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Select all
+                    </label>
+                  </div>
+                )}
               </div>
               <div>
                 {filteredGroups?.length ?? 0 > 0 ? (
@@ -131,7 +136,26 @@ const AddTag = () => {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-center text-gray-500">No data found</p>
+                  <div className="flex flex-col items-center gap-2">
+                    <p className="text-center text-gray-500">No data found</p>
+                    <div onClick={() => setGroupModal(true)}>
+                      <Dialog>
+                        <DialogTrigger>
+                          <CustomButton
+                            label="Add Group"
+                            variant="primary"
+                            className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium bg-tertiary"
+                            size="lg"
+                            type="button"
+                          />
+                        </DialogTrigger>
+                        <AddTagModal
+                          open={groupModal}
+                          onClose={() => setGroupModal(false)}
+                        />
+                      </Dialog>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>

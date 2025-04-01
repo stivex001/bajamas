@@ -29,7 +29,7 @@ export const Sidebar = () => {
       </div>
       <button
         onClick={handleLogout}
-        className=" flex items-center px-12 py-4  text-darker font-semibold text-base font-Nunito"
+        className=" flex items-center px-12 py-4  !text-darker font-semibold text-base font-Nunito"
       >
         <LogoutIcon className="mr-2" />
         Logout

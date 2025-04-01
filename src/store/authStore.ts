@@ -17,7 +17,10 @@ const authStore = createStore<AuthState>()(
       currentUser: null,
       setAccessToken: (token) => set({ accessToken: token }),
       setCurrentUser: (user) => set({ currentUser: user }),
-      logout: () => set({ accessToken: null, currentUser: null }),
+      logout: () => {
+        localStorage.clear();
+        set({ accessToken: null, currentUser: null });
+      }
     }),
     {
       name: "auth-storage",

@@ -8,6 +8,7 @@ import { generalLinks } from "./data";
 import { useModalClose } from "@/context/SheetCloseModal";
 import { useAuthStore } from "@/store/authStore";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { LogoutIcon } from "@/assets/svgs/NavigationIcons";
 
 export const MobileNav = () => {
   const { pathname } = useLocation();
@@ -49,8 +50,9 @@ export const MobileNav = () => {
         <div className="px-4 py-4">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center p-2 space-x-1 rounded-lg text-secondary hover:bg-secondary/10 transition-colors duration-200"
+            className=" flex items-center px-12 py-4  !text-darker font-semibold text-base font-Nunito"
           >
+            <LogoutIcon className="mr-2" />
             Logout
           </button>
         </div>
