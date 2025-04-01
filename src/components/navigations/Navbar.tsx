@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { CustomSearchInput } from "../shared/CustomSearchInput";
+// import { useState } from "react";
+// import { CustomSearchInput } from "../shared/CustomSearchInput";
 import { NoticationBellIcon } from "@/assets/svgs/NotificationIcon";
 import { CustomArrowIcon } from "@/assets/svgs/ArrowsIcon";
-import Dropdown from "../shared/Dropdown";
-import englishFlag from "@/assets/images/en.png";
-import frenchFlag from "@/assets/images/fr.png";
+// import Dropdown from "../shared/Dropdown";
+// import englishFlag from "@/assets/images/en.png";
+// import frenchFlag from "@/assets/images/fr.png";
 import spanishFlag from "@/assets/images/es.png";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
@@ -19,11 +19,11 @@ import avater from "@/assets/images/avater.png";
 import { auth } from "@/api/crud/auth";
 import { useNotification } from "@/api/crud/notification";
 
-const languages = [
-  { label: "English", value: "en", flag: englishFlag },
-  { label: "French", value: "fr", flag: frenchFlag },
-  { label: "Spanish", value: "es", flag: spanishFlag },
-];
+// const languages = [
+//   { label: "English", value: "en", flag: englishFlag },
+//   { label: "French", value: "fr", flag: frenchFlag },
+//   { label: "Spanish", value: "es", flag: spanishFlag },
+// ];
 spanishFlag;
 
 export const Navbar = () => {
@@ -34,13 +34,13 @@ export const Navbar = () => {
   const { data: notification } = getAllNotification();
   const { data } = getCurrentUser();
   const userInfo = Array.isArray(data?.data) ? data?.data[0] || {} : {};
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
 
-  const languageOption = languages?.map((lang: any) => ({
-    value: lang?.value,
-    label: lang?.label,
-    flag: lang?.flag,
-  }));
+  // const languageOption = languages?.map((lang: any) => ({
+  //   value: lang?.value,
+  //   label: lang?.label,
+  //   flag: lang?.flag,
+  // }));
 
   const notificationData = notification?.data;
 
@@ -55,12 +55,12 @@ export const Navbar = () => {
           <img src={currentUser?.profile || logo} alt={currentUser?.name} />
         </div>
       </div>
-      <nav className=" w-full h-[70px] sticky z-50 top-5 flex items-center justify-between px-[18px] lg:px-8 bg-white py-4 gap-9 lg:gap-0">
-        <CustomSearchInput
+      <nav className=" w-full h-[70px] sticky z-50 top-5 flex items-center justify-end px-[18px] lg:px-8 bg-white py-4 gap-9 lg:gap-0">
+        {/* <CustomSearchInput
           className="bg-[#F5F6FA]  lg:w-[388px] rounded-[19px] lg:ml-6"
           setSearchTerm={setSearchTerm}
           searchTerm={searchTerm}
-        />
+        /> */}
         <div className=" flex items-center">
           <Link to="/notifications" className="relative">
             <NoticationBellIcon />
@@ -72,9 +72,9 @@ export const Navbar = () => {
               </div>
             )}
           </Link>
-          <div className="ml-5 lg:ml-7">
+          {/* <div className="ml-5 lg:ml-7">
             <Dropdown desc="Select Language" options={languageOption} />
-          </div>
+          </div> */}
           <Popover>
             <PopoverTrigger>
               <div className="hidden lg:flex items-center gap-6 lg:ml-6">
