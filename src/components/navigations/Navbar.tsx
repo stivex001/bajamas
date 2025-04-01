@@ -43,8 +43,11 @@ export const Navbar = () => {
   // }));
 
   const notificationData = notification?.data;
+  const unreadNotifications = notificationData?.filter(
+    (notification) => !notification?.read_at
+  );
 
-  console.log(notificationData, "notification");
+  console.log(unreadNotifications, "notification");
 
   return (
     <>
@@ -64,7 +67,7 @@ export const Navbar = () => {
         <div className=" flex items-center">
           <Link to="/notifications" className="relative">
             <NoticationBellIcon />
-            { (notificationData?.length ?? 0) > 0 && (
+            { (unreadNotifications?.length ?? 0) > 0 && (
               <div className="absolute -top-1 -right-1 bg-[#F93C65] w-4 h-4 rounded-full flex items-center justify-center">
                 <span className="text-xs font-bold text-white font-Nunito mt-0.5 ">
                   {notificationData?.length}
