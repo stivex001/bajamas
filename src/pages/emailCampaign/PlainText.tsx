@@ -22,6 +22,7 @@ const PlainText = () => {
     setCampaignData({
       ...campaignData,
       design_content: editorContent,
+      design_html: editorContent,
     });
     navigate(`/email_campaign/add_tag`);
   };
