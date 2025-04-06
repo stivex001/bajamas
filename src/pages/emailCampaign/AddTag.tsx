@@ -43,7 +43,7 @@ const AddTag = () => {
 
   const handleSelectAll = () => {
     if (selectedGroups?.length === filteredGroups?.length) {
-      setSelectedGroups([]); // Unselect all
+      setSelectedGroups([]);
     } else {
       setSelectedGroups(filteredGroups?.map((group) => group.id.toString())); // Select all
     }
@@ -125,8 +125,10 @@ const AddTag = () => {
                         }`}
                       >
                         <Checkbox
-                          checked={selectedGroups.includes(group)}
-                          onCheckedChange={() => handleSelectGroup(group)}
+                          checked={selectedGroups.includes(group?.id?.toString())}
+                          onCheckedChange={() =>
+                            handleSelectGroup(group?.id?.toString())
+                          }
                         />
 
                         <p className="text-sm font-semibold text-[#7E7C7B]">
