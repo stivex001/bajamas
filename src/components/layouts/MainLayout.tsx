@@ -3,6 +3,7 @@ import ScrollToTop from "../../utils/ScrollToTop";
 import { Sidebar } from "../navigations/Sidebar";
 import { Navbar } from "../navigations/Navbar";
 
+
 type Props = {
   children: ReactNode;
 };
