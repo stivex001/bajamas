@@ -25,13 +25,13 @@ export const MobileNav = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={openModal}>
-      <SheetTrigger asChild className="lg:hidden">
+      <SheetTrigger asChild className="lg:hidden py-3">
         <button onClick={openModal}>
           <HamburgerIcon />
         </button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0 flex flex-col w-64 !bg-white">
-        <div className="flex items-center border-b p-6">
+        <div className=" flex items-center border-b p-6">
           {/* <img
             src={avatar}
             alt={avatar}

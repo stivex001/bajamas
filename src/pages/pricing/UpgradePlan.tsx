@@ -1,116 +1,77 @@
 import { usePricing } from "@/api/crud/pricing";
+
+declare global {
+  interface Window {
+    Korapay: {
+      initialize: (config: {
+        key: string;
+        reference: string;
+        amount: number;
+        currency: string;
+        customer: {
+          name: string;
+          email: string;
+        };
+        notification_url: string;
+      }) => void;
+    };
+  }
+}
 // import { MasterCardIcon, VisaCardIcon } from "@/assets/svgs/CardIcon";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import { ScreenLoader } from "@/components/shared/ScreenLoader";
-
-// interface Plan {
-//   title: string;
-//   price: string;
-//   cat: string;
-//   features: string[];
-// }
-
-// const tabs = [
-//   {
-//     id: 1,
-//     label: "Monthly",
-//   },
-//   {
-//     id: 2,
-//     label: "Yearly",
-//   },
-// ];
-
-// const plans = {
-//   Monthly: [
-//     {
-//       title: "Free",
-//       price: "$0",
-//       features: [
-//         "500 subscribers",
-//         "10,000 monthly email sends",
-//         "Everything in Free",
-//       ],
-//       cat: "Monthly Charge",
-//     },
-//     {
-//       title: "Standard",
-//       price: "$15.83",
-//       features: [
-//         "2,500 subscribers",
-//         "30,000 monthly email sends",
-//         "No Sender branding in emails and forms",
-//         "SMS messaging",
-//         "Multi-user access",
-//       ],
-//       cat: "Monthly Charge",
-//     },
-//     {
-//       title: "Professional",
-//       price: "$29.17",
-//       features: [
-//         "2,500 subscribers",
-//         "60,000 monthly email sends",
-//         "Free SMS included (worth $35/mo.)",
-//         "Advanced automation",
-//         "Animated countdown timers",
-//         "Priority support",
-//       ],
-//       cat: "Monthly Charge",
-//     },
-//   ],
-//   Yearly: [
-//     {
-//       title: "Free",
-//       price: "$0",
-//       features: [
-//         "500 subscribers",
-//         "10,000 monthly email sends",
-//         "Everything in Free",
-//       ],
-//       cat: "Yearly Charge",
-//     },
-//     {
-//       title: "Standard",
-//       price: "$150",
-//       features: [
-//         "2,500 subscribers",
-//         "30,000 monthly email sends",
-//         "No Sender branding in emails and forms",
-//         "SMS messaging",
-//         "Multi-user access",
-//       ],
-//       cat: "Yearly Charge",
-//     },
-//     {
-//       title: "Professional",
-//       price: "$290",
-//       features: [
-//         "2,500 subscribers",
-//         "60,000 monthly email sends",
-//         "Free SMS included (worth $35/mo.)",
-//         "Advanced automation",
-//         "Animated countdown timers",
-//         "Priority support",
-//       ],
-//       cat: "Yearly Charge",
-//     },
-//   ],
-// };
+import { korapayKey } from "@/constants";
+import { useAuthStore } from "@/store/authStore";
 
 const UpgradePlan = () => {
-  // const [activeTab, setActiveTab] = useState(1);
-
-  // const activePlans = activeTab === 1 ? plans.Monthly : plans.Yearly;
-
   const { getPricingList } = usePricing();
+  const { currentUser } = useAuthStore();
 
   const { data: pricingData, isLoading } = getPricingList();
 
   const pricingList = pricingData?.data;
 
-  console.log(pricingList, "pricing");
+  function generateReference() {
+    return `ref_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+  }
+
+  // function payKorapay(amount: any) {
+  //   if (!window.Korapay || typeof window.Korapay.initialize !== "function") {
+  //     alert("Korapay SDK not loaded.");
+  //     return;
+  //   }
+
+  //   const reference = generateReference();
+
+  //   window.Korapay.initialize({
+  //     key: `${import.meta.env.VITE_API_KORAPAY_KEY}`,
+  //     reference,
+  //     amount,
+  //     currency: "NGN",
+  //     customer: {
+  //       name: `${currentUser?.name}`,
+  //       email: `${currentUser?.email}`,
+  //     },
+  //     notification_url: "https://example.com/webhook",
+  //   });
+  // }
+
+  function payKorapay(amount: number) {
+    const reference = generateReference();
+
+    window.Korapay.initialize({
+      key: `${korapayKey}`,
+      reference,
+      amount,
+      currency: "NGN",
+      customer: {
+        name: `${currentUser?.name}`,
+        email: `${currentUser?.email}`,
+      },
+      notification_url: "https://example.com/webhook",
+    });
+  }
 
   if (isLoading) return <ScreenLoader />;
 
@@ -118,22 +79,6 @@ const UpgradePlan = () => {
     <main className="flex flex-col gap-7">
       <PageTitle title="Pricing" />
       <CardLayout className="">
-        {/* <div className="w-[232px] mx-auto flex items-center py-2.5 px-4 rounded-[5px] shadow-boxShadow">
-          {tabs.map((tab) => (
-            <div
-              key={tab.id}
-              className={`w-[85px] h-[34px] px-5 py-1.5 flex items-center justify-center cursor-pointer  font-semibold text-base font-Nunito ${
-                activeTab === tab.id
-                  ? "text-white bg-primary rounded-[9px]"
-                  : "text-[#979797] rounded-[1px]"
-              }`}
-              onClick={() => setActiveTab(tab.id)}
-            >
-              {tab.label}
-            </div>
-          ))}
-        </div> */}
-        {/* Pricing Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px] mt-5">
           {pricingList?.map((plan) => (
             <div
@@ -144,26 +89,25 @@ const UpgradePlan = () => {
                 <h3 className="text-xl font-bold text-[#202224] mb-2.5 font-Nunito uppercase">
                   {plan?.plan}
                 </h3>
-                {/* <h2 className="text-base mb-2.5 font-Nunito">{plan?.cat}</h2> */}
                 <p className="text-5xl font-extrabold text-primary mb-4">
                   ₦{plan?.amount}
                 </p>
               </div>
               <ul className="mt-10 w-full border-b-2 border-b-[#212121]/10 pb-10 h-[400px]">
-                {/* {plan?.features?.map((feature: string, idx: number) => (
-                  
-                ))} */}
                 <li className="mb-7 text-lg text-[#212121] font-Nunito">
                   {plan?.data}
                 </li>
               </ul>
-              {/* {plan?.plan !== "free" ? (
-                <button className="mt-10 border-2 border-primary rounded-[30px] text-primary text-base font-bold font-Nunito py-5 px-7">
+              {plan?.plan !== "free" ? (
+                <button
+                  onClick={() => payKorapay(Number(plan?.amount))}
+                  className="mt-10 border-2 border-primary hover:bg-primary hover:text-white rounded-[30px] text-primary text-base font-bold font-Nunito py-5 px-7"
+                >
                   Choose this plan
                 </button>
               ) : (
                 <button className="mt-10  rounded-[30px] text-primary text-base font-bold font-Nunito py-5 px-7"></button>
-              )} */}
+              )}
             </div>
           ))}
         </div>

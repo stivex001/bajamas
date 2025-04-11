@@ -11,7 +11,7 @@ import {
   ProfileWithBorderIcon,
   SettingIconsWithBorder,
 } from "@/assets/svgs/SettingsIcon";
-import logo from "../../../public/logo.png";
+// import logo from "../../../public/logo.png";
 import { MobileNav } from "./MobileNav";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
@@ -55,7 +55,7 @@ export const Navbar = () => {
         <MobileNav />
 
         <div className="w-[148px]">
-          <img src={currentUser?.profile || logo} alt={currentUser?.name} />
+          {/* <img src={currentUser?.profile || logo} alt={currentUser?.name} /> */}
         </div>
       </div>
       <nav className=" w-full h-[70px] sticky z-50 top-5 flex items-center justify-end px-[18px] lg:px-8 bg-white py-4 gap-9 lg:gap-0">
