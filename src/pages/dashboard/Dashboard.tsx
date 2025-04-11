@@ -14,23 +14,15 @@ import { CardLayout } from "@/components/shared/CardLayout";
 import Metrics from "@/components/dashboard/charts/Metrics";
 import ActivityLog from "@/components/dashboard/ActivityLog";
 import { useAuthStore } from "@/store/authStore";
-import { useSubscribers } from "@/api/crud/subscribers";
-import { useSpamReport } from "@/api/crud/spamReport";
-import { useBlackList } from "@/api/crud/blackList";
+import { useDashboard } from "@/api/crud/dashboard";
 
 const Dashboard = () => {
   const { currentUser } = useAuthStore();
-  const { getSubscriberList, getUnsubcriberList } = useSubscribers();
-  const { getSpamList } = useSpamReport();
-  const { getBlackList } = useBlackList();
-  const { data: list } = getSubscriberList();
-  const { data: unSublist } = getUnsubcriberList();
-  const { data: spamlist } = getSpamList();
-  const { data: blacklist } = getBlackList();
-  const SubList = list?.message;
-  const unSubgroupList = unSublist?.message;
-  const spamgroupList = spamlist?.message;
-  const blackgroupList = blacklist?.message;
+  const { getDashboardList } = useDashboard();
+  const { data: dlist } = getDashboardList();
+  const countList = dlist?.data;
+
+  console.log(countList);
 
   return (
     <main className="flex flex-col gap-7">
@@ -43,22 +35,22 @@ const Dashboard = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 ">
         <DashboardCard
           desc="Subscribers"
-          value={`${SubList?.length}`}
+          value={`${countList?.subscribers}`}
           icon={SubCribersIcon}
         />
         <DashboardCard
           desc="Unsubscribe"
-          value={`${unSubgroupList?.length}`}
+          value={`${countList?.unsubscribe}`}
           icon={UnSubCribersIcon}
         />
         <DashboardCard
           desc="Spam Reported"
-          value={`${spamgroupList?.length}`}
+          value={`${countList?.spam_reported}`}
           icon={SpamIcon}
         />
         <DashboardCard
           desc="Blacklisted"
-          value={`${blackgroupList?.length}`}
+          value={`${countList?.blacklisted}`}
           icon={BlacklistedIcon}
         />
       </div>
