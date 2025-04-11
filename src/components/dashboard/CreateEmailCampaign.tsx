@@ -1,8 +1,12 @@
-import { ReportIcon } from "@/assets/svgs/MenuIcon";
+// import { ReportIcon } from "@/assets/svgs/MenuIcon";
 import { CardLayout } from "../shared/CardLayout";
 import camp from "@/assets/images/camp.png";
+import { useNavigate } from "react-router-dom";
 
-export const CreateEmailCampaign = () => {
+export const CreateEmailCampaign = ({ countList }: any) => {
+  const navigate = useNavigate();
+  const lastCampagin = countList?.last_campaign;
+
   return (
     <CardLayout>
       <div className="flex flex-col gap-2 ">
@@ -10,7 +14,10 @@ export const CreateEmailCampaign = () => {
           Last sent Email campaign
         </h2>
         <div className="py-5">
-          <button className="w-fit bg-[#E6F2E6] text-sm p-3 rounded-lg">
+          <button
+            onClick={() => navigate("/email_campaign")}
+            className="w-fit bg-[#E6F2E6] hover:bg-[#E6F2E6]/60 text-sm p-3 rounded-lg"
+          >
             Create New Email Campaign
           </button>
         </div>
@@ -21,14 +28,14 @@ export const CreateEmailCampaign = () => {
             </div>
             <div className="flex flex-col gap-2.5">
               <h2 className="font-semibold text-xs text-[#7D7E81]">
-                Mega Steez Challenge
+                {lastCampagin?.title}
               </h2>
               <span className="text-[#7FC494] bg-[#DFFFEA] px-2.5 py-2 text-[10px] font-semibold">
-                SENT 2024-09-05 21:45:06
+                SENT {lastCampagin?.schedule_date}
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-8">
+          {/* <div className="flex items-center gap-8">
             <div className="flex flex-col gap-0.5">
               <h2 className="font-semibold text-xs text-[#504D4E]">2084</h2>
               <p className="text-[10px] font-semibold text-[#ADADAD]">
@@ -49,7 +56,7 @@ export const CreateEmailCampaign = () => {
                 View report
               </p>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </CardLayout>

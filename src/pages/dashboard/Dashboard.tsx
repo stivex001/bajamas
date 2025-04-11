@@ -22,8 +22,6 @@ const Dashboard = () => {
   const { data: dlist } = getDashboardList();
   const countList = dlist?.data;
 
-  console.log(countList);
-
   return (
     <main className="flex flex-col gap-7">
       <div className="flex flex-col gap-5">
@@ -63,7 +61,7 @@ const Dashboard = () => {
           <PieChart countList={countList} />
         </div>
       </div>
-      <CreateEmailCampaign />
+      <CreateEmailCampaign countList={countList} />
       <CardLayout>
         <div className="flex flex-col lg:flex-row gap-3">
           <div className="flex-1">
