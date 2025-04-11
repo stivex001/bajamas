@@ -60,7 +60,7 @@ const Dashboard = () => {
           <Barchart />
         </div>
         <div className="w-full lg:w-5/12">
-          <PieChart />
+          <PieChart countList={countList} />
         </div>
       </div>
       <CreateEmailCampaign />

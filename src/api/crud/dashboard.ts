@@ -24,6 +24,15 @@ export interface Dashboard {
   };
 }
 
+export interface SubscriberGrowth {
+  key: string;
+  value: number;
+}
+
+export interface SubscriberGrowthList {
+  data: SubscriberGrowth[];
+}
+
 export const useDashboard = () => {
   // const askAi = useApiMutation<AuthResponse, FormData>({
   //   url: "/aimessage",
@@ -36,7 +45,14 @@ export const useDashboard = () => {
       method: "GET",
     });
 
+  const getSubscriberGrowth = () =>
+    useApiQuery<SubscriberGrowthList>(["growth-list"], {
+      url: `/dashboard/subscriber-growth`,
+      method: "GET",
+    });
+
   return {
     getDashboardList,
+    getSubscriberGrowth,
   };
 };
