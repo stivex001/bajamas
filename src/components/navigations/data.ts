@@ -24,16 +24,16 @@ export const generalLinks = [
     path: "/sms_campaign",
     label: "SMS Campaign",
     icon: SmsIcon,
-    sub: [
-      {
-        path: "/send_sms",
-        label: "Send SMS",
-      },
-      {
-        path: "/sms_settings",
-        label: "SMS settings",
-      },
-    ],
+    // sub: [
+    //   {
+    //     path: "/send_sms",
+    //     label: "Send SMS",
+    //   },
+    //   {
+    //     path: "/sms_settings",
+    //     label: "SMS settings",
+    //   },
+    // ],
   },
   { path: "/templates", label: "Templates", icon: TemplateIcon },
   {
