@@ -10,16 +10,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// const data = [
-//   { month: "11/2022", subscribers: 30 },
-//   { month: "12/2022", subscribers: 50 },
-//   { month: "13/2022", subscribers: 130 },
-//   { month: "14/2022", subscribers: 70 },
-//   { month: "15/2022", subscribers: 310 },
-//   { month: "16/2022", subscribers: 100 },
-//   { month: "17/2022", subscribers: 200 },
-// ];
-
 const Barchart = () => {
   const { getSubscriberGrowth } = useDashboard();
   const { data: dlist } = getSubscriberGrowth();

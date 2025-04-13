@@ -15,28 +15,6 @@ const chartMeta = {
   blacklisted: { name: "Blacklisted", color: "#ff6f61" },
 };
 
-// const renderCustomLabel = ({ name, value, x, y, cx, cy }) => {
-//   const RADIAN = Math.PI / 180;
-//   const radius = 80;
-//   const angle = Math.atan2(y - cy, x - cx);
-//   const labelX = cx + radius * Math.cos(angle);
-//   const labelY = cy + radius * Math.sin(angle);
-
-//   return (
-//     <text
-//       x={labelX}
-//       y={labelY}
-//       fill="white"
-//       textAnchor="middle"
-//       dominantBaseline="central"
-//       fontSize={12}
-//       fontWeight={500}
-//     >
-//       {`${name}\n${value}`}
-//     </text>
-//   );
-// };
-
 const PieChart = ({ countList }: any) => {
   const data = Object.entries(countList || {}).map(([key, value]) => ({
     name: chartMeta[key as keyof typeof chartMeta]?.name || key,
