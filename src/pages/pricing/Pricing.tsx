@@ -1,3 +1,4 @@
+import { usePricing } from "@/api/crud/pricing";
 import { PageTitle } from "@/components/PageTitle";
 import PricingTable from "@/components/pricing/PricingTable";
 import { CardLayout } from "@/components/shared/CardLayout";
@@ -7,12 +8,18 @@ import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const tempplateTable: any[] = [];
 
 const Pricing = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const isPending = false;
+
+  const { getPricingList } = usePricing();
+
+  const { data: pricingData } = getPricingList();
+
+  const pricingList = pricingData?.data;
+  const defaultPrice = pricingList?.[0];
 
   const totalEntries = tempplateTable?.length;
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,13 +46,22 @@ const Pricing = () => {
         </h1>
         <div className="border border-[#EDEDED] p-4 rounded-lg flex flex-col gap-2 my-6">
           <div className="flex flex-col gap-2">
-            <p className="text-xl text-[#1F1F1F]">Plan: Professional</p>
+            <p className="text-xl text-[#1F1F1F] uppercase">
+              Plan: {defaultPrice?.plan}
+            </p>
             <span className="text-sm text-[#8A8A8A]">
-              Take your videos to the next level with more features.
+              {defaultPrice?.data?.split("|")?.map((item, index) => (
+                <li
+                  key={index}
+                  className="mb-5 text-lg text-[#212121] font-Nunito"
+                >
+                  {item?.trim()}
+                </li>
+              ))}
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-primary text-xl">$9.99 / month</p>
+            <p className="text-primary text-xl">₦{defaultPrice?.amount}</p>
             <CustomButton
               label="Upgrade Plan"
               variant="primary"
