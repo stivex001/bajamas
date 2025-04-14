@@ -36,27 +36,6 @@ const UpgradePlan = () => {
     return `ref_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
   }
 
-  // function payKorapay(amount: any) {
-  //   if (!window.Korapay || typeof window.Korapay.initialize !== "function") {
-  //     alert("Korapay SDK not loaded.");
-  //     return;
-  //   }
-
-  //   const reference = generateReference();
-
-  //   window.Korapay.initialize({
-  //     key: `${import.meta.env.VITE_API_KORAPAY_KEY}`,
-  //     reference,
-  //     amount,
-  //     currency: "NGN",
-  //     customer: {
-  //       name: `${currentUser?.name}`,
-  //       email: `${currentUser?.email}`,
-  //     },
-  //     notification_url: "https://example.com/webhook",
-  //   });
-  // }
-
   function payKorapay(amount: number) {
     const reference = generateReference();
 
@@ -69,7 +48,8 @@ const UpgradePlan = () => {
         name: `${currentUser?.name}`,
         email: `${currentUser?.email}`,
       },
-      notification_url: "https://example.com/webhook",
+      notification_url:
+        "https://cheapmailing.dev.5starcompany.com.ng/dashboard",
     });
   }
 
@@ -94,10 +74,16 @@ const UpgradePlan = () => {
                 </p>
               </div>
               <ul className="mt-10 w-full border-b-2 border-b-[#212121]/10 pb-10 h-[400px]">
-                <li className="mb-7 text-lg text-[#212121] font-Nunito">
-                  {plan?.data}
-                </li>
+                {plan?.data?.split("|")?.map((item, index) => (
+                  <li
+                    key={index}
+                    className="mb-5 text-lg text-[#212121] font-Nunito"
+                  >
+                    {item?.trim()}
+                  </li>
+                ))}
               </ul>
+
               {plan?.plan !== "free" ? (
                 <button
                   onClick={() => payKorapay(Number(plan?.amount))}

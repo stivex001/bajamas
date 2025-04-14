@@ -11,8 +11,13 @@ import Metrics from "../dashboard/charts/Metrics";
 import bullish from "@/assets/images/arrow.png";
 import ImportViaCSV from "./ImportViaCSV";
 import ImportViaApi from "./ImportViaApi";
+import { useDashboard } from "@/api/crud/dashboard";
 
 const OverviewDetails = () => {
+  const { getDashboardList } = useDashboard();
+  const { data: dlist } = getDashboardList();
+  const countList = dlist?.data;
+
   return (
     <main className="flex flex-col gap-7">
       <div className="flex flex-col gap-5">
@@ -26,16 +31,24 @@ const OverviewDetails = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 ">
         <DashboardCard
           desc="Subscribers"
-          value="40,689"
+          value={`${countList?.subscribers}`}
           icon={SubCribersIcon}
         />
         <DashboardCard
           desc="Unsubscribe"
-          value="10,293"
+          value={`${countList?.unsubscribe}`}
           icon={UnSubCribersIcon}
         />
-        <DashboardCard desc="Spam Reported" value="9,000" icon={SpamIcon} />
-        <DashboardCard desc="Blacklisted" value="2040" icon={BlacklistedIcon} />
+        <DashboardCard
+          desc="Spam Reported"
+          value={`${countList?.spam_reported}`}
+          icon={SpamIcon}
+        />
+        <DashboardCard
+          desc="Blacklisted"
+          value={`${countList?.blacklisted}`}
+          icon={BlacklistedIcon}
+        />
       </div>
       <CardLayout>
         <Metrics />
@@ -45,11 +58,7 @@ const OverviewDetails = () => {
           <div className="border-b border-b-[#E5E7EB] pb-4">
             <div className="flex items-center gap-4">
               <div className="w-4 h-4 ">
-                <img
-                  src={bullish}
-                  alt="bullish"
-                  className="w-full h-full"
-                />
+                <img src={bullish} alt="bullish" className="w-full h-full" />
               </div>
               <h2 className="font-semibold text-base text-[#A7A9AB]">
                 Quick action
