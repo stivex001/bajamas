@@ -31,8 +31,15 @@ export const groups = () => {
       method: "GET",
     });
 
+  const updateGroup = (id: string) =>
+    useApiMutation<AuthResponse, FormData>({
+      url: `/updatetags/${id}`,
+      method: "PUT",
+    });
+
   return {
     addGroup,
     getGroupList,
+    updateGroup,
   };
 };

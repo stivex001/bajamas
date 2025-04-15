@@ -1,6 +1,9 @@
 import { formatDate } from "@/utils/formatDate";
 import TableLayout from "../shared/TableLayout";
 import { ActionModal } from "../shared/ActionModal";
+import { AddTagModal } from "./AddTagModal";
+import { useState } from "react";
+import { Dialog } from "../ui/dialog";
 
 const headers = [
   { content: <>#</> },
@@ -20,30 +23,62 @@ type listType = {
   listData: any;
 };
 
-const renderRow = (item: any, index: number) => {
-  return (
-    <tr
-      key={index}
-      className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"
-    >
-      {/* <td className="py-1 px-4">{item?.id}</td> */}
-      <td className="py-1 px-4">{index + 1}</td>
-      <td className="py-1 px-4">{item?.business_id}</td>
-      <td className="py-1 px-4">{item?.user_id}</td>
-      <td className="py-1 px-4">{item?.name}</td>
-      <td className="py-1 px-4 ">{formatDate(item?.created_at)}</td>
-      <td className="py-1 px-4 ">{formatDate(item?.updated_at)}</td>
-      <td className="py-1 px-4 ">
-        <ActionModal desc={"Group"} />
-      </td>
-    </tr>
-  );
-};
-
 const TagTable = ({ listData }: listType) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTag, setSelectedTag] = useState<any>(null);
+
+  const handleView = (item: any) => {
+    console.log("View clicked:", item);
+    // open view modal or route to details page
+  };
+
+  const handleEdit = (item: any) => {
+    setSelectedTag(item); // set selected tag for editing
+    setIsModalOpen(true); // open the modal
+  };
+
+  const handleDelete = (item: any) => {
+    console.log("Delete clicked:", item);
+    // show confirmation modal
+  };
+
+  const renderRow = (item: any, index: number) => {
+    return (
+      <tr
+        key={index}
+        className="bg-white w-full text-[13px] text-left font-medium text-tableText h-[40px]"
+      >
+        {/* <td className="py-1 px-4">{item?.id}</td> */}
+        <td className="py-1 px-4">{index + 1}</td>
+        <td className="py-1 px-4">{item?.business_id}</td>
+        <td className="py-1 px-4">{item?.user_id}</td>
+        <td className="py-1 px-4">{item?.name}</td>
+        <td className="py-1 px-4 ">{formatDate(item?.created_at)}</td>
+        <td className="py-1 px-4 ">{formatDate(item?.updated_at)}</td>
+        <td className="py-1 px-4 ">
+          <ActionModal
+            desc={"Group"}
+            showEdit
+            onView={() => handleView(item)}
+            onEdit={() => handleEdit(item)}
+            onDelete={() => handleDelete(item)}
+          />
+        </td>
+      </tr>
+    );
+  };
+
   return (
     <div>
       <TableLayout headers={headers} data={listData} renderRow={renderRow} />
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <AddTagModal
+          editMode
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          selectedGroup={selectedTag}
+        />
+      </Dialog>
     </div>
   );
 };

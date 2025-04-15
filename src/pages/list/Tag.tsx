@@ -7,9 +7,7 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import TagTable from "@/components/list/TagTable";
 import { AddTagModal } from "@/components/list/AddTagModal";
-import FilterSelect from "@/components/shared/FilterSelect";
 import { groups } from "@/api/crud/groups";
-import { sortOrder } from "../dashboard/data";
 const Tag = () => {
   const [groupModal, setGroupModal] = useState(false);
 
@@ -35,16 +33,11 @@ const Tag = () => {
     <main className="flex flex-col gap-7">
       <PageTitle title="Group" />
       <CardLayout>
-        <div className="flex items-center justify-between mb-9">
-          <aside className="flex items-center gap-2 ">
+        <div className="flex items-center justify-end mb-9">
+          {/* <aside className="flex items-center gap-2 ">
             <h3 className="text-xs font-medium text-black">Sort By:</h3>
-            <FilterSelect<string>
-              options={sortOrder}
-              // label="Sort By"
-              // onChange={(selected) => updateFilter("sortOrder", selected)}
-              value={sortOrder[0]}
-            />
-          </aside>
+            <FilterSelect<string> options={sortOrder} value={sortOrder[0]} />
+          </aside> */}
           <div onClick={() => setGroupModal(true)}>
             <Dialog>
               <DialogTrigger>

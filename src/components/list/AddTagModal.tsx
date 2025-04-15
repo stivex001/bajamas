@@ -8,6 +8,7 @@ import { Field } from "@/schemas/dynamicSchema";
 import CustomButton from "../shared/CustomButton";
 import { groups } from "@/api/crud/groups";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 const fields: Field[] = [
   {
@@ -21,21 +22,44 @@ const fields: Field[] = [
 type AddTagModalProps = {
   onClose: any;
   open: boolean;
+  editMode?: boolean;
+  selectedGroup?: any;
 };
 
-export const AddTagModal = ({ open, onClose }: AddTagModalProps) => {
-  const { control, handleSubmit, formState } = useDynamicForm(fields, {});
+export const AddTagModal = ({
+  open,
+  onClose,
+  editMode,
+  selectedGroup,
+}: AddTagModalProps) => {
+  const { control, handleSubmit, formState, reset } = useDynamicForm(fields, {
+    name: selectedGroup?.name || "",
+  });
+
+  useEffect(() => {
+    if (selectedGroup) {
+      reset({
+        name: selectedGroup?.name,
+      });
+    }
+  }, [selectedGroup, reset]);
 
   const { isValid } = formState;
 
-  const { addGroup, getGroupList } = groups();
+  const { addGroup, getGroupList, updateGroup } = groups();
 
   const { isPending, mutate } = addGroup;
+  const { isPending: updatePending, mutate: update } = updateGroup(
+    `${selectedGroup?.id}`
+  );
+
   const { refetch } = getGroupList();
 
   const onSubmit = async (data: any) => {
+    const action = editMode ? update : mutate;
+
     try {
-      await mutate(data, {
+      await action(data, {
         onSuccess: (response: any) => {
           console.log(response, "res_");
           toast.success(response?.message);
@@ -55,7 +79,10 @@ export const AddTagModal = ({ open, onClose }: AddTagModalProps) => {
     <>
       {open && (
         <DialogContent className="rounded-[26px] w-[350px]  lg:w-[530px]">
-          <ModalHeader title="Add Groups" icon={X} />
+          <ModalHeader
+            title={editMode ? "Edit Group" : "Add Groups"}
+            icon={X}
+          />
           <form onSubmit={handleSubmit(onSubmit)}>
             <ModalBody className="border-t border-b py-5">
               <ControlledInput
@@ -70,10 +97,10 @@ export const AddTagModal = ({ open, onClose }: AddTagModalProps) => {
             </ModalBody>
             <CustomButton
               variant="primary"
-              label="Submit"
+              label={editMode ? "Update" : "Submit"}
               className="w-[129px] h-10 rounded-lg text-xs font-Nunito font-bold mx-auto mt-3"
               size="lg"
-              isLoading={isPending}
+              isLoading={editMode ? updatePending : isPending}
               disabled={!isValid}
               type="submit"
             />
