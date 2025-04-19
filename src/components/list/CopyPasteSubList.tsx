@@ -220,8 +220,8 @@ const CopyPasteSubList = () => {
           <CustomControlledSelect
             name="tag"
             control={control}
-            label="Tag"
-            placeholder="Select Your Tag"
+            label="Group"
+            placeholder="Select Your Group"
             options={tagList}
             searchable
             searchTerm={searchTerm}

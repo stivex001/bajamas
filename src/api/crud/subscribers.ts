@@ -51,11 +51,21 @@ export const useSubscribers = () => {
       method: "GET",
     });
 
+    const importBulkSubscribers = useApiMutation<any, FormData>({
+      url: "/subscribers/bulk-upload",
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+      },
+    });
+
   return {
     createSubscriber,
     getSubscriberList,
     getUnsubcriberList,
     getSubscriberEmailList,
     getTotalSubscriberList,
+    importBulkSubscribers
   };
 };
