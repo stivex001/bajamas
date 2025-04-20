@@ -6,7 +6,7 @@ import {
   SubCribersIcon,
   UnSubCribersIcon,
 } from "@/assets/svgs/MenuIcon";
-import CreditUsed from "@/components/dashboard/CreditUsed";
+// import CreditUsed from "@/components/dashboard/CreditUsed";
 import { CreateEmailCampaign } from "@/components/dashboard/CreateEmailCampaign";
 import Barchart from "@/components/dashboard/charts/Barchat";
 import PieChart from "@/components/dashboard/charts/PieChart";
@@ -52,7 +52,7 @@ const Dashboard = () => {
           icon={BlacklistedIcon}
         />
       </div>
-      <CreditUsed />
+      {/* <CreditUsed /> */}
       <div className="flex flex-col  lg:flex-row gap-6 h-full">
         <div className="w-full lg:w-7/12">
           <Barchart />
