@@ -66,7 +66,7 @@ const AddTag = () => {
 
   return (
     <main className="flex flex-col gap-7">
-      <PageTitle title="Add Tag" />
+      <PageTitle title="Add Group" />
       <CardLayout>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-9">
           <div className="self-end">

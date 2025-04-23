@@ -32,7 +32,7 @@ const ScheduleModal = ({ isOpen, onClose }: ScheduleModalProps) => {
 
       {/* Modal Content */}
       <div className="fixed inset-0 flex items-center justify-center">
-        <Dialog.Panel className="bg-white rounded-lg p-5 shadow-lg w-[320px]">
+        <Dialog.Panel className="bg-white rounded-lg shadow-lg p-5">
           <h2 className="text-lg font-semibold mb-4">Select Schedule Date</h2>
           <DatePicker
             selected={selectedDate}
