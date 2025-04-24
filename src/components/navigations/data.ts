@@ -1,6 +1,6 @@
 import {
   ApiIcon,
-  BucketListIcon,
+  // BucketListIcon,
   DashboardIcon,
   ListIcon,
   MessageIcon,
@@ -62,20 +62,20 @@ export const generalLinks = [
         label: "Group",
       },
       {
-        path: "/collaboration",
-        label: "Collaboration",
+        path: "/sending_blacklist",
+        label: "Blacklist",
       },
-      {
-        path: "/invites",
-        label: "Invites",
-      },
+      // {
+      //   path: "/invites",
+      //   label: "Invites",
+      // },
     ],
   },
-  {
-    path: "/sending_blacklist",
-    label: "Sending BlackList",
-    icon: BucketListIcon,
-  },
+  // {
+  //   path: "/sending_blacklist",
+  //   label: "Sending BlackList",
+  //   icon: BucketListIcon,
+  // },
   { path: "/pricing", label: "Pricing", icon: PricingIcon },
   { path: "/api", label: "API", icon: ApiIcon },
 ];

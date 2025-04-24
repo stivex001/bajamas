@@ -195,6 +195,11 @@ const router = createBrowserRouter([
                 element: <Tag />,
               },
               {
+                path: "sending_blacklist",
+                element: <BlackList />,
+                index: true,
+              },
+              {
                 path: "collaboration",
                 index: true,
                 element: <Collaborations />,
@@ -204,13 +209,10 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Invitees />,
               },
+
             ],
           },
-          {
-            path: "/sending_blacklist",
-            element: <BlackList />,
-            index: true,
-          },
+          
           {
             path: "/pricing",
             element: <Pricing />,
