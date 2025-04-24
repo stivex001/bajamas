@@ -15,7 +15,7 @@ const Subscribers = () => {
 
   const { getSubscriberList } = useSubscribers();
 
-  const { data: list, isPending } = getSubscriberList();
+  const { data: list, isPending, refetch } = getSubscriberList();
 
   const groupList = list?.message;
 
@@ -70,7 +70,7 @@ const Subscribers = () => {
           {isPending ? (
             <SkeletonTableLoader />
           ) : (
-            <SubscriberTable listData={currentEntries} />
+            <SubscriberTable refetch={refetch} listData={currentEntries} />
           )}
           {(groupList?.length ?? 0) > entriesPerPage && (
             <Pagination

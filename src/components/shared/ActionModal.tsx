@@ -2,13 +2,15 @@ import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { ThreeDotIcon } from "@/assets/svgs/MenuIcon";
 
 type ActionProps = {
-  desc: string;
+  desc?: string;
   showDelete?: boolean;
   showEdit?: boolean;
   showView?: boolean;
+  showBlacklist?: boolean;
   onView?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
+  onBlacklist?: () => void;
 };
 
 export const ActionModal = ({
@@ -16,6 +18,7 @@ export const ActionModal = ({
   showView,
   showDelete,
   showEdit,
+  showBlacklist,
   onView,
   onEdit,
   onDelete,
@@ -47,7 +50,15 @@ export const ActionModal = ({
             onClick={onDelete}
             className="text-sm text-left text-[#2B2B2B]"
           >
-            Delete {desc}
+            Delete
+          </button>
+        )}
+        {showBlacklist && (
+          <button
+            onClick={onDelete}
+            className="text-sm text-left text-[#2B2B2B]"
+          >
+            Blacklist
           </button>
         )}
       </PopoverPanel>
