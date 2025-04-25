@@ -63,7 +63,9 @@ const SubscriberTable = ({ listData, refetch }: listType) => {
         <td className="py-1 px-4">{item?.country}</td>
         <td className="py-1 px-4">{item?.state}</td>
         <td className="py-1 px-4">{item?.phone}</td>
-        <td className="py-1 px-4">{item?.tag_id}</td>
+        <td className="py-1 px-4">
+          {item?.groups?.map((group: any) => group?.name).join(", ")}
+        </td>
         <td className="py-1 px-4 ">
           <ActionModal
             showDelete
