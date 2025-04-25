@@ -60,6 +60,12 @@ export const useSubscribers = () => {
     },
   });
 
+  const deleteSubscriber = (id: string) =>
+    useApiMutation({
+      url: `/deletesubscribe/${id}`,
+      method: "DELETE",
+    });
+
   return {
     createSubscriber,
     getSubscriberList,
@@ -67,5 +73,6 @@ export const useSubscribers = () => {
     getSubscriberEmailList,
     getTotalSubscriberList,
     importBulkSubscribers,
+    deleteSubscriber,
   };
 };
