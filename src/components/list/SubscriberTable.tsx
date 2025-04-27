@@ -3,6 +3,7 @@ import TableLayout from "../shared/TableLayout";
 import { useState } from "react";
 import ReusableDialog from "../shared/ReuseableDialog";
 import DeleteSubscriberModal from "../modal/DeleteSubscriberModal";
+import BlacklistSubscriberModal from "../modal/BlacklistSubscriberModal";
 
 const headers = [
   { content: <>#</> },
@@ -24,6 +25,7 @@ type listType = {
 const SubscriberTable = ({ listData, refetch }: listType) => {
   const [selectedId, setSeletcedId] = useState(listData?.id);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [blackListModal, setBlackListModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState<listType | null>(null);
 
   console.log(selectedId);
@@ -31,6 +33,11 @@ const SubscriberTable = ({ listData, refetch }: listType) => {
   const handleDelete = (id: string) => {
     setSeletcedId(id);
     setDeleteModal(true);
+  };
+
+  const handleBlacklist = (id: string) => {
+    setSeletcedId(id);
+    setBlackListModal(true);
   };
 
   const renderRow = (item: any, index: number) => {
@@ -58,7 +65,7 @@ const SubscriberTable = ({ listData, refetch }: listType) => {
           <ActionModal
             showDelete
             showBlacklist
-            onBlacklist={() => {}}
+            onBlacklist={() => handleBlacklist(item?.id)}
             onDelete={() => handleDelete(item?.id)}
           />
         </td>
@@ -78,6 +85,20 @@ const SubscriberTable = ({ listData, refetch }: listType) => {
         >
           <DeleteSubscriberModal
             setDeleteModal={setDeleteModal}
+            selectedRow={selectedRow || ""}
+            refetch={refetch}
+          />
+        </ReusableDialog>
+      }
+      {
+        <ReusableDialog
+          title={"Blacklist Subscriber"}
+          open={blackListModal}
+          onOpenChange={setDeleteModal}
+          className="max-w-xl"
+        >
+          <BlacklistSubscriberModal
+            setBlackListModal={setBlackListModal}
             selectedRow={selectedRow || ""}
             refetch={refetch}
           />

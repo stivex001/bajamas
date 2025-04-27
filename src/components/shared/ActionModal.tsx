@@ -26,6 +26,7 @@ export const ActionModal = ({
   onView,
   onEdit,
   onDelete,
+  onBlacklist
 }: ActionProps) => {
   return (
     <Popover>
@@ -56,7 +57,7 @@ export const ActionModal = ({
         )}
         {showBlacklist && (
           <button
-            onClick={onDelete}
+            onClick={onBlacklist}
             className="text-sm text-left text-[#2B2B2B]"
           >
             Blacklist

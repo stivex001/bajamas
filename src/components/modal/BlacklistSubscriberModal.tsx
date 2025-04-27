@@ -4,36 +4,33 @@ import { toast } from "sonner";
 import { useSubscribers } from "@/api/crud/subscribers";
 import CustomButton from "../shared/CustomButton";
 
-const DeleteSubscriberModal = ({
-  setDeleteModal,
+const BlacklistSubscriberModal = ({
+  setBlackListModal,
   selectedRow,
   refetch,
 }: {
-  setDeleteModal: (value: boolean) => void;
+  setBlackListModal: (value: boolean) => void;
   selectedRow: any;
   refetch: () => void;
 }) => {
-  const { deleteSubscriber } = useSubscribers();
-  const { mutate: DeleteSub, isPending } = deleteSubscriber(
-    `${selectedRow?.id}`
-  );
+  const { blacklistSubscriber } = useSubscribers();
+  const { mutate: blacklistSub, isPending } = blacklistSubscriber;
 
   const handleDeleteSubscriber = async () => {
+    const formdata = new FormData();
+    formdata.append("email", selectedRow?.email);
     try {
-      await DeleteSub(
-        {},
-        {
-          onSuccess: (response: any) => {
-            console.log(response, "res_");
-            toast.success(response?.message);
-            refetch();
-            setDeleteModal(false);
-          },
-          onError: (error: any) => {
-            toast.error(error?.message);
-          },
-        }
-      );
+      await blacklistSub(formdata, {
+        onSuccess: (response: any) => {
+          console.log(response, "res_");
+          toast.success(response?.message);
+          refetch();
+          setBlackListModal(false);
+        },
+        onError: (error: any) => {
+          toast.error(error?.message);
+        },
+      });
     } catch (error) {
       console.log("An error occurred: ", error);
     }
@@ -43,18 +40,18 @@ const DeleteSubscriberModal = ({
     <div className="">
       <AlertCircle className="text-red-700 mx-auto " />
       <p className="text-grey text-sm text-center my-2">
-        Delete {selectedRow?.fname} {selectedRow?.lname} Permanently!
+        BlackList {selectedRow?.fname} {selectedRow?.lname} Permanently!
       </p>
       <div className="flex gap-3 justify-between w-1/2 mx-auto items-center mt-4">
         <Button
-          onClick={() => setDeleteModal(false)}
+          onClick={() => setBlackListModal(false)}
           className="bg-fadedWhite border border-borderColor rounded-[8px] hover:text-white text-black sm:w-[40%]"
         >
           Cancel
         </Button>
         <CustomButton
           onClick={handleDeleteSubscriber}
-          label="Delete"
+          label="Blacklist"
           isLoading={isPending}
           variant="danger"
           className="text-white sm:w-[40%] rounded-lg h-10"
@@ -64,4 +61,4 @@ const DeleteSubscriberModal = ({
   );
 };
 
-export default DeleteSubscriberModal;
+export default BlacklistSubscriberModal;

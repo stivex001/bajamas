@@ -66,6 +66,11 @@ export const useSubscribers = () => {
       method: "DELETE",
     });
 
+    const blacklistSubscriber = useApiMutation<AuthResponse, FormData>({
+      url: "/blasklisted",
+      method: "POST",
+    });
+
   return {
     createSubscriber,
     getSubscriberList,
@@ -74,5 +79,6 @@ export const useSubscribers = () => {
     getTotalSubscriberList,
     importBulkSubscribers,
     deleteSubscriber,
+    blacklistSubscriber
   };
 };
