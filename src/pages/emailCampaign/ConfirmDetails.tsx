@@ -23,7 +23,7 @@ const ConfirmDetails = () => {
 
   const group = campaignData?.group || [];
   const subscribers = group
-    ?.flatMap((grp: any) => grp.subscribers?.map((sub: any) => sub.email))
+    ?.flatMap((grp: any) => grp?.subscribers?.map((sub: any) => sub?.email))
     ?.join(", ");
 
   const handleSend = async () => {
@@ -31,8 +31,8 @@ const ConfirmDetails = () => {
 
     const groupIds = group?.map((grp: any) => grp.id) || [];
 
-    groupIds.forEach((id: any) => {
-      payload.append("tag_id[]", id.toString());
+    groupIds?.forEach((id: any) => {
+      payload.append("tag_id[]", id?.toString());
     });
 
     payload.append("title", campaignData?.title || "");
@@ -43,7 +43,7 @@ const ConfirmDetails = () => {
     payload.append("content_type", "text");
     payload.append(
       "schedule_date",
-      campaignData?.schedule_date?.toString() || ""
+      campaignData?.schedule_date?.toString() || Date.now().toString()
     );
     payload.append("reply_to", subscribers || "");
     payload.append("status", "1");
