@@ -6,13 +6,13 @@ import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import CustomButton from "../shared/CustomButton";
 import { CustomSelect } from "../shared/ControlledSelect";
+import { toast } from "sonner";
+import { useApiToken } from "@/api/crud/apiToken";
 
 const fields: Field[] = [
   {
-    name: "email",
-    type: "email",
-    errorMessage: "Email is required",
-    isRequired: true,
+    name: "validity",
+    type: "text",
   },
 ];
 
@@ -22,25 +22,50 @@ const showList = [
   { value: "60", label: "60 days" },
 ];
 
-export const CreateApiModal = () => {
+type Props = {
+  onClose: any;
+};
+
+export const CreateApiModal = ({ onClose }: Props) => {
   const { control, handleSubmit } = useDynamicForm(fields, {});
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const { getApiToken, generateApiToken } = useApiToken();
+  const { refetch } = getApiToken();
+
+  const { mutate: generateToken, isPending: isGenerating } = generateApiToken;
+
+  const handleGenerateToken = async () => {
+    try {
+      await generateToken({} as FormData, {
+        onSuccess(response: any) {
+          console.log(response);
+          toast.success(response?.message);
+          refetch();
+          onClose();
+        },
+        onError(error: any) {
+          console.log(error);
+          toast.error(error?.message);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred while generating the token.");
+    }
   };
 
   return (
     <DialogContent className="rounded-[26px] w-[350px]  lg:w-[530px]">
       <ModalHeader title="Select token validity time" icon={X} />
-      <form  onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleGenerateToken)}>
         <ModalBody className="border-t border-b py-5">
           <CustomSelect
-           name="bank"
-           options={showList}
-           control={control}
-           rules={{ required: true }}
-           placeholder="10 days"
-           className="bg-[#F8F9FB] border-none "
+            name="validity"
+            options={showList}
+            control={control}
+            rules={{ required: true }}
+            placeholder="10 days"
+            className="bg-[#F8F9FB] border-none "
           />
         </ModalBody>
         <CustomButton
@@ -48,6 +73,8 @@ export const CreateApiModal = () => {
           label="Submit"
           className="w-[129px] h-10 rounded-lg text-xs font-Nunito font-bold mx-auto mt-3"
           size="lg"
+          isLoading={isGenerating}
+          type="submit"
         />
       </form>
     </DialogContent>
