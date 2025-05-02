@@ -31,7 +31,7 @@ const ApiEmptyPage = ({ open = false, onClose }: Props) => {
             className="w-fit h-[36px] lg:h-[58px] rounded-[9px] py-4 px-2.5 text-sm lg:text-xl font-medium"
             size="lg"
             type="button"
-            onClick={() => handleOpenChange(true)} // manually trigger open
+            onClick={() => handleOpenChange(true)} 
           />
 
           <CustomButton
@@ -40,6 +40,7 @@ const ApiEmptyPage = ({ open = false, onClose }: Props) => {
             className="w-fit h-[36px] lg:h-[58px] rounded-[9px] py-4 px-2.5 text-sm lg:text-xl font-medium bg-[#122112]"
             size="lg"
             type="button"
+            onClick={() => window.open("https://documenter.getpostman.com/view/9781740/2sB2j4fWGY", "_blank")}
           />
         </div>
 
