@@ -17,13 +17,13 @@ const ScheduleModal = ({ isOpen, onClose }: ScheduleModalProps) => {
 
   const handleConfirm = () => {
     if (selectedDate) {
-      const formattedDate = selectedDate.toISOString().split("T")[0]; // Format as YYYY-MM-DD
       setCampaignData({
-        schedule_date: formattedDate,
+        schedule_date: selectedDate.toISOString(), 
       });
       onClose();
     }
   };
+  
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
@@ -37,6 +37,9 @@ const ScheduleModal = ({ isOpen, onClose }: ScheduleModalProps) => {
           <DatePicker
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
+            showTimeSelect
+            timeIntervals={15}
+            dateFormat="Pp" 
             inline
           />
 
