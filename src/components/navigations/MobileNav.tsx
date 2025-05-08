@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import SidebarMenu from "./SidebarMenu";
 import { toast } from "sonner";
-import { AvarterIcon } from "@/assets/svgs/Avarter";
 
 import { HamburgerIcon } from "@/assets/svgs/MenuIcon";
 import { generalLinks } from "./data";
@@ -9,6 +8,7 @@ import { useModalClose } from "@/context/SheetCloseModal";
 import { useAuthStore } from "@/store/authStore";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { LogoutIcon } from "@/assets/svgs/NavigationIcons";
+import { getUserInitials } from "@/utils/getUserInitials";
 
 export const MobileNav = () => {
   const { pathname } = useLocation();
@@ -23,6 +23,10 @@ export const MobileNav = () => {
     navigate("/auth/login");
   };
 
+  const fullName = currentUser?.name || "";
+  const [firstName = "", lastName = ""] = fullName.trim().split(" ");
+  const initials = getUserInitials(firstName, lastName);
+
   return (
     <Sheet open={isOpen} onOpenChange={openModal}>
       <SheetTrigger asChild className="lg:hidden py-3">
@@ -32,12 +36,20 @@ export const MobileNav = () => {
       </SheetTrigger>
       <SheetContent side="left" className="p-0 flex flex-col w-64 !bg-white">
         <div className=" flex items-center border-b p-6">
-          {/* <img
-            src={avatar}
-            alt={avatar}
-            className="rounded-full cursor-pointer"
-          /> */}
-          <AvarterIcon />
+          {currentUser?.profile ? (
+            <div className="w-[44px] h-[44px]  flex items-center justify-center">
+              <img
+                src={currentUser?.profile}
+                alt={currentUser?.name}
+                className="w-full h-full rounded-full object-cover"
+              />
+            </div>
+          ) : (
+            <div className="bg-primary text-white w-[44px] h-[44px] flex items-center justify-center rounded-full text-base font-semibold cursor-pointer">
+              {initials}
+            </div>
+          )}
+
           <span className=" ml-2 text-sm font-bold text-gray-900 truncate ">
             {currentUser?.name}
           </span>

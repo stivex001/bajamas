@@ -15,9 +15,9 @@ import {
 import { MobileNav } from "./MobileNav";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
-import avater from "@/assets/images/avater.png";
 import { auth } from "@/api/crud/auth";
 import { useNotification } from "@/api/crud/notification";
+import { getUserInitials } from "@/utils/getUserInitials";
 
 // const languages = [
 //   { label: "English", value: "en", flag: englishFlag },
@@ -47,7 +47,9 @@ export const Navbar = () => {
     (notification) => !notification?.read_at
   );
 
-  console.log(unreadNotifications, "notification");
+  const fullName = currentUser?.name || "";
+  const [firstName = "", lastName = ""] = fullName.trim().split(" ");
+  const initials = getUserInitials(firstName, lastName);
 
   return (
     <>
@@ -67,7 +69,7 @@ export const Navbar = () => {
         <div className=" flex items-center">
           <Link to="/notifications" className="relative">
             <NoticationBellIcon />
-            { (unreadNotifications?.length ?? 0) > 0 && (
+            {(unreadNotifications?.length ?? 0) > 0 && (
               <div className="absolute -top-1 -right-1 bg-[#F93C65] w-4 h-4 rounded-full flex items-center justify-center">
                 <span className="text-xs font-bold text-white font-Nunito mt-0.5 ">
                   {notificationData?.length}
@@ -81,13 +83,19 @@ export const Navbar = () => {
           <Popover>
             <PopoverTrigger>
               <div className="hidden lg:flex items-center gap-6 lg:ml-6">
-                <div className="w-[44px] h-[44px]  flex items-center justify-center">
-                  <img
-                    src={avater}
-                    alt={currentUser?.name}
-                    className="w-full h-full rounded-full object-cover"
-                  />
-                </div>
+                {currentUser?.profile ? (
+                  <div className="w-[44px] h-[44px]  flex items-center justify-center">
+                    <img
+                      src={currentUser?.profile}
+                      alt={currentUser?.name}
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="bg-primary text-white w-[44px] h-[44px] flex items-center justify-center rounded-full text-base font-semibold cursor-pointer">
+                    {initials}
+                  </div>
+                )}
                 <p className="hidden lg:block text-sm font-bold font-Nunito text-[#404040] capitalize">
                   {userInfo?.name || currentUser?.name}
                 </p>
