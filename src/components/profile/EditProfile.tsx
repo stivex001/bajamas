@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import CustomControlledSelect from "../shared/CustomControlledSelect";
 import { Country, State } from "country-state-city";
+import { BASE_IMAGE_URL } from "@/constants";
 
 const fields: Field[] = [
   { name: "name", type: "text" },
@@ -124,9 +125,6 @@ export const EditProfile = ({ onExitEdit }: any) => {
     const file = event.target.files?.[0];
 
     if (file) {
-      // const imageUrl = URL.createObjectURL(file);
-      // console.log(imageUrl, "file");
-      // setProfilePic(imageUrl);
       handleImageUpload(file);
     }
   };
@@ -141,7 +139,6 @@ export const EditProfile = ({ onExitEdit }: any) => {
         ...data,
         profile: profilePic?.profilepath || "",
       };
-      console.log("Submitting payload:", payload);
       await mutate(payload, {
         onSuccess: (response: any) => {
           console.log(response);
@@ -159,6 +156,10 @@ export const EditProfile = ({ onExitEdit }: any) => {
     }
   };
 
+  const resolvedProfilePic =
+    userInfo?.profilepath ||
+    (userInfo?.profile ? `${BASE_IMAGE_URL}${userInfo.profile}` : null);
+
   return (
     <CardLayout className="py-5">
       <form
@@ -167,18 +168,19 @@ export const EditProfile = ({ onExitEdit }: any) => {
       >
         <div className="mx-auto text-center">
           <div
-            className="bg-[#ECECEE] w-24 h-24 rounded-full flex items-center justify-center cursor-pointer relative overflow-hidden"
+            className="relative w-24 h-24 rounded-full overflow-hidden bg-[#ECECEE] cursor-pointer group"
             onClick={handleUploadClick}
           >
-            {profilePic ? (
+            {(profilePic || resolvedProfilePic) && (
               <img
-                src={profilePic?.profilepath}
+                src={profilePic?.profilepath || resolvedProfilePic}
                 alt="Profile Preview"
                 className="w-full h-full object-cover rounded-full"
               />
-            ) : (
-              <FaCamera className="text-gray-600 text-2xl" />
             )}
+            <div className="absolute inset-0 bg-red-500 bg-opacity-30 flex items-center justify-center opacity-0 ">
+              <FaCamera className="text-gray-600 text-2xl" />
+            </div>
             <input
               type="file"
               accept="image/*"
@@ -187,6 +189,7 @@ export const EditProfile = ({ onExitEdit }: any) => {
               onChange={handleImageChange}
             />
           </div>
+
           <h2 className="text-primary font-semibold text-sm font-Nunito mt-4">
             {profilePic?.profile || "No profile picture uploaded"}
           </h2>

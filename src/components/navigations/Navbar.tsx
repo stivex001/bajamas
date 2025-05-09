@@ -18,6 +18,7 @@ import { useAuthStore } from "@/store/authStore";
 import { auth } from "@/api/crud/auth";
 import { useNotification } from "@/api/crud/notification";
 import { getUserInitials } from "@/utils/getUserInitials";
+import { BASE_IMAGE_URL } from "@/constants";
 
 // const languages = [
 //   { label: "English", value: "en", flag: englishFlag },
@@ -51,6 +52,10 @@ export const Navbar = () => {
   const [firstName = "", lastName = ""] = fullName.trim().split(" ");
   const initials = getUserInitials(firstName, lastName);
 
+  const resolvedProfilePic =
+    userInfo?.profilepath ||
+    (userInfo?.profile ? `${BASE_IMAGE_URL}${userInfo.profile}` : null);
+
   return (
     <>
       <div className="lg:hidden flex items-center gap-9  px-2 bg-white mb-2">
@@ -83,10 +88,10 @@ export const Navbar = () => {
           <Popover>
             <PopoverTrigger>
               <div className="hidden lg:flex items-center gap-6 lg:ml-6">
-                {currentUser?.profile ? (
+                {resolvedProfilePic ? (
                   <div className="w-[44px] h-[44px]  flex items-center justify-center">
                     <img
-                      src={currentUser?.profile}
+                      src={resolvedProfilePic}
                       alt={currentUser?.name}
                       className="w-full h-full rounded-full object-cover"
                     />
