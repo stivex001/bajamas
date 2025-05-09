@@ -7,9 +7,9 @@ import { Dialog } from "../ui/dialog";
 
 const headers = [
   { content: <>#</> },
-  { content: <> Business Id</> },
-  { content: <> User Id</> },
   { content: <>Name</> },
+  { content: <> Subscribers</> },
+  // { content: <> User Id</> },
   // { content: <> Active</> },
   // { content: <> Unsubscribed</> },
   // { content: <> Bounced</> },
@@ -43,6 +43,10 @@ const TagTable = ({ listData }: listType) => {
   };
 
   const renderRow = (item: any, index: number) => {
+    const subscriberNames = item?.subscribers
+      ?.map((sub: any) => `${sub.fname} ${sub.lname}`)
+      .join(", ");
+
     return (
       <tr
         key={index}
@@ -50,9 +54,9 @@ const TagTable = ({ listData }: listType) => {
       >
         {/* <td className="py-1 px-4">{item?.id}</td> */}
         <td className="py-1 px-4">{index + 1}</td>
-        <td className="py-1 px-4">{item?.business_id}</td>
-        <td className="py-1 px-4">{item?.user_id}</td>
         <td className="py-1 px-4">{item?.name}</td>
+        {/* <td className="py-1 px-4">{item?.user_id}</td> */}
+        <td className="py-1 px-4 max-w-[150px]">{subscriberNames || "_"}</td>
         <td className="py-1 px-4 ">{formatDate(item?.created_at)}</td>
         <td className="py-1 px-4 ">{formatDate(item?.updated_at)}</td>
         <td className="py-1 px-4 ">

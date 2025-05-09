@@ -8,12 +8,8 @@ const headers = [
   { content: <> Country</> },
   { content: <> State</> },
   { content: <> Phone</> },
-  { content: <> DOB</> },
   { content: <> Group</> },
-  { content: <> Created At</> },
-  { content: <> Status</> },
-  { content: <> Subscribe</> },
-  { content: <> Updated At</> },
+  // { content: <> Actions</> },
 ];
 
 type listType = {
@@ -33,7 +29,9 @@ const renderRow = (item: any, index: number) => {
       <td className="py-1 px-4">{item?.country}</td>
       <td className="py-1 px-4">{item?.state}</td>
       <td className="py-1 px-4">{item?.phone}</td>
-      <td className="py-1 px-4">{item?.tag_id}</td>
+      <td className="py-1 px-4">
+        {item?.groups?.map((group: any) => group?.name).join(", ")}
+      </td>
     </tr>
   );
 };

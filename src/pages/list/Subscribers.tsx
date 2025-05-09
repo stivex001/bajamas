@@ -2,12 +2,10 @@ import SubscriberTable from "@/components/list/SubscriberTable";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
-import FilterSelect from "@/components/shared/FilterSelect";
 import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { sortOrder } from "../dashboard/data";
 import { useSubscribers } from "@/api/crud/subscribers";
 
 const Subscribers = () => {
@@ -36,16 +34,16 @@ const Subscribers = () => {
     <main className="flex flex-col gap-7">
       <PageTitle title="Subscribers" />
       <CardLayout>
-        <div className="flex items-center justify-between mb-9">
-          <aside className="flex items-center gap-2 ">
+        <div className="flex items-center justify-end mb-9">
+          {/* <aside className="flex items-center gap-2 ">
             <h3 className="text-xs font-medium text-black">Sort By:</h3>
             <FilterSelect<string>
               options={sortOrder}
-              // label="Sort By"
-              // onChange={(selected) => updateFilter("sortOrder", selected)}
+              label="Sort By"
+              onChange={(selected) => updateFilter("sortOrder", selected)}
               value={sortOrder[0]}
             />
-          </aside>
+          </aside> */}
           <div className="flex items-center gap-2.5">
             <CustomButton
               label="Upload CSV file"
