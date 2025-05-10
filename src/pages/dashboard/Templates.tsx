@@ -1,4 +1,4 @@
-
+import { useTemplates } from "@/api/crud/template";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
@@ -7,11 +7,17 @@ import Section from "@/components/shared/Section";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import TemplateTable from "@/components/templates/TemplateTable";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const tempplateTable: any[] = [];
 
 const Templates = () => {
-  const isPending = false;
+  const navigate = useNavigate();
+
+  const { getGeneralTemplatesList } = useTemplates();
+  const { data: generalList, isPending } = getGeneralTemplatesList();
+
+  const renderedGeneralList = generalList?.message;
 
   const totalEntries = tempplateTable?.length;
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +26,7 @@ const Templates = () => {
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = tempplateTable?.slice(
+  const currentEntries = renderedGeneralList?.slice(
     indexOfFirstEntry,
     indexOfLastEntry
   );
@@ -42,19 +48,20 @@ const Templates = () => {
               size="lg"
               type="button"
             />
-            <CustomButton
+            {/* <CustomButton
               label="Base Template Gallary"
               variant="primary"
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
-            />
+            /> */}
             <CustomButton
               label="Create +"
               variant="primary"
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
+              onClick={() => navigate("/templates/create_template")}
             />
           </div>
         </div>

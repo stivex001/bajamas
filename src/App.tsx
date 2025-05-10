@@ -30,6 +30,7 @@ const ConfirmDetails = lazy(
 const PlainText = lazy(() => import("./pages/emailCampaign/PlainText"));
 const HtmlText = lazy(() => import("./pages/emailCampaign/HtmlText"));
 const Templates = lazy(() => import("./pages/dashboard/Templates"));
+const CreateTemplate = lazy(() => import("./pages/templates/CreateTemplate"));
 const SMSCampaign = lazy(() => import("./pages/dashboard/SMSCampaign"));
 const SmsSettings = lazy(() => import("./pages/smsCampaign/SmsSettings"));
 const SmsSetup = lazy(() => import("./pages/smsCampaign/SmsSetup"));
@@ -148,6 +149,11 @@ const router = createBrowserRouter([
           {
             path: "/templates",
             element: <Templates />,
+            index: true,
+          },
+          {
+            path: "/templates/create_template",
+            element: <CreateTemplate />,
             index: true,
           },
           {

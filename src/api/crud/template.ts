@@ -18,7 +18,7 @@ export interface TemplateProps {
 }
 
 export const useTemplates = () => {
-  const buyElectricity = useApiMutation<AuthResponse, FormData>({
+  const createTemplate = useApiMutation<AuthResponse, FormData>({
     url: "/usertemplate",
     method: "POST",
   });
@@ -36,7 +36,7 @@ export const useTemplates = () => {
     });
 
   return {
-    buyElectricity,
+    createTemplate,
     getGeneralTemplatesList,
     getUserTemplatesList,
   };
