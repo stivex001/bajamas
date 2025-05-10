@@ -41,13 +41,13 @@ const Templates = () => {
       <CardLayout>
         <div className="flex items-center justify-end mb-9">
           <div className="flex items-center gap-2.5">
-            <CustomButton
+            {/* <CustomButton
               label="My Templates"
               variant="primary"
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
-            />
+            /> */}
             {/* <CustomButton
               label="Base Template Gallary"
               variant="primary"
