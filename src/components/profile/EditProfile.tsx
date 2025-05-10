@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import CustomControlledSelect from "../shared/CustomControlledSelect";
 import { Country, State } from "country-state-city";
-import { BASE_IMAGE_URL } from "@/constants";
 
 const fields: Field[] = [
   { name: "name", type: "text" },
@@ -156,9 +155,6 @@ export const EditProfile = ({ onExitEdit }: any) => {
     }
   };
 
-  const resolvedProfilePic =
-    userInfo?.profilepath ||
-    (userInfo?.profile ? `${BASE_IMAGE_URL}${userInfo.profile}` : null);
 
   return (
     <CardLayout className="py-5">
@@ -171,9 +167,9 @@ export const EditProfile = ({ onExitEdit }: any) => {
             className="relative w-24 h-24 rounded-full overflow-hidden bg-[#ECECEE] cursor-pointer group"
             onClick={handleUploadClick}
           >
-            {(profilePic || resolvedProfilePic) && (
+            {(profilePic || userInfo?.profile) && (
               <img
-                src={profilePic?.profilepath || resolvedProfilePic}
+                src={profilePic?.profilepath || userInfo?.profile}
                 alt="Profile Preview"
                 className="w-full h-full object-cover rounded-full"
               />

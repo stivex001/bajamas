@@ -5,7 +5,6 @@ import ControlledInput from "@/components/shared/ControlledInput";
 import CustomButton from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
-import { BASE_IMAGE_URL } from "@/constants";
 
 const fields: Field[] = [
   { name: "name", type: "text" },
@@ -63,17 +62,14 @@ export const UserInfo = ({ onEdit }: Props) => {
     }
   }, [userInfo, setValue]);
 
-  const resolvedProfilePic =
-    userInfo?.profilepath ||
-    (userInfo?.profile ? `${BASE_IMAGE_URL}${userInfo.profile}` : null);
 
   return (
     <CardLayout className="py-5">
       <form className="lg:w-8/12 mx-auto flex flex-col gap-9">
         <div className="bg-[#ECECEE] w-20 h-20 rounded-full mx-auto flex items-center justify-center cursor-pointer">
-          {resolvedProfilePic ? (
+          {userInfo?.profile ? (
             <img
-              src={resolvedProfilePic}
+              src={userInfo?.profile}
               alt="Profile"
               className="w-full h-full rounded-full object-cover"
             />
