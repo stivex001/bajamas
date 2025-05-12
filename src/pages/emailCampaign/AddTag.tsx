@@ -45,7 +45,7 @@ const AddTag = () => {
     if (selectedGroups?.length === filteredGroups?.length) {
       setSelectedGroups([]);
     } else {
-      setSelectedGroups(filteredGroups?.map((group) => group.id.toString())); // Select all
+      setSelectedGroups(filteredGroups?.map((group) => group.id.toString()));
     }
   };
 
@@ -56,7 +56,11 @@ const AddTag = () => {
   console.log(groupList, "list___");
 
   const onSubmit = (data: any) => {
-    setCampaignData({ ...data, group: selectedGroups });
+    const selectedGroupObjects = groupList?.filter((group) =>
+      selectedGroups.includes(group.id.toString())
+    );
+
+    setCampaignData({ ...data, group: selectedGroupObjects });
     navigate(`/email_campaign/confirm_details`);
   };
 
@@ -125,7 +129,9 @@ const AddTag = () => {
                         }`}
                       >
                         <Checkbox
-                          checked={selectedGroups.includes(group?.id?.toString())}
+                          checked={selectedGroups.includes(
+                            group?.id?.toString()
+                          )}
                           onCheckedChange={() =>
                             handleSelectGroup(group?.id?.toString())
                           }

@@ -43,7 +43,8 @@ const ConfirmDetails = () => {
     payload.append("content_type", "text");
     payload.append(
       "schedule_date",
-      campaignData?.schedule_date?.toString() || Date.now().toString()
+      campaignData?.schedule_date?.toString() ||
+        new Date().toISOString().slice(0, 19).replace("T", " ")
     );
     payload.append("reply_to", subscribers || "");
     payload.append("status", "1");
@@ -51,7 +52,6 @@ const ConfirmDetails = () => {
     try {
       await mutate(payload, {
         onSuccess: (res: any) => {
-          console.log(res, "res");
           if (res?.status === true) {
             refetch();
             setSuccessModalOpen(true);
