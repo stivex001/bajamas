@@ -7,7 +7,6 @@ export const ContentsPreview = () => {
   const navigate = useNavigate();
   const { campaignData } = useCampaignStore();
 
-  console.log(campaignData, "cam");
   return (
     <div className="bg-white border border-[#DDDDDD] shadow-lightshadow px-5 py-6">
       <div className="flex items-center justify-between mb-6">
