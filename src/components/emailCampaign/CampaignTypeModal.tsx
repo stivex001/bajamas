@@ -56,24 +56,32 @@ const CampaignTypeModal = () => {
       <ModalHeader title="Select campaign type" icon={X} />
       <div>
         <ModalBody className="w-full flex flex-col gap-6 my-5 ">
-          {campaignTypes.map((type) => (
-            <div key={type.label} className="flex items-center gap-1.5">
-              <button
-                onClick={() => setSelectedType(type.label)}
-                className={`w-[129px] h-8 rounded-[17px] text-darker text-sm font-semibold font-Nunito flex items-center justify-center whitespace-nowrap border p-4 ${
-                  selectedType === type.label
-                    ? "border-primary bg-primary text-white"
-                    : "border-[#000000]"
+          {campaignTypes.map((type) => {
+            const isRegular = type.label === "Regular";
+            return (
+              <div
+                key={type.label}
+                className={`flex items-center gap-1.5 ${
+                  isRegular ? "hidden lg:flex" : "flex"
                 }`}
               >
-                {" "}
-                {type.label}
-              </button>
-              <span className="text-[10px] max-w-[300px] text-[#888888] font-Nunito font-semibold">
-                {type.description}
-              </span>
-            </div>
-          ))}
+                <button
+                  onClick={() => setSelectedType(type.label)}
+                  className={`w-[129px] h-8 rounded-[17px] text-darker text-sm font-semibold font-Nunito flex items-center justify-center whitespace-nowrap border p-4 ${
+                    selectedType === type.label
+                      ? "border-primary bg-primary text-white"
+                      : "border-[#000000]"
+                  }`}
+                >
+                  {type.label}
+                </button>
+                <span className="text-[10px] max-w-[300px] text-[#888888] font-Nunito font-semibold">
+                  {type.description}
+                </span>
+              </div>
+            );
+          })}
+
           <div className="mt-5">
             <h2 className="text-[#434343] text-sm font-Nunito">
               *Please select one campaign type
