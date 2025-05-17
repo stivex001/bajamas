@@ -1,5 +1,5 @@
 import { Toaster } from "sonner";
-import { ScreenLoader } from "./components/shared/ScreenLoader";
+import LoadingScreen from "./components/shared/ScreenLoader";
 import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
@@ -265,7 +265,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <Suspense fallback={<ScreenLoader />}>
+      <Suspense fallback={<LoadingScreen />}>
         <Toaster position="top-center" />
         <RouterProvider router={router} />
       </Suspense>

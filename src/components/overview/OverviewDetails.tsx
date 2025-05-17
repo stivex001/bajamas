@@ -12,10 +12,11 @@ import bullish from "@/assets/images/arrow.png";
 import ImportViaCSV from "./ImportViaCSV";
 import ImportViaApi from "./ImportViaApi";
 import { useDashboard } from "@/api/crud/dashboard";
+import SkeletonLoader from "../shared/SkeletonModal";
 
 const OverviewDetails = () => {
   const { getDashboardList } = useDashboard();
-  const { data: dlist } = getDashboardList();
+  const { data: dlist, isLoading } = getDashboardList();
   const countList = dlist?.data;
 
   return (
@@ -28,28 +29,32 @@ const OverviewDetails = () => {
           first campaign. We'll work you through the process.
         </p>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 ">
-        <DashboardCard
-          desc="Subscribers"
-          value={`${countList?.subscribers}`}
-          icon={SubCribersIcon}
-        />
-        <DashboardCard
-          desc="Unsubscribe"
-          value={`${countList?.unsubscribe}`}
-          icon={UnSubCribersIcon}
-        />
-        <DashboardCard
-          desc="Spam Reported"
-          value={`${countList?.spam_reported}`}
-          icon={SpamIcon}
-        />
-        <DashboardCard
-          desc="Blacklisted"
-          value={`${countList?.blacklisted}`}
-          icon={BlacklistedIcon}
-        />
-      </div>
+      {isLoading ? (
+        <SkeletonLoader type="card" count={4} />
+      ) : (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 ">
+          <DashboardCard
+            desc="Subscribers"
+            value={`${countList?.subscribers}`}
+            icon={SubCribersIcon}
+          />
+          <DashboardCard
+            desc="Unsubscribe"
+            value={`${countList?.unsubscribe}`}
+            icon={UnSubCribersIcon}
+          />
+          <DashboardCard
+            desc="Spam Reported"
+            value={`${countList?.spam_reported}`}
+            icon={SpamIcon}
+          />
+          <DashboardCard
+            desc="Blacklisted"
+            value={`${countList?.blacklisted}`}
+            icon={BlacklistedIcon}
+          />
+        </div>
+      )}
       <CardLayout>
         <Metrics />
       </CardLayout>

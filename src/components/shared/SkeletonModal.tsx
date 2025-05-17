@@ -27,7 +27,7 @@ const SkeletonLoader = ({
           )}
           {type === "image" && (
             <Skeleton
-              className={`w-1/2 h-[400px] rounded-[10px] bg-primary ${bgColor}`}
+              className={`w-72 h-[400px] rounded-[10px] bg-primary ${bgColor}`}
             />
           )}
           {type === "text" && (
