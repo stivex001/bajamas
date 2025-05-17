@@ -15,11 +15,12 @@ import Metrics from "@/components/dashboard/charts/Metrics";
 import ActivityLog from "@/components/dashboard/ActivityLog";
 import { useAuthStore } from "@/store/authStore";
 import { useDashboard } from "@/api/crud/dashboard";
+import SkeletonLoader from "@/components/shared/SkeletonModal";
 
 const Dashboard = () => {
   const { currentUser } = useAuthStore();
   const { getDashboardList } = useDashboard();
-  const { data: dlist } = getDashboardList();
+  const { data: dlist, isLoading } = getDashboardList();
   const countList = dlist?.data;
 
   return (
@@ -30,35 +31,44 @@ const Dashboard = () => {
           Hello,  {currentUser?.name}!
         </p>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 ">
-        <DashboardCard
-          desc="Subscribers"
-          value={`${countList?.subscribers}`}
-          icon={SubCribersIcon}
-        />
-        <DashboardCard
-          desc="Unsubscribe"
-          value={`${countList?.unsubscribe}`}
-          icon={UnSubCribersIcon}
-        />
-        <DashboardCard
-          desc="Spam Reported"
-          value={`${countList?.spam_reported}`}
-          icon={SpamIcon}
-        />
-        <DashboardCard
-          desc="Blacklisted"
-          value={`${countList?.blacklisted}`}
-          icon={BlacklistedIcon}
-        />
-      </div>
+      {isLoading ? (
+        <SkeletonLoader type="card" count={4} />
+      ) : (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-7 ">
+          <DashboardCard
+            desc="Subscribers"
+            value={`${countList?.subscribers}`}
+            icon={SubCribersIcon}
+          />
+          <DashboardCard
+            desc="Unsubscribe"
+            value={`${countList?.unsubscribe}`}
+            icon={UnSubCribersIcon}
+          />
+          <DashboardCard
+            desc="Spam Reported"
+            value={`${countList?.spam_reported}`}
+            icon={SpamIcon}
+          />
+          <DashboardCard
+            desc="Blacklisted"
+            value={`${countList?.blacklisted}`}
+            icon={BlacklistedIcon}
+          />
+        </div>
+      )}
+
       {/* <CreditUsed /> */}
       <div className="flex flex-col  lg:flex-row gap-6 h-full">
         <div className="w-full lg:w-7/12">
-          <Barchart />
+          {isLoading ? <SkeletonLoader type="image" count={1} /> : <Barchart />}
         </div>
         <div className="w-full lg:w-5/12">
-          <PieChart countList={countList} />
+          {isLoading ? (
+            <SkeletonLoader type="image" count={1} />
+          ) : (
+            <PieChart countList={countList} />
+          )}
         </div>
       </div>
       <CreateEmailCampaign countList={countList} />
