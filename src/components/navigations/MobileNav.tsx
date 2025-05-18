@@ -15,11 +15,11 @@ export const MobileNav = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { logout, currentUser } = useAuthStore();
-    const { getCurrentUser } = auth();
-    const { data } = getCurrentUser();
+  const { getCurrentUser } = auth();
+  const { data } = getCurrentUser();
   const userInfo = Array.isArray(data?.data) ? data?.data[0] || {} : {};
 
-  const { isOpen, openModal } = useModalClose();
+  const { isOpen, openModal, closeModal } = useModalClose();
 
   const handleLogout = () => {
     logout();
@@ -39,7 +39,13 @@ export const MobileNav = () => {
         </button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0 flex flex-col w-64 !bg-white">
-        <div className=" flex items-center border-b p-6">
+        <div
+          onClick={() => {
+            navigate(`/profile`);
+            closeModal();
+          }}
+          className=" flex items-center border-b p-6 cursor-pointer"
+        >
           {userInfo?.profile ? (
             <div className="w-[44px] h-[44px]  flex items-center justify-center">
               <img
