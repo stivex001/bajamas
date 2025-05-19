@@ -7,8 +7,6 @@ import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import { useEffect, useState } from "react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ReportSpamModal } from "@/components/list/ReportSpamModal";
-import FilterSelect from "@/components/shared/FilterSelect";
-import { sortOrder } from "../dashboard/data";
 import { useSpamReport } from "@/api/crud/spamReport";
 
 const SpamReport = () => {
@@ -37,16 +35,16 @@ const SpamReport = () => {
     <main className="flex flex-col gap-7">
       <PageTitle title="Spams Reported" />
       <CardLayout>
-        <div className="flex items-center justify-between mb-9">
-          <aside className="flex items-center gap-2 ">
+        <div className="flex items-center justify-end mb-9">
+          {/* <aside className="flex items-center gap-2 ">
             <h3 className="text-xs font-medium text-black">Sort By:</h3>
             <FilterSelect<string>
               options={sortOrder}
-              // label="Sort By"
-              // onChange={(selected) => updateFilter("sortOrder", selected)}
+              label="Sort By"
+              onChange={(selected) => updateFilter("sortOrder", selected)}
               value={sortOrder[0]}
             />
-          </aside>
+          </aside> */}
           <div onClick={() => setGroupModal(true)}>
             <Dialog>
               <DialogTrigger>
