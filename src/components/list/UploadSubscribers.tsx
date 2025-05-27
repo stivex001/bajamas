@@ -63,7 +63,6 @@ export const UploadSubscribers = () => {
       return;
     }
 
-    console.log("Formdatavalues", data);
 
     const formData = new FormData();
 

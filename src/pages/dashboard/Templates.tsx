@@ -6,6 +6,7 @@ import Pagination from "@/components/shared/Pagination";
 import Section from "@/components/shared/Section";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
 import TemplateTable from "@/components/templates/TemplateTable";
+import BasicModal from "@/components/ui/BasicModal";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,15 +15,15 @@ const tempplateTable: any[] = [];
 const Templates = () => {
   const navigate = useNavigate();
 
-  const { getGeneralTemplatesList } = useTemplates();
-  const { data: generalList, isPending } = getGeneralTemplatesList();
+  const { getUserTemplatesList } = useTemplates();
+  const { data: generalList, isPending } = getUserTemplatesList();
 
   const renderedGeneralList = generalList?.message;
 
   const totalEntries = tempplateTable?.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState<number>(10);
-  // const [openModal, setOpenModal] = useState(true);
+  const [showDesktopWarning, setShowDesktopWarning] = useState(false);
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -61,7 +62,13 @@ const Templates = () => {
               className="w-fit h-7 rounded-[4px] p-2 text-xs font-medium"
               size="lg"
               type="button"
-              onClick={() => navigate("/templates/create_template")}
+              onClick={() => {
+                if (window.innerWidth < 768) {
+                  setShowDesktopWarning(true);
+                } else {
+                  navigate("/templates/create_template");
+                }
+              }}
             />
           </div>
         </div>
@@ -81,6 +88,13 @@ const Templates = () => {
           )}
         </div>
       </CardLayout>
+      {showDesktopWarning && (
+        <BasicModal
+          title="Desktop Mode Required"
+          message="Templates can only be created in desktop mode."
+          onClose={() => setShowDesktopWarning(false)}
+        />
+      )}
     </Section>
   );
 };
