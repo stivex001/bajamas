@@ -16,7 +16,8 @@ const EmailCampaign = () => {
 
   const { data: list, isPending } = getCampaignList();
 
-  const groupList = list?.message;
+  const groupList = list?.message?.slice().reverse();
+
 
   const totalEntries = groupList?.length;
   const [currentPage, setCurrentPage] = useState(1);

@@ -8,15 +8,24 @@ type Props = {
   open: boolean;
   toggle: (state: boolean) => void;
   url: string;
-  content:string
+  content: string;
+  refetch: any;
 };
 
-export const SuccesModal = ({ className, open, toggle, url, content }: Props) => {
+export const SuccesModal = ({
+  className,
+  open,
+  toggle,
+  url,
+  content,
+  refetch,
+}: Props) => {
   const navigate = useNavigate();
 
   const handleConfirm = () => {
     navigate(url);
     toggle(false);
+    refetch();
   };
 
   return (
@@ -31,9 +40,7 @@ export const SuccesModal = ({ className, open, toggle, url, content }: Props) =>
           <img src={checkmark} alt="icon" />
         </div>
         <h1 className="font-semibold text-2xl text-primary">All set!</h1>
-        <p className="text-base text-primary">
-          {content}
-        </p>
+        <p className="text-base text-primary">{content}</p>
         <div className="flex justify-center lg:justify-end mt-12">
           <CustomButton
             label="Done"

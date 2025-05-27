@@ -28,7 +28,15 @@ const renderRow = (item: any, index: number) => {
       <td className="py-1 px-4 whitespace-nowrap">{item?.from_name}</td>
       <td className="py-1 px-4">{item?.reply_to}</td>
       <td className="py-1 px-4">{item?.content}</td>
-      <td className="py-1 px-4">{item?.status}</td>
+      <td className="py-1 px-4">
+        {item?.status === 1 ? (
+          <span className="text-green-500">Active</span>
+        ) : item?.status === 2 ? (
+          <span className="text-red-500">InActive</span>
+        ) : (
+          <span className="text-yellow-500">Scheduled</span>
+        )}
+      </td>
       {/* <td className="py-1 px-4 ">
         <ActionModal desc={"Campaign"} />
       </td> */}

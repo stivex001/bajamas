@@ -53,9 +53,9 @@ const ConfirmDetails = () => {
       await mutate(payload, {
         onSuccess: (res: any) => {
           if (res?.status === true) {
-            refetch();
             setSuccessModalOpen(true);
             setSuccessMessage(res?.message);
+            refetch();
           } else {
             toast.error(res?.message);
           }
@@ -109,6 +109,7 @@ const ConfirmDetails = () => {
           toggle={setSuccessModalOpen}
           url="/email_campaign"
           content={successMessage}
+          refetch={refetch}
         />
       )}
     </main>
