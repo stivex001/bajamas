@@ -72,7 +72,7 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
     <div className={`space-y-3`}>
       <Label
         htmlFor={name}
-        className={`text-base font-medium capitalize text-boxgray`}
+        className={`text-base font-medium text-boxgray`}
       >
         {label}
       </Label>
