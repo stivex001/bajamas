@@ -63,7 +63,6 @@ export const UploadSubscribers = () => {
       return;
     }
 
-
     const formData = new FormData();
 
     const tagId = typeof data?.tag === "object" ? data.tag.value : data.tag;
@@ -92,12 +91,27 @@ export const UploadSubscribers = () => {
     });
   };
 
+  const handleDownloadClick = () => {
+    toast.info("Downloading sample file...");
+  };
+
   return (
     <div className="flex flex-col lg:flex-row gap-[18px] ">
       <form
         onSubmit={handleSubmit(handleUpload)}
         className="flex-1 rounded-[14px] shadow-lg py-8 px-4 lg:px-12"
       >
+        <div className="flex items-center justify-end mb-6">
+          <a
+            href="/sample-subscribers-csv.csv"
+            download
+            onClick={handleDownloadClick}
+            className="bg-primary w-fit h-10 rounded-[10px] flex items-center py-1 px-6 gap-3 text-white disabled:opacity-50"
+          >
+            Download sample file
+          </a>
+          
+        </div>
         <h1 className="text-[#79B078] text-2xl mb-2 ">
           Upload subscribers from file
         </h1>
