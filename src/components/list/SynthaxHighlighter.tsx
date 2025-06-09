@@ -19,60 +19,55 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 // };
 
 const customStyle = {
-  backgroundColor: "#15161A", 
-  color: "#537557", 
+  backgroundColor: "#15161A",
+  color: "#537557",
   borderRadius: "8px",
   padding: "16px",
   fontSize: "14px",
   lineHeight: "1.5",
   overflowX: "auto" as "auto",
-  border: "none"
+  border: "none",
 };
 
 const codeSamples = {
   curl: `
   curl --location 
-  --request POST 'https://topups.reloadly.com/topups'
-  --header 'Authorization: Bearer YOUR_ACCESS_TOKEN HERE'
-  --header 'Accept: application/com.reloadly.topups-v1+json'
+  --request POST 'https://emailmarketingapi.5starcompany.com.ng/api/add-subscriber'
+  --header 'Authorization: Bearer CH_76f80d39b1f4ef39c79862f238489844'
   --header 'Content-Type: application/json'
   --data-raw '{
-    "operatorId": "341",
-    "amount": "10",
-    "useLocalAmount": false,
-    "customIdentifier": "This is example identifier 092",
-    "recipientPhone": {
-      "countryCode": "NG",
-      "number": "08147658721"
-    },
-    "senderPhone": {
-      "countryCode": "CA",
-      "number": "1231231231"
+   "email" : "ebuka@gmail.com",
+    "fname" : "ogochi",
+    "lname" : "ebus",
+    "country" : "nigeria",
+    "state" : "lagos",
+    "phone" : "090875468265",
+    "dob" : "01/3/2004",
+    "tag" : 8
     }
-  }'
+  }
   `,
   javascript: `
-  fetch('https://topups.reloadly.com/topups', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer YOUR_ACCESS_TOKEN HERE',
-      'Accept': 'application/com.reloadly.topups-v1+json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      operatorId: '341',
-      amount: '10',
-      useLocalAmount: false,
-      customIdentifier: 'This is example identifier 092',
-      recipientPhone: {
-        countryCode: 'NG',
-        number: '08147658721',
-      },
-      senderPhone: {
-        countryCode: 'CA',
-        number: '1231231231',
-      },
-    }),
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Bearer CH_76f80d39b1f4ef39c79862f238489844");
+
+  const raw = JSON.stringify({
+  "email": "ebuka@gmail.com",
+  "fname": "ogochi",
+  "lname": "ebus",
+  "country": "nigeria",
+  "state": "lagos",
+  "phone": "090875468265",
+  "dob": "01/3/2004",
+  "tag": 8
+});
+
+fetch("https://emailmarketingapi.5starcompany.com.ng/api/add-subscriber", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
+
   });
   `,
 };
