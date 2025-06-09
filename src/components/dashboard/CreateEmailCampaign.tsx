@@ -7,6 +7,8 @@ export const CreateEmailCampaign = ({ countList }: any) => {
   const navigate = useNavigate();
   const lastCampagin = countList?.last_campaign;
 
+  const hasLastCampaign = lastCampagin && Object.keys(lastCampagin).length > 0;
+
   return (
     <CardLayout>
       <div className="flex flex-col gap-2 ">
@@ -21,21 +23,22 @@ export const CreateEmailCampaign = ({ countList }: any) => {
             Create New Email Campaign
           </button>
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-5">
-            <div className="w-[53px] h-[53px]">
-              <img src={camp} alt="camp" className="w-full h-full" />
+        {hasLastCampaign ? (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-5">
+              <div className="w-[53px] h-[53px]">
+                <img src={camp} alt="camp" className="w-full h-full" />
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <h2 className="font-semibold text-xs text-[#7D7E81]">
+                  {lastCampagin?.title}
+                </h2>
+                <span className="text-[#7FC494] bg-[#DFFFEA] px-2.5 py-2 text-[10px] font-semibold">
+                  SENT {lastCampagin?.schedule_date}
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col gap-2.5">
-              <h2 className="font-semibold text-xs text-[#7D7E81]">
-                {lastCampagin?.title}
-              </h2>
-              <span className="text-[#7FC494] bg-[#DFFFEA] px-2.5 py-2 text-[10px] font-semibold">
-                SENT {lastCampagin?.schedule_date}
-              </span>
-            </div>
-          </div>
-          {/* <div className="flex items-center gap-8">
+            {/* <div className="flex items-center gap-8">
             <div className="flex flex-col gap-0.5">
               <h2 className="font-semibold text-xs text-[#504D4E]">2084</h2>
               <p className="text-[10px] font-semibold text-[#ADADAD]">
@@ -57,7 +60,10 @@ export const CreateEmailCampaign = ({ countList }: any) => {
               </p>
             </button>
           </div> */}
-        </div>
+          </div>
+        ) : (
+          <p className="text-sm ">You do no have any campaign </p>
+        )}
       </div>
     </CardLayout>
   );
