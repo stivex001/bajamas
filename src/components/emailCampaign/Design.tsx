@@ -6,8 +6,8 @@ import { useCampaignStore } from "@/store/useCampaignStore";
 export const Design = () => {
   const navigate = useNavigate();
   const { campaignData } = useCampaignStore();
-  
-    console.log(campaignData, "cam");
+
+  console.log(campaignData, "cam");
 
   return (
     <div className="flex-1 bg-white border border-[#DDDDDD] shadow-lightshadow px-5 py-6">
@@ -25,9 +25,9 @@ export const Design = () => {
       </div>
       <div className="flex flex-col gap-2">
         <div className="border border-[#DDDDDD] h-fit">
-        {campaignData.design_html ? (
+          {campaignData?.design_html ? (
             <div
-              dangerouslySetInnerHTML={{ __html: campaignData.design_html }}
+              dangerouslySetInnerHTML={{ __html: campaignData?.design_html }}
               className="w-full h-full overflow-auto bg-white p-3"
             />
           ) : (
