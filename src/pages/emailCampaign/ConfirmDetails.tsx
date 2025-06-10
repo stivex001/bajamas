@@ -40,7 +40,7 @@ const ConfirmDetails = () => {
     payload.append("from_email", campaignData?.from_email || "");
     payload.append("from_name", campaignData?.from_name || "");
     payload.append("content", campaignData?.content || "");
-    payload.append("content_type", "text");
+    payload.append("content_type", campaignData?.content_type || "");
     payload.append(
       "schedule_date",
       campaignData?.schedule_date?.toString() ||

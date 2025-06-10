@@ -6,28 +6,33 @@ import CustomButton from "../shared/CustomButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useCampaignStore } from "@/store/useCampaignStore";
 
 type CampaignType = {
   label: string;
   description: string;
+  value: string;
   link: string;
 };
 
 const campaignTypes: CampaignType[] = [
   {
     label: "Regular",
+    value: "regular",
     description:
       "Campaign with HTML email content as well as images, links. This is the most common type.",
     link: "/email_campaign/regular-campaign",
   },
   {
     label: "Plain Text",
+    value: "text",
     description:
       "Send a plain-text email without link tracking, images, or HTML.",
     link: "/email_campaign/plain-text-campaign",
   },
   {
     label: "Custom HTML",
+    value: "HTML",
     description:
       "Send a plain-text email without link tracking, images, or HTML.",
     link: "/email_campaign/custom-html-campaign",
@@ -35,6 +40,7 @@ const campaignTypes: CampaignType[] = [
 ];
 const CampaignTypeModal = () => {
   const navigate = useNavigate();
+  const { setCampaignData, campaignData } = useCampaignStore();
 
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
@@ -44,6 +50,10 @@ const CampaignTypeModal = () => {
         (type) => type.label === selectedType
       );
       if (selectedCampaign) {
+        setCampaignData({
+          ...campaignData,
+          content_type: selectedCampaign?.value,
+        });
         navigate(selectedCampaign.link);
       }
     } else {
