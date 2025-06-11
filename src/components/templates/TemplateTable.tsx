@@ -1,6 +1,7 @@
 import { formatDate } from "@/utils/formatDate";
 import TableLayout from "../shared/TableLayout";
 import ThumbnailRenderer from "../shared/ThumbnailRenderer";
+import { getContentPreview } from "@/utils/renderContentPreview";
 
 const headers = [
   { content: <>#</> },
@@ -17,6 +18,7 @@ type listType = {
 };
 
 const renderRow = (item: any, index: number) => {
+  const preview = getContentPreview(item?.design_html || "");
   return (
     <tr
       key={index}
@@ -24,9 +26,18 @@ const renderRow = (item: any, index: number) => {
     >
       <td className="py-1 px-4">{index + 1}</td>
       <td className="py-1 px-4">
-        <ThumbnailRenderer htmlContent={item?.design_html} />
-      </td>
+        {preview.type === "image" ? (
+          <img
+            src={preview.value}
+            alt="thumbnail"
+            className="w-14 h-14 object-cover rounded"
+          />
+        ) : (
+          <div className=" border w-14 h-14 object-cover rounded">
 
+          </div>
+        )}
+      </td>
       <td className="py-1 px-4 ">{item?.template_name}</td>
       <td className="py-1 px-4 ">{item?.template_describ}</td>
       <td className="py-1 px-4 ">{formatDate(item?.created_at)}</td>

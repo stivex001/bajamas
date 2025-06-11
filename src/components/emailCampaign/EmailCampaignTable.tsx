@@ -1,4 +1,5 @@
 // import { ActionModal } from "../shared/ActionModal";
+import { getContentPreview } from "@/utils/renderContentPreview";
 import TableLayout from "../shared/TableLayout";
 
 const headers = [
@@ -17,12 +18,7 @@ type listType = {
 };
 
 const renderRow = (item: any, index: number) => {
-  const content = item?.content || "";
-
-  // Check if content contains an <img> tag
-  const containsImage = /<img\s[^>]*src=["']([^"']+)["'][^>]*>/i.test(content);
-  const imageMatch = content.match(/<img\s[^>]*src=["']([^"']+)["'][^>]*>/i);
-  const imageUrl = imageMatch?.[1];
+  const preview = getContentPreview(item?.content || "");
 
   return (
     <tr
@@ -32,14 +28,14 @@ const renderRow = (item: any, index: number) => {
       <td className="py-1 px-4">{index + 1}</td>
       {/* <td className="py-1 px-4">{item?.images}</td> */}
       <td className="py-1 px-4">
-        {containsImage && imageUrl ? (
+        {preview.type === "image" ? (
           <img
-            src={imageUrl}
-            alt="content-thumbnail"
+            src={preview.value}
+            alt="thumbnail"
             className="w-14 h-14 object-cover rounded"
           />
         ) : (
-          <div className="line-clamp-1 ">{content}</div>
+          <div className="line-clamp-1">{preview.value}</div>
         )}
       </td>
       <td className="py-1 px-4">{item?.title}</td>
