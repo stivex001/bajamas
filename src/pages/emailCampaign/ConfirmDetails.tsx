@@ -39,7 +39,7 @@ const ConfirmDetails = () => {
     payload.append("subject", campaignData?.title || "");
     payload.append("from_email", campaignData?.from_email || "");
     payload.append("from_name", campaignData?.from_name || "");
-    payload.append("content", campaignData?.content || "");
+    payload.append("content", campaignData?.design_html || "");
     payload.append("content_type", campaignData?.content_type || "");
     payload.append(
       "schedule_date",
