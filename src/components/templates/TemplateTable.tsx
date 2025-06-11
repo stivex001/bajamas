@@ -1,6 +1,5 @@
 import { formatDate } from "@/utils/formatDate";
 import TableLayout from "../shared/TableLayout";
-import ThumbnailRenderer from "../shared/ThumbnailRenderer";
 import { getContentPreview } from "@/utils/renderContentPreview";
 
 const headers = [

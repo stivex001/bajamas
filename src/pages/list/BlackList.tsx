@@ -10,7 +10,7 @@ const BlackList = () => {
   // const [groupModal, setGroupModal] = useState(false);
   const { getBlackList } = useBlackList();
 
-  const { data: list, isPending } = getBlackList();
+  const { data: list, isPending, refetch } = getBlackList();
 
   const groupList = list?.message;
 
@@ -32,7 +32,6 @@ const BlackList = () => {
       <PageTitle title="Blacklist" />
       <CardLayout>
         <div className="flex items-center justify-between mb-9">
-         
           {/* <div onClick={() => setGroupModal(true)}>
             <Dialog>
               <DialogTrigger>
@@ -52,7 +51,7 @@ const BlackList = () => {
           {isPending ? (
             <SkeletonTableLoader />
           ) : (
-            <BlackListTable listData={currentEntries} />
+            <BlackListTable listData={currentEntries} refetch={refetch} />
           )}
           {(groupList?.length ?? 0) > entriesPerPage && (
             <Pagination
