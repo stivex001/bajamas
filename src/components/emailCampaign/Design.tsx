@@ -7,8 +7,6 @@ export const Design = () => {
   const navigate = useNavigate();
   const { campaignData } = useCampaignStore();
 
-  console.log(campaignData, "cam");
-
   return (
     <div className="flex-1 bg-white border border-[#DDDDDD] shadow-lightshadow px-5 py-6">
       <div className="flex items-center justify-between px-5 mb-7">

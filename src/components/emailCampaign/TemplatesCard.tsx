@@ -15,18 +15,16 @@ export const TemplatesCard = ({ template }: Props) => {
     navigate(`/email_campaign/edit_template`);
   };
 
-  console.log(template, "templeyeyeyy");
-
   return (
     <button
       onClick={handleTemplateHandler}
-      className="w-full bg-white shadow-lightshadow p-2 h-[300px] border flex flex-col"
+      className="w-full bg-white shadow-lightshadow p-2  border flex flex-col"
     >
       <div className="flex-grow">
         {template?.design_html ? (
           <div
             dangerouslySetInnerHTML={{ __html: template?.design_html }}
-            className="w-full h-full overflow-auto"
+            className="w-full h-fit overflow-auto"
           />
         ) : (
           <p className="text-gray-500 text-center">No design available</p>
