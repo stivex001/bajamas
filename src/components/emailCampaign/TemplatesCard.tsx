@@ -1,5 +1,6 @@
 import { TemplateList } from "@/api/crud/template";
 import { useCampaignStore } from "@/store/useCampaignStore";
+import { getContentPreview } from "@/utils/renderContentPreview";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -15,19 +16,22 @@ export const TemplatesCard = ({ template }: Props) => {
     navigate(`/email_campaign/edit_template`);
   };
 
+  const preview = getContentPreview(template?.design_html || "");
+
   return (
     <button
       onClick={handleTemplateHandler}
       className="w-full bg-white shadow-lightshadow p-2  border flex flex-col"
     >
-      <div className="flex-grow">
-        {template?.design_html ? (
-          <div
-            dangerouslySetInnerHTML={{ __html: template?.design_html }}
-            className="w-full h-fit overflow-auto"
+      <div className="flex-grow min-h-[300px]">
+        {preview.type === "image" ? (
+          <img
+            src={preview.value}
+            alt="thumbnail"
+            className="w-full object-cover rounded"
           />
         ) : (
-          <p className="text-gray-500 text-center">No design available</p>
+          <div className="">No Design for this template</div>
         )}
       </div>
       <h1 className="text-sm font-semibold text-center py-3">
