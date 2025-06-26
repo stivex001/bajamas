@@ -1,30 +1,20 @@
 import { useSubscribers } from "@/api/crud/subscribers";
 import UnSubscriberTable from "@/components/list/UnSubscriberTable";
 import { PageTitle } from "@/components/PageTitle";
+import BackendPagination from "@/components/shared/BackendPagination";
 import { CardLayout } from "@/components/shared/CardLayout";
-import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const UnSubscribe = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+
   const { getUnsubcriberList } = useSubscribers();
 
-  const { data: list, isPending } = getUnsubcriberList();
+  const { data: list, isPending } = getUnsubcriberList(currentPage);
 
-  const groupList = list?.message;
-
-  const totalEntries = groupList?.length;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState<number>(10);
-  // const [openModal, setOpenModal] = useState(true);
-
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = groupList?.slice(indexOfFirstEntry, indexOfLastEntry);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [entriesPerPage]);
+  const groupList = list?.message?.data;
 
   return (
     <main className="flex flex-col gap-7">
@@ -46,14 +36,17 @@ const UnSubscribe = () => {
           {isPending ? (
             <SkeletonTableLoader />
           ) : (
-            <UnSubscriberTable listData={currentEntries} />
+            <UnSubscriberTable listData={groupList} />
           )}
-          {(groupList?.length ?? 0) > entriesPerPage && (
-            <Pagination
-              currentPage={currentPage}
-              totalEntries={totalEntries}
-              entriesPerPage={entriesPerPage}
-              onPageChange={(page: any) => setCurrentPage(page)}
+          {list?.message && (
+            <BackendPagination
+              meta={list.message}
+              currentPageSize={perPage}
+              onPageChange={(page) => setCurrentPage(page)}
+              onPageSizeChange={(size) => {
+                setPerPage(size);
+                setCurrentPage(1);
+              }}
             />
           )}
         </div>

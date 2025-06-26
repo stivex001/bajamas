@@ -44,11 +44,12 @@ export const useSubscribers = () => {
       method: "GET",
     });
 
-  const getUnsubcriberList = () =>
-    useApiQuery<Subscriber>(["unsubscribers"], {
-      url: `/unsubscribe`,
+  const getUnsubcriberList = (page = 1) =>
+    useApiQuery<Subscriber>(["unsubscribers", page], {
+      url: `/unsubscribe?page=${page}`,
       method: "GET",
     });
+
   const getTotalSubscriberList = () =>
     useApiQuery<Subscriber>(["unsubscribers"], {
       url: `/unsubscribe`,

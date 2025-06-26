@@ -2,8 +2,8 @@ import SubscriberTable from "@/components/list/SubscriberTable";
 import { PageTitle } from "@/components/PageTitle";
 import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
-import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
+import BackendPagination from "@/components/shared/BackendPagination"; // ✅ NEW IMPORT
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSubscribers } from "@/api/crud/subscribers";
@@ -11,29 +11,18 @@ import { useSubscribers } from "@/api/crud/subscribers";
 const Subscribers = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
 
   const { getSubscriberList } = useSubscribers();
-
   const { data: list, isPending, refetch } = getSubscriberList(currentPage);
-  console.log(list, "list_sub");
 
   const groupList = list?.message?.data;
-  const totalPages = list?.message?.last_page;
 
   return (
     <main className="flex flex-col gap-7">
       <PageTitle title="Subscribers" />
       <CardLayout>
         <div className="flex items-center justify-end mb-9">
-          {/* <aside className="flex items-center gap-2 ">
-            <h3 className="text-xs font-medium text-black">Sort By:</h3>
-            <FilterSelect<string>
-              options={sortOrder}
-              label="Sort By"
-              onChange={(selected) => updateFilter("sortOrder", selected)}
-              value={sortOrder[0]}
-            />
-          </aside> */}
           <div className="flex items-center gap-2.5">
             <CustomButton
               label="Upload CSV file"
@@ -60,14 +49,15 @@ const Subscribers = () => {
           ) : (
             <SubscriberTable refetch={refetch} listData={groupList} />
           )}
-          {totalPages && totalPages > 1 && (
-            <Pagination
-              currentPage={list?.message?.current_page}
-              totalPages={list?.message?.last_page}
-              from={list?.message?.from}
-              to={list?.message?.to}
-              total={list?.message?.total}
-              onPageChange={setCurrentPage}
+          {list?.message && (
+            <BackendPagination
+              meta={list.message}
+              currentPageSize={perPage}
+              onPageChange={(page) => setCurrentPage(page)}
+              onPageSizeChange={(size) => {
+                setPerPage(size);
+                setCurrentPage(1);
+              }}
             />
           )}
         </div>
