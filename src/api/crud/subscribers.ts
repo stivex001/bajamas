@@ -20,7 +20,16 @@ export interface SubscriberData {
 }
 
 export interface Subscriber {
-  message: SubscriberData[];
+  message: {
+    current_page: number;
+    per_page: number;
+    last_page: number;
+    from: number;
+    to: number;
+    total: number;
+    last_page_url: string;
+    data: SubscriberData[];
+  };
 }
 
 export const useSubscribers = () => {
@@ -29,9 +38,9 @@ export const useSubscribers = () => {
     method: "POST",
   });
 
-  const getSubscriberList = () =>
-    useApiQuery<Subscriber>(["subscribers"], {
-      url: `/viewsubscrib`,
+  const getSubscriberList = (page = 1) =>
+    useApiQuery<Subscriber>(["subscribers", page], {
+      url: `/viewsubscrib?page=${page}`,
       method: "GET",
     });
 
@@ -66,10 +75,10 @@ export const useSubscribers = () => {
       method: "DELETE",
     });
 
-    const blacklistSubscriber = useApiMutation<AuthResponse, FormData>({
-      url: "/blasklisted",
-      method: "POST",
-    });
+  const blacklistSubscriber = useApiMutation<AuthResponse, FormData>({
+    url: "/blasklisted",
+    method: "POST",
+  });
 
   return {
     createSubscriber,
@@ -79,6 +88,6 @@ export const useSubscribers = () => {
     getTotalSubscriberList,
     importBulkSubscribers,
     deleteSubscriber,
-    blacklistSubscriber
+    blacklistSubscriber,
   };
 };

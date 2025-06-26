@@ -4,31 +4,21 @@ import { CardLayout } from "@/components/shared/CardLayout";
 import CustomButton from "@/components/shared/CustomButton";
 import Pagination from "@/components/shared/Pagination";
 import SkeletonTableLoader from "@/components/shared/SkeletonTableLoader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSubscribers } from "@/api/crud/subscribers";
 
 const Subscribers = () => {
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { getSubscriberList } = useSubscribers();
 
-  const { data: list, isPending, refetch } = getSubscriberList();
+  const { data: list, isPending, refetch } = getSubscriberList(currentPage);
+  console.log(list, "list_sub");
 
-  const groupList = list?.message;
-
-  const totalEntries = groupList?.length;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState<number>(10);
-  // const [openModal, setOpenModal] = useState(true);
-
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = groupList?.slice(indexOfFirstEntry, indexOfLastEntry);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [entriesPerPage]);
+  const groupList = list?.message?.data;
+  const totalPages = list?.message?.last_page;
 
   return (
     <main className="flex flex-col gap-7">
@@ -68,14 +58,16 @@ const Subscribers = () => {
           {isPending ? (
             <SkeletonTableLoader />
           ) : (
-            <SubscriberTable refetch={refetch} listData={currentEntries} />
+            <SubscriberTable refetch={refetch} listData={groupList} />
           )}
-          {(groupList?.length ?? 0) > entriesPerPage && (
+          {totalPages && totalPages > 1 && (
             <Pagination
-              currentPage={currentPage}
-              totalEntries={totalEntries}
-              entriesPerPage={entriesPerPage}
-              onPageChange={(page: any) => setCurrentPage(page)}
+              currentPage={list?.message?.current_page}
+              totalPages={list?.message?.last_page}
+              from={list?.message?.from}
+              to={list?.message?.to}
+              total={list?.message?.total}
+              onPageChange={setCurrentPage}
             />
           )}
         </div>

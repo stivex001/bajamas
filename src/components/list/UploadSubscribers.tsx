@@ -136,7 +136,7 @@ export const UploadSubscribers = () => {
             </button>
             <p className="text-xs text-[#83848F] mx-auto leading-[21px]">
               Supported file types: .csv, .txt, MS Excel <br /> (.xlsx)Maximum
-              allowed file size is 64MB
+              allowed file size is 300kb
             </p>
           </div>
           <input
