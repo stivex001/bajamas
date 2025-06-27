@@ -38,7 +38,7 @@ const UnSubscribe = () => {
           ) : (
             <UnSubscriberTable listData={groupList} />
           )}
-          {list?.message && (
+          {groupList && groupList?.length > perPage && (
             <BackendPagination
               meta={list.message}
               currentPageSize={perPage}

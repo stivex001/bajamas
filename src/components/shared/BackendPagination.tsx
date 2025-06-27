@@ -77,8 +77,8 @@ const BackendPagination: React.FC<BackendPaginationProps> = ({
 
         {onPageSizeChange && (
           <div className="flex items-center gap-2 text-sm">
-            <label htmlFor="perPageSelect">Rows per page:</label>
-            <select
+            {/* <label htmlFor="perPageSelect">Rows per page:</label> */}
+            {/* <select
               id="perPageSelect"
               value={currentPageSize}
               onChange={handlePageSizeChange}
@@ -89,7 +89,7 @@ const BackendPagination: React.FC<BackendPaginationProps> = ({
                   {size}
                 </option>
               ))}
-            </select>
+            </select> */}
           </div>
         )}
 

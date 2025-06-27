@@ -49,7 +49,7 @@ const Subscribers = () => {
           ) : (
             <SubscriberTable refetch={refetch} listData={groupList} />
           )}
-          {list?.message && (
+          {groupList && groupList?.length > perPage && (
             <BackendPagination
               meta={list.message}
               currentPageSize={perPage}
