@@ -22,14 +22,14 @@ const BackendPagination: React.FC<BackendPaginationProps> = ({
   meta,
   onPageChange,
   onPageSizeChange,
-  pageSizeOptions = [10, 20, 30, 50],
-  currentPageSize = 10,
+  // pageSizeOptions = [10, 20, 30, 50],
+  // currentPageSize = 10,
 }) => {
   const { current_page, last_page, from, to, total } = meta;
 
-  const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onPageSizeChange?.(parseInt(e.target.value));
-  };
+  // const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   onPageSizeChange?.(parseInt(e.target.value));
+  // };
 
   const handleFirstPage = () => onPageChange(1);
   const handleLastPage = () => onPageChange(last_page);
