@@ -43,9 +43,18 @@ const TagTable = ({ listData }: listType) => {
   };
 
   const renderRow = (item: any, index: number) => {
-    const subscriberNames = item?.subscribers
-      ?.map((sub: any) => `${sub.fname} ${sub.lname}`)
-      .join(", ");
+    const { firstNames, remaining } = (() => {
+      const subscribers = item?.subscribers || [];
+      const firstFour = subscribers
+        .slice(0, 4)
+        .map((sub: any) => `${sub.fname} ${sub.lname}`);
+      const remainingCount = subscribers.length - 4;
+
+      return {
+        firstNames: firstFour.join(", "),
+        remaining: remainingCount > 0 ? `+${remainingCount} more` : "",
+      };
+    })();
 
     return (
       <tr
@@ -56,7 +65,13 @@ const TagTable = ({ listData }: listType) => {
         <td className="py-1 px-4">{index + 1}</td>
         <td className="py-1 px-4">{item?.name}</td>
         {/* <td className="py-1 px-4">{item?.user_id}</td> */}
-        <td className="py-1 px-4 max-w-[150px]">{subscriberNames || "_"}</td>
+        <td className="py-1 px-4 max-w-[150px]">
+          {firstNames || "_"}
+          {remaining && (
+            <span className="font-bold text-primary ml-1">{remaining}</span>
+          )}
+        </td>
+
         <td className="py-1 px-4 ">{formatDate(item?.created_at)}</td>
         <td className="py-1 px-4 ">{formatDate(item?.updated_at)}</td>
         <td className="py-1 px-4 ">
