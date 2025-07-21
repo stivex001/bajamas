@@ -39,6 +39,7 @@ const ConfirmDetails = () => {
     payload.append("subject", campaignData?.title || "");
     payload.append("from_email", campaignData?.from_email || "");
     payload.append("from_name", campaignData?.from_name || "");
+        payload.append("reply_to", campaignData?.from_email || "");
     payload.append("content", campaignData?.design_html || "");
     payload.append("content_type", campaignData?.content_type || "");
     payload.append(
@@ -46,7 +47,6 @@ const ConfirmDetails = () => {
       campaignData?.schedule_date?.toString() ||
         new Date().toISOString().slice(0, 19).replace("T", " ")
     );
-    payload.append("reply_to", subscribers || "");
     payload.append("status", "1");
 
     try {
