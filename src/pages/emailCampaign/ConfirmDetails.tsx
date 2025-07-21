@@ -22,9 +22,9 @@ const ConfirmDetails = () => {
   const { refetch } = getCampaignList();
 
   const group = campaignData?.group || [];
-  const subscribers = group
-    ?.flatMap((grp: any) => grp?.subscribers?.map((sub: any) => sub?.email))
-    ?.join(", ");
+  // const subscribers = group
+  //   ?.flatMap((grp: any) => grp?.subscribers?.map((sub: any) => sub?.email))
+  //   ?.join(", ");
 
   const handleSend = async () => {
     const payload = new FormData();
