@@ -14,19 +14,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import NotFound from "./pages/NotFound";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 
-const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
-
-const Notifications = lazy(() => import("./pages/Notifications"));
-const UserProfile = lazy(() => import("./pages/profile/UserProfile"));
-const Pricing = lazy(() => import("./pages/pricing/Pricing"));
-const UpgradePlan = lazy(() => import("./pages/pricing/UpgradePlan"));
-const ChangePassword = lazy(() => import("./pages/profile/ChangePassword"));
-
-const Templates = lazy(() => import("./pages/dashboard/Templates"));
-const SMSCampaign = lazy(() => import("./pages/dashboard/SMSCampaign"));
-const SmsSettings = lazy(() => import("./pages/smsCampaign/SmsSettings"));
-const SmsSetup = lazy(() => import("./pages/smsCampaign/SmsSetup"));
-const SendSms = lazy(() => import("./pages/smsCampaign/SendSms"));
+// const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 
 const router = createBrowserRouter([
   {
@@ -40,21 +28,17 @@ const router = createBrowserRouter([
             index: true,
             element: <Navigate to="/dashboard" replace />,
           },
-          {
-            path: "/dashboard",
-            element: <Dashboard />,
-          },
+          // {
+          //   path: "/dashboard",
+          //   element: <Dashboard />,
+          // },
 
-          {
-            path: "/pricing/upgrade_plan",
-            element: <UpgradePlan />,
-            index: true,
-          },
-          {
-            path: "/api",
-            element: <Api />,
-            index: true,
-          },
+         
+          // {
+          //   path: "/api",
+          //   element: <Api />,
+          //   index: true,
+          // },
         ],
       },
     ],
