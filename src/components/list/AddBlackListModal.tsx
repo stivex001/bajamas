@@ -27,7 +27,6 @@ export const AddBlackListModal = ({ open, onClose }: BlackListedModalProps) => {
   const { control, handleSubmit, formState } = useDynamicForm(fields, {});
 
   const { isValid } = formState;
-
   const { createBlacklist, getBlackList } = useBlackList();
 
   const { isPending, mutate } = createBlacklist;
