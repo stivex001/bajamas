@@ -1,7 +1,5 @@
 import { ReactNode, useState } from "react";
-import authDetails from "@/assets/images/newImg.png";
 import { motion } from "framer-motion";
-import { SkipIcon } from "@/assets/svgs/SkipIcon";
 import logo from "../../../public/logo.png";
 
 type Props = {
@@ -19,7 +17,7 @@ const slidesData = [
       "Easy-to-use platform designed for SMEs and businesses of all sizes.",
       "Affordable pricing to maximize your ROI.",
     ],
-    image: authDetails,
+    // image: authDetails,
   },
   {
     id: 2,
@@ -31,7 +29,7 @@ const slidesData = [
       "Save time and resources by automating your communication.",
       "Reliable delivery ensures your messages reach your audience.",
     ],
-    image: authDetails,
+    // image: authDetails,
   },
   {
     id: 3,
@@ -43,7 +41,7 @@ const slidesData = [
       " Dedicated customer support to assist you every step of the way.",
       "Flexible pricing plans to fit your budget.",
     ],
-    image: authDetails,
+    // image: authDetails,
   },
 ];
 
@@ -90,13 +88,13 @@ const AuthLayout = ({ children }: Props) => {
         {children}
       </div>
       <div className="hidden flex-1 lg:flex flex-col items-center py-16 px-12 bg-authbg bg-cover bg-no-repeat no-scrollbar">
-          <div className="w-[600px] mb-14">
-            <img
-              src={slidesData[currentSlide].image}
-              alt="description"
-              className="w-full h-full object-cover"
-            />
-          </div>
+        {/* <div className="w-[600px] mb-14">
+          <img
+            src={slidesData[currentSlide].image}
+            alt="description"
+            className="w-full h-full object-cover"
+          />
+        </div> */}
         <motion.div
           key={slidesData[currentSlide].id}
           variants={containerVariants}
@@ -122,9 +120,7 @@ const AuthLayout = ({ children }: Props) => {
         <div
           className="mt-10 flex items-center justify-center cursor-pointer"
           onClick={handleSkip}
-        >
-          <SkipIcon />
-        </div>
+        ></div>
       </div>
     </div>
   );

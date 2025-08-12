@@ -1,4 +1,5 @@
-import CustomButton from "@/components/shared/CustomButton";
+
+import { CustomButton } from "@/components/shared/CustomButton";
 import { useLocation, Link } from "react-router-dom";
 const NotFound = () => {
   const { pathname } = useLocation();

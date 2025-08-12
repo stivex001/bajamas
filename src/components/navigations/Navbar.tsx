@@ -1,151 +1,85 @@
-// import { useState } from "react";
-// import { CustomSearchInput } from "../shared/CustomSearchInput";
-import { NoticationBellIcon } from "@/assets/svgs/NotificationIcon";
-import { CustomArrowIcon } from "@/assets/svgs/ArrowsIcon";
-// import Dropdown from "../shared/Dropdown";
-// import englishFlag from "@/assets/images/en.png";
-// import frenchFlag from "@/assets/images/fr.png";
-import spanishFlag from "@/assets/images/es.png";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import {
-  ProfileWithBorderIcon,
-  SettingIconsWithBorder,
-} from "@/assets/svgs/SettingsIcon";
-// import logo from "../../../public/logo.png";
-import { MobileNav } from "./MobileNav";
-import { Link } from "react-router-dom";
-import { useAuthStore } from "@/store/authStore";
-import { auth } from "@/api/crud/auth";
-import { useNotification } from "@/api/crud/notification";
-import { getUserInitials } from "@/utils/getUserInitials";
+'use client';
+import  { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-// const languages = [
-//   { label: "English", value: "en", flag: englishFlag },
-//   { label: "French", value: "fr", flag: frenchFlag },
-//   { label: "Spanish", value: "es", flag: spanishFlag },
-// ];
-spanishFlag;
+
+
 
 export const Navbar = () => {
-  const { currentUser } = useAuthStore();
-  const { getCurrentUser } = auth();
-  const { getAllNotification } = useNotification();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { data: notification } = getAllNotification();
-  const { data } = getCurrentUser();
-  const userInfo = Array.isArray(data?.data) ? data?.data[0] || {} : {};
-  // const [searchTerm, setSearchTerm] = useState("");
-
-  // const languageOption = languages?.map((lang: any) => ({
-  //   value: lang?.value,
-  //   label: lang?.label,
-  //   flag: lang?.flag,
-  // }));
-
-  const notificationData = notification?.data;
-  const unreadNotifications = notificationData?.filter(
-    (notification) => !notification?.read_at
-  );
-
-  const fullName = currentUser?.name || "";
-  const [firstName = "", lastName = ""] = fullName.trim().split(" ");
-  const initials = getUserInitials(firstName, lastName);
-
+  const navItems = [
+    { name: 'Home', href: '/', active: true },
+    { name: 'About Us', href: '/home/about-us', active: false },
+    { name: 'Services', href: '/home/services', active: false },
+    { name: 'Projects', href: '/home/projects', active: false },
+    { name: 'Contact', href: '/home/contact', active: false },
+  ];
 
   return (
-    <>
-      <div className="lg:hidden flex items-center gap-9  px-2 bg-white mb-2">
-        <MobileNav />
+    <nav className="z-40 h-24 w-full bg-white">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-6">
+        <Link to="/" className="flex text-2xl font-bold">
+          <span className="text-black">Ayomiposi</span>
+          <span className="text-yellow-500">Steel</span>
+        </Link>
 
-        <div className="w-[148px]">
-          {/* <img src={currentUser?.profile || logo} alt={currentUser?.name} /> */}
+        {/* Desktop Navigation */}
+        <div className="hidden md:block">
+          <div className="ml-10 flex items-baseline space-x-8">
+            {navItems.map(item => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={`px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                  item.active
+                    ? 'rounded border-2 border-yellow-500 text-yellow-500'
+                    : 'pb-1 text-gray-600 hover:border-b-2 hover:border-yellow-500 hover:text-yellow-500'
+                }`}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-      <nav className=" w-full h-[70px] sticky z-50 top-5 flex items-center justify-end px-[18px] lg:px-8 bg-white py-4 gap-9 lg:gap-0">
-        {/* <CustomSearchInput
-          className="bg-[#F5F6FA]  lg:w-[388px] rounded-[19px] lg:ml-6"
-          setSearchTerm={setSearchTerm}
-          searchTerm={searchTerm}
-        /> */}
-        <div className=" flex items-center">
-          <Link to="/notifications" className="relative">
-            <NoticationBellIcon />
-            {(unreadNotifications?.length ?? 0) > 0 && (
-              <div className="absolute -top-1 -right-1 bg-[#F93C65] w-4 h-4 rounded-full flex items-center justify-center">
-                <span className="text-xs font-bold text-white font-Nunito mt-0.5 ">
-                  {notificationData?.length}
-                </span>
-              </div>
+
+        {/* Mobile menu button */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-yellow-500 focus:ring-2 focus:ring-yellow-500 focus:outline-none focus:ring-inset"
+          >
+            {isMenuOpen ? (
+              <X className="block h-6 w-6" />
+            ) : (
+              <Menu className="block h-6 w-6" />
             )}
-          </Link>
-          {/* <div className="ml-5 lg:ml-7">
-            <Dropdown desc="Select Language" options={languageOption} />
-          </div> */}
-          <Popover>
-            <PopoverTrigger>
-              <div className="hidden lg:flex items-center gap-6 lg:ml-6">
-                {userInfo?.profile ? (
-                  <div className="w-[44px] h-[44px]  flex items-center justify-center">
-                    <img
-                      src={userInfo?.profile}
-                      alt={currentUser?.name}
-                      className="w-full h-full rounded-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="bg-primary text-white w-[44px] h-[44px] flex items-center justify-center rounded-full text-base font-semibold cursor-pointer">
-                    {initials}
-                  </div>
-                )}
-                <p className="hidden lg:block text-sm font-bold font-Nunito text-[#404040] capitalize">
-                  {userInfo?.name || currentUser?.name}
-                </p>
-                <div className="">
-                  <CustomArrowIcon />
-                </div>
-              </div>
-            </PopoverTrigger>
-            <PopoverContent className="">
-              <div className=" border-b ">
-                <h1 className="text-base font-semibold font-Nunito text-[#404040] pb-2">
-                  More
-                </h1>
-              </div>
-              <div className="border-b">
-                <Link
-                  to="/change_password"
-                  className="flex items-center gap-3 h-14 py-3 "
-                >
-                  <SettingIconsWithBorder />
-                  <div className="space-y-1">
-                    <h2 className="text-sm font-semibold font-Nunito text-darker">
-                      Settings
-                    </h2>
-                    <p className="text-xs font-semibold font-Nunito text-[#B5B5B5]">
-                      Change Password
-                    </p>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/profile"
-                  className="flex items-center gap-3 h-14  py-3 "
-                >
-                  <ProfileWithBorderIcon />
-                  <div className="space-y-1">
-                    <h2 className="text-sm font-semibold font-Nunito text-darker">
-                      Profile
-                    </h2>
-                    <p className="text-xs font-semibold font-Nunito text-[#B5B5B5]">
-                      Update your profile
-                    </p>
-                  </div>
-                </Link>
-              </div>
-            </PopoverContent>
-          </Popover>
+          </button>
         </div>
-      </nav>
-    </>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden">
+            <div className="space-y-1 border-t border-gray-100 bg-white px-2 pt-2 pb-3">
+              {navItems.map(item => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                    item.active
+                      ? 'border-l-4 border-yellow-500 bg-yellow-50 text-yellow-500'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-yellow-500'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 };

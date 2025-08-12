@@ -2,7 +2,7 @@ import { auth } from "@/api/crud/auth";
 import { AuthTitle } from "@/components/authDetails/AuthTitle";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ControlledInput from "@/components/shared/ControlledInput";
-import CustomButton from "@/components/shared/CustomButton";
+import { CustomButton } from "@/components/shared/CustomButton";
 import useDynamicForm from "@/hooks/useDynamicForm";
 import { Field } from "@/schemas/dynamicSchema";
 import { useNavigate } from "react-router-dom";

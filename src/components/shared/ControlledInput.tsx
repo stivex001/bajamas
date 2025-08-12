@@ -4,7 +4,6 @@ import { useController, Control } from "react-hook-form";
 import { cn } from "../../lib/utils";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { EyeIcon } from "@/assets/svgs/MenuIcon";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { MdOutlineDateRange } from "react-icons/md";
@@ -129,7 +128,7 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
             className="absolute right-0 cursor-pointer"
             onClick={togglePasswordVisibility}
           >
-            <EyeIcon />
+            {/* <EyeIcon /> */}
           </div>
         )}
       </div>
