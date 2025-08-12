@@ -49,7 +49,7 @@ const OurProject = (props: Props) => {
             </span>
           </div>
 
-          {/* Section title */}
+        
           <h2 className="mb-8 text-4xl font-bold text-white md:text-5xl">
             {sectionTitle}
           </h2>
