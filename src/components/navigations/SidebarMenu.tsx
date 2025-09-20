@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useModalClose } from "@/context/SheetCloseModal";
 import SubMenu from "./SubMenu";
-import { ArrowRightIcon } from "@/assets/svgs/ArrowsIcon";
+import { ArrowRightIcon } from "lucide-react";
 
 interface Link {
   path: string;

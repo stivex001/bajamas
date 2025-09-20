@@ -2,14 +2,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SidebarMenu from "./SidebarMenu";
 import { toast } from "sonner";
 
-import { HamburgerIcon } from "@/assets/svgs/MenuIcon";
 import { generalLinks } from "./data";
 import { useModalClose } from "@/context/SheetCloseModal";
 import { useAuthStore } from "@/store/authStore";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { LogoutIcon } from "@/assets/svgs/NavigationIcons";
 import { getUserInitials } from "@/utils/getUserInitials";
 import { auth } from "@/api/crud/auth";
+import { LogOutIcon } from "lucide-react";
 
 export const MobileNav = () => {
   const { pathname } = useLocation();
@@ -35,7 +34,7 @@ export const MobileNav = () => {
     <Sheet open={isOpen} onOpenChange={openModal}>
       <SheetTrigger asChild className="lg:hidden py-3">
         <button onClick={openModal}>
-          <HamburgerIcon />
+          {/* <HamburgerIcon /> */}
         </button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0 flex flex-col w-64 !bg-white">
@@ -74,7 +73,7 @@ export const MobileNav = () => {
             onClick={handleLogout}
             className=" flex items-center px-12 py-4  !text-darker font-semibold text-base font-Nunito"
           >
-            <LogoutIcon className="mr-2" />
+            <LogOutIcon className="mr-2" />
             Logout
           </button>
         </div>

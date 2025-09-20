@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import logo from "../../../public/logo.png";
 import SidebarMenu from "./SidebarMenu";
 import { generalLinks } from "./data";
-import { LogoutIcon } from "@/assets/svgs/NavigationIcons";
+import { LogOutIcon } from "lucide-react";
 
 export const Sidebar = () => {
   const { logout } = useAuthStore();
@@ -31,7 +31,7 @@ export const Sidebar = () => {
         onClick={handleLogout}
         className=" flex items-center px-12 py-4  !text-darker font-semibold text-base font-Nunito"
       >
-        <LogoutIcon className="mr-2" />
+        <LogOutIcon className="mr-2" />
         Logout
       </button>
     </div>

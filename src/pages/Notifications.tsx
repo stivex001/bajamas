@@ -1,5 +1,4 @@
 import { useNotification } from "@/api/crud/notification";
-import { FlyIcon } from "@/assets/svgs/MenuIcon";
 import { CardLayout } from "@/components/shared/CardLayout";
 import { toast } from "sonner";
 
@@ -9,8 +8,6 @@ const Notifications = () => {
   const { mutate: markNotificationAsRead } = markRead;
 
   const notificationData = notification?.data;
-
-
 
   const handleReadNotification = async (id: string, url: string) => {
     // Optionally mark notification as read (API call)
@@ -73,9 +70,7 @@ const Notifications = () => {
                       }
                       className="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:bg-green-800 flex items-center gap-2"
                     >
-                      <span className="text-white">
-                        <FlyIcon />
-                      </span>
+                     
                       {buttonText || "Read"}
                     </button>
                   )}
