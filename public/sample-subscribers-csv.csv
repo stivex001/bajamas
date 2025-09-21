@@ -1,6 +1,0 @@
-email,fname,lname,country,state,phone,dob,favorite_color,subscription_tier,interests,referral_source
-john.doe@example.com,John,Doe,USA,California,08021212,6/15/1985,blue,premium,"sports,tech",google
-jane.smith@example.com,Jane,Smith,Canada,Ontario,08021213,3/22/1990,red,basic,"books,travel",friend
-alice.johnson@example.com,Alice,Johnson,UK,London,08021214,11/30/1988,purple,premium,"music,art",instagram
-bob.williams@example.com,Bob,Williams,Australia,NSW,08021215,9/10/1975,green,basic,"cooking,gardening",facebook
-emma.brown@example.com,Emma,Brown,Germany,Berlin,08021216,5/18/1992,yellow,premium,"fashion,photography",linkedin
