@@ -5,7 +5,7 @@ import logo from "../../../public/beja.svg";
 import { CartIcon } from "../assets/icons/SvgIcons";
 
 export const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <nav className="z-40 h-24 w-full">
@@ -15,6 +15,7 @@ export const Navbar = () => {
         </Link>
 
         <button>
+          
           <CartIcon />
         </button>
       </div>
