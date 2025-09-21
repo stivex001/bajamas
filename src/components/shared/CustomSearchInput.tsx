@@ -2,7 +2,7 @@ import { Input } from "@headlessui/react";
 import { FaTimes } from "react-icons/fa";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { SearchIcon } from "@/assets/svgs/SearchIcon";
+import { SearchIcon } from "lucide-react";
 
 interface SearchInputProps {
   className?: string;

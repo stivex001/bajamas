@@ -1,6 +1,4 @@
-"use client";
-
-import { ArrowLeft, ArrowRight } from "@/assets/svgs/ArrowD";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface PaginationProps {
   currentPage?: any;
