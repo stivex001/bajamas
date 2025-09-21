@@ -13,7 +13,7 @@ const MainLayout = ({ children }: Props) => {
       <div className="">
         <Navbar />
       </div>
-      <div className="scrollbar-hidden h-[calc(100vh-136px)] mt-12 overflow-y-auto mx-auto max-w-7xl">
+      <div className="scrollbar-hidden h-[calc(100vh-136px)] mt-12 overflow-y-auto mx-auto max-w-7xl px-4">
         {children}
       </div>
     </>
