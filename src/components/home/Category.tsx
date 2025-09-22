@@ -28,13 +28,7 @@ const products = [
     price: "$93.89",
     image: egg,
   },
-  {
-    id: 4,
-    title: "Man",
-    category: "People",
-    price: "$100.00",
-    image: people,
-  },
+  { id: 4, title: "Man", category: "People", price: "$100.00", image: people },
   {
     id: 5,
     title: "Architecture",
@@ -49,7 +43,22 @@ const products = [
     price: "$101.00",
     image: archi,
   },
+    {
+    id: 7,
+    title: "Architecture",
+    category: "Landmarks",
+    price: "$10.00",
+    image: archi,
+  },  {
+    id: 8,
+    title: "Architecture",
+    category: "Landmarks",
+    price: "$50.00",
+    image: redbench,
+  },
 ];
+
+const ITEMS_PER_PAGE = 6;
 
 const Category = () => {
   const [selectedCategories, setSelectedCategories] = useState([
@@ -58,6 +67,7 @@ const Category = () => {
     "Landmarks",
   ]);
   const [sortBy, setSortBy] = useState("Price");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { addToCart } = useCartStore();
 
@@ -68,6 +78,13 @@ const Category = () => {
         : [...prev, category]
     );
   };
+
+  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentProducts = products.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   return (
     <div className="mt-10 ">
@@ -100,6 +117,7 @@ const Category = () => {
       </div>
 
       <div className="flex gap-8">
+        {/* Sidebar */}
         <div className=" hidden lg:block w-64 flex-shrink-0">
           <div className="mb-8">
             <h3 className="font-semibold text-gray-800 mb-4">Category</h3>
@@ -158,7 +176,7 @@ const Category = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {products.map((product) => (
+            {currentProducts.map((product) => (
               <div key={product.id} className="group">
                 <div className="relative mb-2">
                   <img
@@ -168,7 +186,7 @@ const Category = () => {
                   />
                   <button
                     onClick={() => addToCart(product)}
-                    className="absolute bottom-0 w-full  bg-black hover:bg-black/70 transition text-white px-6 py-2 text-sm"
+                    className="absolute bottom-0 w-full bg-black hover:bg-black/70 transition text-white px-6 py-2 text-sm"
                   >
                     ADD TO CART
                   </button>
@@ -182,6 +200,38 @@ const Category = () => {
                 <div className="text-gray-600">{product.price}</div>
               </div>
             ))}
+          </div>
+
+          <div className="flex justify-center items-center mt-8 space-x-4">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => p - 1)}
+              className="text-black disabled:text-gray-400"
+            >
+              &lt;
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`px-2 ${
+                  currentPage === page
+                    ? "font-bold text-black"
+                    : "text-gray-500"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((p) => p + 1)}
+              className="text-black disabled:text-gray-400"
+            >
+              &gt;
+            </button>
           </div>
         </div>
       </div>
